@@ -1,29 +1,33 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { CashMovementTp } from "../Constants/CashMovementTp";
-import { CashMovement } from "./CashMovement";
-import { Scenario } from "./Scenario";
-import { CashFlowTp } from "../Constants/CashFlowTp";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import {CashMovement} from './CashMovement';
+import {Scenario} from './Scenario';
 
 @Entity({name: 'cash_flow'})
-export class CashFlow{
-  @PrimaryGeneratedColumn({name: 'id', type:'int8'})
+export class CashFlow {
+  @PrimaryGeneratedColumn({name: 'id', type: 'int8'})
   id: number;
 
   @Column()
-  cashMovementTp: CashMovementTp;
+  cashMovementTp: string;
 
-  @OneToMany(() => CashMovement, (cashMovement) => cashMovement.cashFlow)
-  cashMovements: CashMovement[]
+  @OneToMany(() => CashMovement, cashMovement => cashMovement.cashFlow)
+  cashMovements: CashMovement[];
 
-  @ManyToOne(() => Scenario, (scenario) => scenario.cashFlows)
-  scenario: Scenario
-
-  @Column()
-  cashFlowTp: CashFlowTp
+  @ManyToOne(() => Scenario, scenario => scenario.cashFlows)
+  scenario: Scenario;
 
   @Column()
-  cashFlowDs: string
+  cashFlowTp: string;
 
   @Column()
-  cashFlowNm: string
+  cashFlowDs: string;
+
+  @Column()
+  cashFlowNm: string;
 }

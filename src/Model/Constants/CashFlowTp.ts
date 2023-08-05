@@ -1,3 +1,3 @@
-export enum CashFlowTp{
-  GENERIC = 'GENERIC'
+export enum CashFlowTp {
+  GENERIC = 'GENERIC',
 }
