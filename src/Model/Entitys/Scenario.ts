@@ -16,10 +16,10 @@ export class Scenario {
   @OneToMany(() => CashFlow, cashFlow => cashFlow.scenario)
   cashFlows: CashFlow[];
 
-  @Column()
+  @Column({name: 'scenario_ds'})
   scenarioDs: string;
 
-  @Column()
+  @Column({name: 'scenario_nm'})
   scenarioNm: string;
 
   @ManyToOne(() => Analisys, analisys => analisys.scenarios)

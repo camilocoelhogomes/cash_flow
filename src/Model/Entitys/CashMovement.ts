@@ -6,10 +6,10 @@ export class CashMovement {
   @PrimaryGeneratedColumn({name: 'id', type: 'int8'})
   id: number;
 
-  @Column()
+  @Column({name: 'date'})
   date: Date;
 
-  @Column()
+  @Column({name: 'value'})
   value: number;
 
   @ManyToOne(() => CashFlow, cashFlow => cashFlow.cashMovements)

@@ -9,9 +9,9 @@ export class Analisys {
   @OneToMany(() => Scenario, scenario => scenario.analisys)
   scenarios: Scenario[];
 
-  @Column()
+  @Column({name: 'analisys_ds'})
   analisysDs: string;
 
-  @Column()
+  @Column({name: 'analisys_nm'})
   analisysNm: string;
 }
