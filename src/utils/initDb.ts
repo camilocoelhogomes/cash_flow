@@ -5,8 +5,8 @@ export const initDb = async (dataSource: DataSource): Promise<void> => {
   await queryRunner.query(`
   CREATE TABLE IF NOT EXISTS analisys (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      scenario_ds TEXT NOT NULL,
-      scenario_nm TEXT NOT NULL
+      analisys_ds TEXT NOT NULL,
+      analisys_nm TEXT NOT NULL
   );
   `);
   await queryRunner.query(`

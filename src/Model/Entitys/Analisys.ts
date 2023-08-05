@@ -10,8 +10,8 @@ export class Analisys {
   scenarios: Scenario[];
 
   @Column()
-  scenarioDs: string;
+  analisysDs: string;
 
   @Column()
-  scenarioNm: string;
+  analisysNm: string;
 }
