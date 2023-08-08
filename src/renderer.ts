@@ -27,7 +27,8 @@
  */
 
 import './index.css';
-import './app';
+import '@radix-ui/themes/index.css';
+import './View/App/app';
 
 console.log(
   '👋 This message is being logged by "renderer.js", included via webpack'
