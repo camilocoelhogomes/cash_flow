@@ -1,19 +1,28 @@
-import React, { ButtonHTMLAttributes, ElementType } from 'react'
+import React, {ButtonHTMLAttributes, ElementType} from 'react';
 //import { styled } from '../../../stitches.config'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon?: ElementType,
-  variant?: ButtonVariant
+  icon?: ElementType;
+  variant?: ButtonVariant;
 }
-export type ButtonVariant = "path" | "action" | "secondaryAction" | "pathMatched" | "pophoverOption" | 'icon'
+export type ButtonVariant =
+  | 'path'
+  | 'action'
+  | 'secondaryAction'
+  | 'pathMatched'
+  | 'pophoverOption'
+  | 'icon';
 
-const Button = React.forwardRef<HTMLButtonElement, Props>(({ icon: Icon, variant, ...rest }, ref) => {
-
-  return <button {...rest} ref={ref}>
-    {Icon && <Icon />}
-    {rest.children}
-  </button>
-});
+const Button = React.forwardRef<HTMLButtonElement, Props>(
+  ({icon: Icon, variant, ...rest}, ref) => {
+    return (
+      <button {...rest} ref={ref}>
+        {Icon && <Icon />}
+        {rest.children}
+      </button>
+    );
+  }
+);
 
 export default Button;
 
