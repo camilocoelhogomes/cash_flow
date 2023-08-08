@@ -11,11 +11,14 @@ export class AnalisysRepository {
     this.analisysRepository = dataSource.getRepository(Analisys);
   }
 
-  async create(props: {analisysDs: string; analisysNm: string}): Promise<void> {
+  async create(props: {
+    analisysDs: string;
+    analisysNm: string;
+  }): Promise<Analisys> {
     const analisys = this.analisysRepository.create();
     analisys.analisysDs = props.analisysDs;
     analisys.analisysNm = props.analisysNm;
-    await this.analisysRepository.save(analisys);
+    return this.analisysRepository.save(analisys);
   }
 
   async list(
