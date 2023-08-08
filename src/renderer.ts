@@ -26,8 +26,7 @@
  * ```
  */
 
-import './index.css';
-import '@radix-ui/themes/index.css';
+import '@radix-ui/themes/styles.css';
 import './View/App/app';
 
 console.log(
