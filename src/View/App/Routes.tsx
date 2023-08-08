@@ -12,7 +12,7 @@ export default function AppRoutes({ }: Props) {
   return (
     <Router>
       <Routes>
-        <Route path='analysis' element={<ListAnalysis />} />
+        <Route path='/' element={<ListAnalysis />} />
         <Route path='analysis/:id' element={<GetAnalysis />} />
       </Routes>
     </Router>
