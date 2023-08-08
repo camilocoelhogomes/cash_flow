@@ -4,6 +4,7 @@ import {
   Route,
 } from 'react-router-dom';
 import ListAnalysis from '../ListAnalysis/ListAnalysis';
+import GetAnalysis from '../GetAnalysis/GetAnalysis';
 
 type Props = {}
 
@@ -12,6 +13,7 @@ export default function AppRoutes({ }: Props) {
     <Router>
       <Routes>
         <Route path='analysis' element={<ListAnalysis />} />
+        <Route path='analysis/:id' element={<GetAnalysis />} />
       </Routes>
     </Router>
   )
