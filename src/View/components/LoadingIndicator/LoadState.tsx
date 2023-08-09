@@ -8,11 +8,11 @@ type Props = {
   error?: Error
 }
 
-export default function LoadState({ status, error, children }: PropsWithChildren<Props>) {
+export default function LoadState({ status, error, children }: PropsWithChildren<Props>): JSX.Element {
 
   if (status === 'loading') return <PageLoadingIndicator />
   if (status === 'error') return ErrorMessage(error)
-  return children
+  return <>children</>
 }
 
 function ErrorMessage(error: Error) {
