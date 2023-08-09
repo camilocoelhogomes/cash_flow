@@ -1,6 +1,6 @@
-import {PropsWithChildren} from 'react';
+import { PropsWithChildren } from 'react';
 //import { styled } from "../../../stitches.config"
-import Buttton from '../components/ButtonFactory/Button';
+import Buttton from '../ButtonFactory/Button';
 
 interface ListLayoutProps {
   head: React.ReactNode;

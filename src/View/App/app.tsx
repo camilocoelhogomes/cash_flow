@@ -1,13 +1,17 @@
-import * as React from 'react';
 import { Theme } from '@radix-ui/themes';
-import * as ReactDOM from 'react-dom';
 import AppRoutes from './Routes';
 import { createRoot } from 'react-dom/client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+
+export const queryClient = new QueryClient();
 
 function App() {
   return (
-    <Theme>
-      <AppRoutes />
+    <Theme accentColor='indigo'>
+      <QueryClientProvider client={queryClient}>
+        <AppRoutes />
+      </QueryClientProvider>
     </Theme>
   );
 }
