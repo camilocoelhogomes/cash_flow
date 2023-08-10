@@ -72,7 +72,6 @@
     "react-router-dom": "^6.14.2",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "~5.0.0",
-    "tsyringe": "^4.8.0",
     "typeorm": "^0.3.17"
   }
 }

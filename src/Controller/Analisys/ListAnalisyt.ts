@@ -1,4 +1,3 @@
-import {container, inject, singleton} from 'tsyringe';
 import {PaginationSearch} from '../../Model/Constants/PaginationSearch';
 import {Analisys} from '../../Model/Entitys/Analisys';
 import {

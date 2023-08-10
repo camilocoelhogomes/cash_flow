@@ -11,10 +11,6 @@ export default function ListAnalyzes() {
     ['analizes', queryParams],
     () => window.api.listAnalisys({query: {}, pagination: 0, limit: 10})
   );
-  window.api.createAnalisys({
-    analisysDs: 'Esse é um teste novo',
-    analisysNm: 'Esse é um teste novo',
-  });
   if (list.data) {
     return (
       <LoadState status={list.status} error={list.error}>
