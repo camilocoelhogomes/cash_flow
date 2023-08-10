@@ -11,8 +11,15 @@ class ListAnalisys {
   ): Promise<PaginationSearch<Analisys>> {
     return {
       hasMore: false,
-      result: [],
-      total: 0,
+      result: [
+        {
+          analisysDs: 'MockAnalisysDs',
+          analisysNm: 'MockAnalisysName',
+          id: 1,
+          scenarios: [],
+        },
+      ],
+      total: 1,
     };
   }
 }

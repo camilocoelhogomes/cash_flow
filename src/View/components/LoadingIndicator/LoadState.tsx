@@ -15,7 +15,7 @@ export default function LoadState({
 }: PropsWithChildren<Props>): JSX.Element {
   if (status === 'loading') return <PageLoadingIndicator />;
   if (status === 'error') return ErrorMessage(error);
-  return <>children</>;
+  return <>{children}</>;
 }
 
 function ErrorMessage(error: Error) {

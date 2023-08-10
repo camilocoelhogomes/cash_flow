@@ -1,27 +1,23 @@
 import {useState} from 'react';
 import {Flex, Text, Button, Table} from '@radix-ui/themes';
-import {listAnalisysFactory} from '../../Controller/Analisys/ListAnalisyt';
 import {useQuery} from '@tanstack/react-query';
 import LoadState from '../components/LoadingIndicator/LoadState';
 import {Analisys} from '../../Model/Entitys/Analisys';
 import {PaginationSearch} from '../../Model/Constants/PaginationSearch';
 
-type Props = {};
-
-export default function ListAnalyzes({}: Props) {
-  const listFunction = listAnalisysFactory();
+export default function ListAnalyzes() {
   const [queryParams, setQueryParams] = useState({page: 1, limit: 15});
-
+  const [teste, setTeste] = useState<string>();
   const list = useQuery<PaginationSearch<Analisys>, Error>(
     ['analizes', queryParams],
-    () => listFunction.listAnalisys({}, queryParams.page, queryParams.limit)
+    () => window.api.listAnalisys()
   );
   console.log(list);
   if (list.data) {
     return (
       <LoadState status={list.status} error={list.error}>
         <Flex direction="column" gap="2">
-          <Button color="brown">Let's go</Button>
+          <Button color="brown">Teste do botao</Button>
           <Table.Root>
             <Table.Header>
               <Table.Row>
@@ -40,8 +36,8 @@ export default function ListAnalyzes({}: Props) {
                 </Table.Row>
               ))}
             </Table.Body>
-            <Text>{list.data.total}</Text>
           </Table.Root>
+          <Text>{list.data.total}</Text>
         </Flex>
       </LoadState>
     );
