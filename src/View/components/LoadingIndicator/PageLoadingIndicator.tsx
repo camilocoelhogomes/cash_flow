@@ -1,10 +1,9 @@
-import React from 'react'
-import { ProgressBar } from 'react-loader-spinner'
+import React from 'react';
+import {ProgressBar} from 'react-loader-spinner';
 
+type Props = {};
 
-type Props = {}
-
-export default function PageLoadingIndicator({ }: Props) {
+export default function PageLoadingIndicator({}: Props) {
   return (
     <ProgressBar
       height="80"
@@ -12,8 +11,8 @@ export default function PageLoadingIndicator({ }: Props) {
       ariaLabel="progress-bar-loading"
       wrapperStyle={{}}
       wrapperClass="progress-bar-wrapper"
-      borderColor='transparent'
-      barColor='#51E5FF'
+      borderColor="transparent"
+      barColor="#51E5FF"
     />
-  )
+  );
 }
