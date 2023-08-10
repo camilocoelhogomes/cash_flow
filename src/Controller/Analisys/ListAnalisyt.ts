@@ -5,7 +5,6 @@ import {
   analisyRepository,
 } from '../../Model/Repositories/AnalisysRepository';
 
-@singleton()
 class ListAnalisys {
   constructor(
     private readonly repository: AnalisysRepository = analisyRepository
