@@ -1,17 +1,20 @@
-import { useState } from 'react';
-import { Flex, Text, Button, Table } from '@radix-ui/themes';
-import { useQuery } from '@tanstack/react-query';
+import {useState} from 'react';
+import {Flex, Text, Button, Table} from '@radix-ui/themes';
+import {useQuery} from '@tanstack/react-query';
 import LoadState from '../components/LoadingIndicator/LoadState';
-import { Analisys } from '../../Model/Entitys/Analisys';
-import { PaginationSearch } from '../../Model/Constants/PaginationSearch';
+import {Analisys} from '../../Model/Entitys/Analisys';
+import {PaginationSearch} from '../../Model/Constants/PaginationSearch';
 
 export default function ListAnalyzes() {
-  const [queryParams, setQueryParams] = useState({ page: 1, limit: 15 });
+  const [queryParams, setQueryParams] = useState({page: 1, limit: 15});
   const list = useQuery<PaginationSearch<Analisys>, Error>(
     ['analizes', queryParams],
-    () => window.api.listAnalisys()
+    () => window.api.listAnalisys({query: {}, pagination: 0, limit: 10})
   );
-
+  window.api.createAnalisys({
+    analisysDs: 'Esse é um teste novo',
+    analisysNm: 'Esse é um teste novo',
+  });
   if (list.data) {
     return (
       <LoadState status={list.status} error={list.error}>

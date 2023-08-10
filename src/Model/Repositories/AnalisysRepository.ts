@@ -1,13 +1,12 @@
-import {inject, singleton} from 'tsyringe';
 import {DataSource} from 'typeorm';
 import {Analisys} from '../Entitys/Analisys';
 import {PaginationSearch} from '../Constants/PaginationSearch';
+import {dataSourceManager} from '../../utils/dataSourceManager';
 
-@singleton()
 export class AnalisysRepository {
   private readonly analisysRepository;
 
-  constructor(@inject(DataSource) dataSource: DataSource) {
+  constructor(dataSource: DataSource = dataSourceManager.getDataSource()) {
     this.analisysRepository = dataSource.getRepository(Analisys);
   }
 
@@ -26,13 +25,14 @@ export class AnalisysRepository {
     pagination: number,
     limit: number
   ): Promise<PaginationSearch<Analisys>> {
+    console.log({query, pagination, limit});
     const [result, total] = await this.analisysRepository.findAndCount({
       where: {
         analisysDs: query.analisysDs,
         analisysNm: query.analisysNm,
       },
       take: limit,
-      skip: limit * (pagination - 1),
+      skip: limit * pagination,
     });
 
     return {
@@ -50,3 +50,5 @@ export class AnalisysRepository {
     return this.analisysRepository.findOneBy({id});
   }
 }
+
+export const analisyRepository = new AnalisysRepository();

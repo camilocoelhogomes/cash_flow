@@ -2,6 +2,9 @@
 import 'reflect-metadata';
 import {app, BrowserWindow} from 'electron';
 import {initApp} from './utils/initApp';
+import {container} from 'tsyringe';
+import {DataSource} from 'typeorm';
+import {dataSourceManager} from './utils/dataSourceManager';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -27,6 +30,7 @@ const createWindow = async (): Promise<void> => {
 };
 
 app.on('ready', async () => {
+  await dataSourceManager.initDb();
   await initApp();
   createWindow();
 });
