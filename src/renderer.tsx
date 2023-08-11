@@ -1,9 +1,10 @@
 import 'reflect-metadata';
 import '@radix-ui/themes/styles.css';
-import {Theme} from '@radix-ui/themes';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import { Theme } from '@radix-ui/themes';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AppRoutes from './View/App/Routes';
-import {createRoot} from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
+import './index.css'
 
 export const queryClient = new QueryClient();
 
