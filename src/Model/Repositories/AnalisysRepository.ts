@@ -1,7 +1,7 @@
 import {DataSource} from 'typeorm';
 import {Analisys} from '../Entitys/Analisys';
 import {PaginationSearch} from '../Constants/PaginationSearch';
-import {dataSourceManager} from '../../utils/dataSourceManager';
+import {dataSourceManager} from '../../utils/config/dataSourceManager';
 
 export class AnalisysRepository {
   private readonly analisysRepository;
