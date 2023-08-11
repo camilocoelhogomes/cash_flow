@@ -25,7 +25,6 @@ export class AnalisysRepository {
     pagination: number,
     limit: number
   ): Promise<PaginationSearch<Analisys>> {
-    console.log({query, pagination, limit});
     const [result, total] = await this.analisysRepository.findAndCount({
       where: {
         analisysDs: query.analisysDs,
