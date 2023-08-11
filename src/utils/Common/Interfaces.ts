@@ -34,4 +34,6 @@ export interface IApi {
     analisysDs: string;
     analisysNm: string;
   }): Promise<IAnalisys>;
+
+  getAnalisys(id: number): Promise<IAnalisys>;
 }
