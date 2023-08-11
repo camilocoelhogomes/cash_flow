@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { Flex, Text, Button, Table, Heading } from '@radix-ui/themes';
 import { useQuery } from '@tanstack/react-query';
 import LoadState from '../components/LoadingIndicator/LoadState';
-import { Analisys } from '../../Model/Entitys/Analisys';
 import { PaginationSearch } from '../../Model/Constants/PaginationSearch';
-import { ApiParams, api } from '../Util/Api';
+import { api } from '../Api/Api';
+import { IAnalisys } from '../../utils/Common/Interfaces';
 
 export default function ListAnalyzes() {
-  const [queryParams, setQueryParams] = useState<ApiParams>({ pagination: 1, limit: 15, query: {} });
-  const list = useQuery<PaginationSearch<Analisys>, Error>(['analizes', queryParams], () => api.listAnalisys(queryParams));
+  const [queryParams, setQueryParams] = useState({ pagination: 1, limit: 15, query: {} });
+
+  const list = useQuery<PaginationSearch<IAnalisys>, Error>(['analizes', queryParams], () => api.listAnalisys(queryParams));
 
   if (list.data) {
     return (

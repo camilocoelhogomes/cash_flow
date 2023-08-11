@@ -1,7 +1,7 @@
 import {DataSource} from 'typeorm';
 import {Analisys} from '../Entitys/Analisys';
 import {PaginationSearch} from '../Constants/PaginationSearch';
-import {dataSourceManager} from '../../utils/dataSourceManager';
+import {dataSourceManager} from '../../utils/config/dataSourceManager';
 
 export class AnalisysRepository {
   private readonly analisysRepository;
@@ -25,7 +25,6 @@ export class AnalisysRepository {
     pagination: number,
     limit: number
   ): Promise<PaginationSearch<Analisys>> {
-    console.log({query, pagination, limit});
     const [result, total] = await this.analisysRepository.findAndCount({
       where: {
         analisysDs: query.analisysDs,
