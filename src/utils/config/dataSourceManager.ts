@@ -1,10 +1,10 @@
 import {existsSync} from 'fs';
 import path from 'path';
 import {DataSource} from 'typeorm';
-import {Analisys} from '../Model/Entitys/Analisys';
-import {CashFlow} from '../Model/Entitys/CashFlow';
-import {CashMovement} from '../Model/Entitys/CashMovement';
-import {Scenario} from '../Model/Entitys/Scenario';
+import {Analisys} from '../../Model/Entitys/Analisys';
+import {CashFlow} from '../../Model/Entitys/CashFlow';
+import {CashMovement} from '../../Model/Entitys/CashMovement';
+import {Scenario} from '../../Model/Entitys/Scenario';
 
 class DataSourceManager {
   private dataSource: DataSource;
