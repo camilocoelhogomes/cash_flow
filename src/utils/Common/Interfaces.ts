@@ -23,10 +23,15 @@ export interface PaginationSearch<T> {
   hasMore: boolean;
 }
 
-export interface IListAnalisys {
+export interface IApi {
   listAnalisys(props: {
     query: Partial<IAnalisys>;
     pagination: number;
     limit: number;
   }): Promise<PaginationSearch<IAnalisys>>;
+
+  createAnalisys(props: {
+    analisysDs: string;
+    analisysNm: string;
+  }): Promise<IAnalisys>;
 }
