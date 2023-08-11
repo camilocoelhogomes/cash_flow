@@ -1,31 +1,23 @@
 import {PaginationSearch} from '../../Model/Constants/PaginationSearch';
 import {Analisys} from '../../Model/Entitys/Analisys';
+import {
+  AnalisysRepository,
+  analisyRepository,
+} from '../../Model/Repositories/AnalisysRepository';
 
 class ListAnalisys {
-  constructor() {} //  @inject(AnalisysRepository) private readonly repository: AnalisysRepository
+  constructor(
+    private readonly repository: AnalisysRepository = analisyRepository
+  ) {} //
 
-  async listAnalisys(
-    query: Partial<Analisys>,
-    pagination: number,
-    limit: number
-  ): Promise<PaginationSearch<Analisys>> {
-    return {
-      hasMore: false,
-      result: [
-        {
-          analisysDs: 'MockAnalisysDs',
-          analisysNm: 'MockAnalisysName',
-          id: 1,
-          scenarios: [],
-        },
-      ],
-      total: 1,
-    };
+  async listAnalisys(props: {
+    query: Partial<Analisys>;
+    pagination: number;
+    limit: number;
+  }): Promise<PaginationSearch<Analisys>> {
+    const {query, pagination, limit} = props;
+    return this.repository.list(query, pagination, limit);
   }
 }
 
-const listAnalisys = new ListAnalisys();
-
-export function listAnalisysFactory(): ListAnalisys {
-  return listAnalisys;
-}
+export const listAnalisys = new ListAnalisys();

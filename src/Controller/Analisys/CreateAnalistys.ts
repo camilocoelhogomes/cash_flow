@@ -1,11 +1,12 @@
-import {inject, singleton} from 'tsyringe';
 import {Analisys} from '../../Model/Entitys/Analisys';
-import {AnalisysRepository} from '../../Model/Repositories/AnalisysRepository';
+import {
+  AnalisysRepository,
+  analisyRepository,
+} from '../../Model/Repositories/AnalisysRepository';
 
-@singleton()
 export class CreateAnalisys {
   constructor(
-    @inject(AnalisysRepository) private readonly repository: AnalisysRepository
+    private readonly repository: AnalisysRepository = analisyRepository
   ) {}
 
   async createAnalisys(props: {
@@ -15,3 +16,5 @@ export class CreateAnalisys {
     return await this.repository.create(props);
   }
 }
+
+export const createAnalisys = new CreateAnalisys();
