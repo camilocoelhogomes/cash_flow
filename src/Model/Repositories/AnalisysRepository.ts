@@ -30,6 +30,7 @@ export class AnalisysRepository {
         analisysDs: query.analisysDs,
         analisysNm: query.analisysNm,
       },
+      loadEagerRelations: false,
       take: limit,
       skip: limit * pagination,
     });
@@ -46,7 +47,10 @@ export class AnalisysRepository {
   }
 
   async get(id: number): Promise<Analisys> {
-    return this.analisysRepository.findOneBy({id});
+    return this.analisysRepository.findOne({
+      where: {id},
+      loadEagerRelations: true,
+    });
   }
 }
 

@@ -20,6 +20,10 @@ export class Api implements IApi {
   }): Promise<IAnalisys> {
     return (window as unknown as IWindow).api.createAnalisys(props);
   }
+
+  getAnalisys(id: number): Promise<IAnalisys> {
+    return (window as unknown as IWindow).api.getAnalisys(id);
+  }
 }
 
 export const api = new Api();
