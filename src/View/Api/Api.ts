@@ -21,3 +21,5 @@ export class Api implements IApi {
     return (window as unknown as IWindow).api.createAnalisys(props);
   }
 }
+
+export const api = new Api();
