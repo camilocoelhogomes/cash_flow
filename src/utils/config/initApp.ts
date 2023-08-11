@@ -1,7 +1,7 @@
 /* eslint-disable node/no-unpublished-import */
 import {ipcMain} from 'electron';
-import {listAnalisys} from '../Controller/Analisys/ListAnalisyt';
-import {createAnalisys} from '../Controller/Analisys/CreateAnalistys';
+import {listAnalisys} from '../../Controller/Analisys/ListAnalisyt';
+import {createAnalisys} from '../../Controller/Analisys/CreateAnalistys';
 
 export async function initApp() {
   ipcMain.handle('listAnalisys', async (event, ...args) =>
