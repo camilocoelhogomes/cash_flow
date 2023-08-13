@@ -1,26 +1,30 @@
-export interface IScenario {
-  id: number;
-
-  scenarioDs: string;
-
-  scenarioNm: string;
-
-  analisys: IAnalisys;
-}
-
 export interface IAnalisys {
   id: number;
-  scenarios: IScenario[];
-
-  analisysDs: string;
-
   analisysNm: string;
+  analisysDs: string;
+  scenarios: IScenario[];
 }
 
-export interface PaginationSearch<T> {
-  result: T[];
-  total: number;
-  hasMore: boolean;
+export interface IScenario {
+  id: number;
+  scenarioDs: string;
+  scenarioNm: string;
+  totalArea: number
+  slotArea: number
+  decorationArea: number
+  protectedArea: number
+  streetArea: number
+  slots: number
+  pricing?: Pricing
+}
+
+interface Pricing {
+  squareAmount: number
+  fee: number
+  feeModel: string
+  installments: string
+  startAmount: number
+  feeIndex: string
 }
 
 export interface IApi {
@@ -34,4 +38,9 @@ export interface IApi {
     analisysDs: string;
     analisysNm: string;
   }): Promise<IAnalisys>;
+}
+export interface PaginationSearch<T> {
+  result: T[];
+  total: number;
+  hasMore: boolean;
 }

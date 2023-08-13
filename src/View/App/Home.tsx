@@ -6,12 +6,7 @@ type Props = {}
 export default function Home({ }: Props) {
   return (
     <div>
-      Home
-
-      <NavLink to={'/'}>home</NavLink>
-      <NavLink to={'/list'}>Analises</NavLink>
-      <NavLink to={'/get'}>Get Analises</NavLink>
-      <NavLink to={'/create'}>Create </NavLink>
+      Bem vindo!
     </div>
   )
 }
