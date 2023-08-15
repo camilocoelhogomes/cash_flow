@@ -1,6 +1,9 @@
 import { Button, Dialog, Flex, TextField, Text } from '@radix-ui/themes';
 import React from 'react';
-import { IAnalisys } from '../../utils/Common/Interfaces';
+import { IAnalisys } from '../store/tempEntity';
+import { Fields } from '../components/InputFactory';
+import { getALV } from '../store/tempMethods';
+
 
 type Props = {
   analysis: IAnalisys
@@ -11,46 +14,33 @@ export default function GetAnalysis({ analysis }: Props) {
     <Dialog.Trigger>
       <button className='py-4 px-4 outline outline-1 rounded-md inline-flex transition-colors duration-300 font-semibold
       outline-slate-300 hover:bg-slate-300
-      dark:hover:bg-slate-500 dark:outline-slate-500'>{analysis.analisysNm}</button>
+      dark:hover:bg-slate-500 dark:outline-slate-500'>{analysis.id} | {analysis.title}</button>
     </Dialog.Trigger>
 
-    <Dialog.Content className='bg-slate-600'>
-      <Dialog.Title>Análise - {analysis.analisysNm}</Dialog.Title>
+    <Dialog.Content style={{ minWidth: '95%', minHeight: '95%' }}>
+      <Dialog.Title>Análise {analysis.id} - {analysis.title}</Dialog.Title>
       <Dialog.Description size="2" mb="4">
-        {analysis.analisysDs}
+        {analysis.description}
       </Dialog.Description>
 
-      <Flex direction="column" gap="3">
-        <label>
-          <Text as="div" size="2" mb="1" weight="bold">
-            Name
-          </Text>
-          <TextField.Input
-            defaultValue="Freja Johnsen"
-            placeholder="Enter your full name"
-          />
-        </label>
-        <label>
-          <Text as="div" size="2" mb="1" weight="bold">
-            Email
-          </Text>
-          <TextField.Input
-            defaultValue="freja@example.com"
-            placeholder="Enter your email"
-          />
-        </label>
-      </Flex>
+      <div className='grid grid-cols-3 space-y-1'>
 
-      <Flex gap="3" mt="4" justify="end">
-        <Dialog.Close>
-          <Button variant="soft" color="gray">
-            Cancel
-          </Button>
-        </Dialog.Close>
-        <Dialog.Close>
-          <Button>Save</Button>
-        </Dialog.Close>
-      </Flex>
+
+        <Fields.Card label='Área Total m²' value={analysis.totalArea.toString()} />
+        <Fields.Card label='Área Preservada m²' value={analysis.protectedArea.toString()} />
+        <Fields.Card label='Área de Vias m²' value={analysis.streetArea.toString()} />
+        <Fields.Card label='Área Verde m²' value={analysis.decorationArea.toString()} />
+        <Fields.Card label='Nº de Lotes' value={analysis.slots.toString()} />
+        <Fields.Card label='Área Líquida Vendável m²' value={getALV(analysis)} />
+
+      </div>
+
+      <Dialog.Close>
+        <Button variant="soft" color="gray">
+          OK
+        </Button>
+      </Dialog.Close>
+
     </Dialog.Content>
   </Dialog.Root>
 }

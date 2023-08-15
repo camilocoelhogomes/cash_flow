@@ -4,7 +4,7 @@ import React, { PropsWithChildren, useState } from 'react'
 
 import { AiOutlineAreaChart } from 'react-icons/ai';
 
-import { Home as HomeIcon, LineChart, Cog, CalendarCheck2, MoonStar, Sun } from 'lucide-react'
+import { Home as HomeIcon, LineChart, Cog, CalendarCheck2, MoonStar, Sun, TestTube2 } from 'lucide-react'
 import Home from './Home';
 import ListAnalysis from '../ListAnalysis/ListAnalysis';
 import NavButton from '../components/ButtonFactory/NavButton';
@@ -35,7 +35,7 @@ export default function App() {
           <nav className='space-y-6 py-6 px-4 '>
             <NavButton selected={location == 'home'} onClick={() => setLocation('home')}><HomeIcon />Home</NavButton>
             <NavButton selected={location == 'analysis'} onClick={() => setLocation('analysis')}><LineChart />Análises</NavButton>
-            <NavButton selected={location == 'test'} onClick={() => setLocation('test')}><LineChart />createanalysis</NavButton>
+            <NavButton selected={location == 'test'} onClick={() => setLocation('test')}><TestTube2 />Test</NavButton>
           </nav>
 
         </aside>

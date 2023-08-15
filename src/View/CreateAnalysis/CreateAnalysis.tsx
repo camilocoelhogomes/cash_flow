@@ -11,6 +11,11 @@ type Props = {};
 
 export default function CreateAnalysis({ }: Props) {
 
+  function onSubmit(event?: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+  }
+
   const disabled = true
 
   return (
@@ -25,7 +30,7 @@ export default function CreateAnalysis({ }: Props) {
           Dados básicos
         </Dialog.Description>
 
-        <Forms.Root className='space-y-4'>
+        <Forms.Root className='space-y-4' onSubmit={onSubmit}>
 
           <Forms.Field name=''>
             <Forms.Label>Título</Forms.Label>
@@ -50,13 +55,6 @@ export default function CreateAnalysis({ }: Props) {
             </Forms.Control>
           </Forms.Field>
 
-          <Forms.Field name=''>
-            <Forms.Label>Área Líquida Vendável (Área Média)</Forms.Label>
-            <Forms.Message match={'valueMissing'}></Forms.Message>
-            <Forms.Control asChild>
-              <Fields.Input type='number' />
-            </Forms.Control>
-          </Forms.Field>
           <Forms.Field name=''>
             <Forms.Label>Área Verde (Decoração)</Forms.Label>
             <Forms.Message match={'valueMissing'}></Forms.Message>
