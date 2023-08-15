@@ -4,7 +4,7 @@
 import {contextBridge, ipcRenderer} from 'electron';
 
 contextBridge.exposeInMainWorld('api', {
-  listAnalisys: (args: unknown) => ipcRenderer.invoke('listAnalisys', args),
-  createAnalisys: (args: unknown) => ipcRenderer.invoke('createAnalisys', args),
-  getAnalisys: (args: unknown) => ipcRenderer.invoke('getAnalisys', args),
+  listProject: (args: unknown) => ipcRenderer.invoke('listProject', args),
+  createProject: (args: unknown) => ipcRenderer.invoke('createProject', args),
+  getProject: (args: unknown) => ipcRenderer.invoke('getProject', args),
 });

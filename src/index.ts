@@ -2,8 +2,6 @@
 import 'reflect-metadata';
 import {app, BrowserWindow} from 'electron';
 import {initApp} from './utils/config/initApp';
-import {container} from 'tsyringe';
-import {DataSource} from 'typeorm';
 import {dataSourceManager} from './utils/config/dataSourceManager';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;

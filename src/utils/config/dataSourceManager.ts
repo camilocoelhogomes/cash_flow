@@ -1,23 +1,31 @@
 import {existsSync} from 'fs';
 import path from 'path';
 import {DataSource} from 'typeorm';
-import {Analisys} from '../../Model/Entitys/Analisys';
 import {CashFlow} from '../../Model/Entitys/CashFlow';
 import {CashMovement} from '../../Model/Entitys/CashMovement';
 import {Scenario} from '../../Model/Entitys/Scenario';
+import {Project} from '../../Model/Entitys/Project';
 
 class DataSourceManager {
   private dataSource: DataSource;
   private readonly dbExists: boolean;
   constructor() {
-    const dbPath = path.join(__dirname, 'db.db');
+    const dbPath = this.setPath();
 
     this.dbExists = existsSync(dbPath);
     this.dataSource = new DataSource({
       type: 'sqlite',
+      entities: [Project, CashFlow, CashMovement, Scenario],
       database: dbPath,
-      entities: [Analisys, CashFlow, CashMovement, Scenario],
     });
+  }
+
+  private setPath(): string {
+    console.log(process.env.NODE_ENV);
+    if (process.env.NODE_ENV === 'development') {
+      return path.join('db.db');
+    }
+    return path.join(__dirname, 'db.db');
   }
   async initDb() {
     await this.dataSource.initialize();
@@ -26,10 +34,12 @@ class DataSourceManager {
     }
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.query(`
-    CREATE TABLE IF NOT EXISTS analisys (
+    CREATE TABLE IF NOT EXISTS project (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        analisys_ds TEXT NOT NULL,
-        analisys_nm TEXT NOT NULL
+        project_ds TEXT NOT NULL,
+        project_nm TEXT NOT NULL,
+        total_area NUMERIC NOT NULL,
+        protected_area NUMERIC NOT NULL
     );
     `);
     await queryRunner.query(`
@@ -58,8 +68,12 @@ class DataSourceManager {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         scenario_ds TEXT NOT NULL,
         scenario_nm TEXT NOT NULL,
-        analisys_id INTEGER,
-        FOREIGN KEY (analisys_id) REFERENCES analisys (id)
+        project_id INTEGER,
+        slot_area NUMERIC NOT NULL,
+        street_area NUMERIC NOT NULL,
+        decoration_area NUMERIC NOT NULL,
+        square_value NUMERIC NOT NULL,
+        FOREIGN KEY (project_id) REFERENCES project (id)
     );
     
     `);

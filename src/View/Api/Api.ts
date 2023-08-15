@@ -1,28 +1,21 @@
-import {IAnalisys, IApi, PaginationSearch} from '../../utils/Common/Interfaces';
+import {PaginationSearch} from '../../Model/Constants/PaginationSearch';
+import {Project} from '../../Model/Entitys/Project';
+import {QuerySearch} from '../../utils/Common/Interfaces';
 
-type IWindow = Window & {
-  api: IApi;
-};
+type IApi = Window & {api: Record<string, Function>};
 
-export class Api implements IApi {
+export class Api {
   constructor() {}
 
-  listAnalisys(props: {
-    query: Partial<IAnalisys>;
-    pagination: number;
-    limit: number;
-  }): Promise<PaginationSearch<IAnalisys>> {
-    return (window as unknown as IWindow).api.listAnalisys(props);
+  listProject(props: QuerySearch<Project>): Promise<PaginationSearch<Project>> {
+    return (window as unknown as IApi).api.listProject(props);
   }
-  createAnalisys(props: {
-    analisysDs: string;
-    analisysNm: string;
-  }): Promise<IAnalisys> {
-    return (window as unknown as IWindow).api.createAnalisys(props);
+  createProject(project: Partial<Project>): Promise<Project> {
+    return (window as unknown as IApi).api.createProject(project);
   }
 
-  getAnalisys(id: number): Promise<IAnalisys> {
-    return (window as unknown as IWindow).api.getAnalisys(id);
+  getProject(id: number): Promise<Project> {
+    return (window as unknown as IApi).api.getProject(id);
   }
 }
 
