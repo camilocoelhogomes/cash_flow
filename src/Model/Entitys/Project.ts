@@ -17,7 +17,4 @@ export class Project {
 
   @Column({name: 'total_area'})
   totalArea: number;
-
-  @Column({name: 'protected_area'})
-  protectedArea: number;
 }
