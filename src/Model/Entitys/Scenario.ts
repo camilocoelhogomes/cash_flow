@@ -36,4 +36,7 @@ export class Scenario {
 
   @Column({name: 'square_value'})
   squareValue: number;
+
+  @Column({name: 'protected_area'})
+  protectedArea: number;
 }
