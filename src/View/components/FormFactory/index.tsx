@@ -1,5 +1,5 @@
 import * as Form from '@radix-ui/react-form';
-import FormSubmit from "./FormSubmit";
+import FormSubmit from './FormSubmit';
 
 export const Forms = {
   Root: Form.Root,
@@ -8,4 +8,4 @@ export const Forms = {
   Message: Form.Message,
   Label: Form.Label,
   Control: Form.Control,
-}
+};

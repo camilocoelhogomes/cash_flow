@@ -10,14 +10,21 @@ class DataSourceManager {
   private dataSource: DataSource;
   private readonly dbExists: boolean;
   constructor() {
-    const dbPath = path.join(__dirname, 'db.db');
+    const dbPath = this.setPath();
 
     this.dbExists = existsSync(dbPath);
     this.dataSource = new DataSource({
       type: 'sqlite',
-      database: dbPath,
       entities: [Analisys, CashFlow, CashMovement, Scenario],
+      database: dbPath,
     });
+  }
+
+  private setPath(): string {
+    if (process.env.NODE_ENV === 'production') {
+      return path.join(__dirname, 'db.db');
+    }
+    return path.join('db.db');
   }
   async initDb() {
     await this.dataSource.initialize();
@@ -29,7 +36,9 @@ class DataSourceManager {
     CREATE TABLE IF NOT EXISTS analisys (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         analisys_ds TEXT NOT NULL,
-        analisys_nm TEXT NOT NULL
+        analisys_nm TEXT NOT NULL,
+        total_area NUMERIC NOT NULL,
+        protected_area NUMERIC NOT NULL
     );
     `);
     await queryRunner.query(`
@@ -59,6 +68,10 @@ class DataSourceManager {
         scenario_ds TEXT NOT NULL,
         scenario_nm TEXT NOT NULL,
         analisys_id INTEGER,
+        slot_area NUMERIC NOT NULL,
+        street_area NUMERIC NOT NULL,
+        decoration_area NUMERIC NOT NULL,
+        square_value NUMERIC NOT NULL,
         FOREIGN KEY (analisys_id) REFERENCES analisys (id)
     );
     

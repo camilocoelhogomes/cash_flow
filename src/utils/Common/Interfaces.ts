@@ -9,22 +9,22 @@ export interface IScenario {
   id: number;
   scenarioDs: string;
   scenarioNm: string;
-  totalArea: number
-  slotArea: number
-  decorationArea: number
-  protectedArea: number
-  streetArea: number
-  slots: number
-  pricing?: Pricing
+  totalArea: number;
+  slotArea: number;
+  decorationArea: number;
+  protectedArea: number;
+  streetArea: number;
+  slots: number;
+  pricing?: Pricing;
 }
 
 interface Pricing {
-  squareAmount: number
-  fee: number
-  feeModel: string
-  installments: string
-  startAmount: number
-  feeIndex: string
+  squareAmount: number;
+  fee: number;
+  feeModel: string;
+  installments: string;
+  startAmount: number;
+  feeIndex: string;
 }
 
 export interface IApi {

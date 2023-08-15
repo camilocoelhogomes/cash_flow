@@ -24,4 +24,16 @@ export class Scenario {
 
   @ManyToOne(() => Analisys, analisys => analisys.scenarios)
   analisys: Analisys;
+
+  @Column({name: 'slot_area'})
+  slotArea: number;
+
+  @Column({name: 'decoration_area'})
+  decorationArea: number;
+
+  @Column({name: 'street_area'})
+  streetArea: number;
+
+  @Column({name: 'square_value'})
+  squareValue: number;
 }
