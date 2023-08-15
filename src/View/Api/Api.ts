@@ -17,6 +17,8 @@ export class Api implements IApi {
   createAnalisys(props: {
     analisysDs: string;
     analisysNm: string;
+    totalArea: number;
+    protectedArea: number;
   }): Promise<IAnalisys> {
     return (window as unknown as IWindow).api.createAnalisys(props);
   }

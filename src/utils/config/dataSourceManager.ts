@@ -10,14 +10,21 @@ class DataSourceManager {
   private dataSource: DataSource;
   private readonly dbExists: boolean;
   constructor() {
-    const dbPath = path.join(__dirname, 'db.db');
+    const dbPath = this.setPath();
 
     this.dbExists = existsSync(dbPath);
     this.dataSource = new DataSource({
       type: 'sqlite',
-      database: dbPath,
       entities: [Analisys, CashFlow, CashMovement, Scenario],
+      database: dbPath,
     });
+  }
+
+  private setPath(): string {
+    if (process.env.NODE_ENV === 'production') {
+      return path.join(__dirname, 'db.db');
+    }
+    return path.join('db.db');
   }
   async initDb() {
     await this.dataSource.initialize();

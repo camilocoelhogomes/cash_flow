@@ -13,11 +13,18 @@ export class AnalisysRepository {
   async create(props: {
     analisysDs: string;
     analisysNm: string;
+    totalArea: number;
+    protectedArea: number;
   }): Promise<Analisys> {
     const analisys = this.analisysRepository.create();
     analisys.analisysDs = props.analisysDs;
     analisys.analisysNm = props.analisysNm;
-    return this.analisysRepository.save(analisys);
+    analisys.totalArea = props.totalArea;
+    analisys.protectedArea = props.protectedArea;
+
+    const result = await this.analisysRepository.save(analisys);
+
+    return result;
   }
 
   async list(

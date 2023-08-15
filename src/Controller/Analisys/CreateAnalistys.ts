@@ -12,6 +12,8 @@ export class CreateAnalisys {
   async createAnalisys(props: {
     analisysDs: string;
     analisysNm: string;
+    totalArea: number;
+    protectedArea: number;
   }): Promise<Analisys> {
     return await this.repository.create(props);
   }

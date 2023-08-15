@@ -31,9 +31,9 @@ export class Scenario {
   @Column({name: 'decoration_area'})
   decorationArea: number;
 
-  @Column({name: 'decoration_area'})
+  @Column({name: 'street_area'})
   streetArea: number;
 
-  @Column({name: 'slots'})
+  @Column({name: 'square_value'})
   squareValue: number;
 }
