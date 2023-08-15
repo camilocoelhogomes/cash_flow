@@ -1,9 +1,9 @@
 import {Button, Dialog, Flex, TextField, Text} from '@radix-ui/themes';
 import React from 'react';
-import {IAnalisys} from '../../utils/Common/Interfaces';
+import {Project} from '../../Model/Entitys/Project';
 
 type Props = {
-  analysis: IAnalisys;
+  analysis: Project;
 };
 
 export default function GetAnalysis({analysis}: Props) {
@@ -15,14 +15,14 @@ export default function GetAnalysis({analysis}: Props) {
       outline-slate-300 hover:bg-slate-300
       dark:hover:bg-slate-500 dark:outline-slate-500"
         >
-          {analysis.analisysNm}
+          {analysis.projectNm}
         </button>
       </Dialog.Trigger>
 
       <Dialog.Content className="bg-slate-600">
-        <Dialog.Title>Análise - {analysis.analisysNm}</Dialog.Title>
+        <Dialog.Title>Análise - {analysis.projectNm}</Dialog.Title>
         <Dialog.Description size="2" mb="4">
-          {analysis.analisysDs}
+          {analysis.projectDs}
         </Dialog.Description>
 
         <Flex direction="column" gap="3">

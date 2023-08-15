@@ -6,6 +6,7 @@ import {Forms} from '../components/FormFactory';
 import Button from '../components/ButtonFactory/Button';
 import {Fields} from '../components/InputFactory';
 import {api} from '../Api/Api';
+import {Project} from '../../Model/Entitys/Project';
 
 type Props = {};
 
@@ -15,14 +16,7 @@ export default function CreateAnalysis() {
   const onSubmit: FormEventHandler = e => {
     e.preventDefault();
     api
-      .createAnalisys(
-        analisys as {
-          analisysDs: string;
-          analisysNm: string;
-          totalArea: number;
-          protectedArea: number;
-        }
-      )
+      .createProject(analisys as Partial<Project>)
       .then(() => console.log('saved'))
       .catch(e => console.log(e));
   };
@@ -53,7 +47,7 @@ export default function CreateAnalysis() {
             <Forms.Message match={'valueMissing'}></Forms.Message>
             <Forms.Control asChild>
               <Fields.Input
-                onChange={e => onInputChange('analisysNm', e.target.value)}
+                onChange={e => onInputChange('projectNm', e.target.value)}
               />
             </Forms.Control>
           </Forms.Field>
@@ -63,7 +57,7 @@ export default function CreateAnalysis() {
             <Forms.Message match={'valueMissing'}></Forms.Message>
             <Forms.Control asChild>
               <Fields.Area
-                onChange={e => onInputChange('analisysDs', e.target.value)}
+                onChange={e => onInputChange('projectDs', e.target.value)}
               />
             </Forms.Control>
           </Forms.Field>
