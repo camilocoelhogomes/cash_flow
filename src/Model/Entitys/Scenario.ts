@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import {CashFlow} from './CashFlow';
-import {Analisys} from './Analisys';
+import {Project} from './Project';
 
 @Entity({name: 'scenario'})
 export class Scenario {
@@ -22,8 +22,8 @@ export class Scenario {
   @Column({name: 'scenario_nm'})
   scenarioNm: string;
 
-  @ManyToOne(() => Analisys, analisys => analisys.scenarios)
-  analisys: Analisys;
+  @ManyToOne(() => Project, project => project.scenarios)
+  project: Project;
 
   @Column({name: 'slot_area'})
   slotArea: number;

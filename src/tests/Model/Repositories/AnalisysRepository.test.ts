@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import {DataSource} from 'typeorm';
 import {createAnalisysFactory} from '../../../Controller/Analisys/CreateAnalistys';
 import {initDb} from '../../../utils/config/dataSourceManager';
-import {AnalisysRepository} from '../../../Model/Repositories/AnalisysRepository';
+import {AnalisysRepository} from '../../../Model/Repositories/ProjectRepository';
 
 let dataSource: DataSource;
 beforeAll(async () => {

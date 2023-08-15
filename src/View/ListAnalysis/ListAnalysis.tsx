@@ -1,10 +1,10 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Flex, Text, Table, Heading} from '@radix-ui/themes';
 import {useQuery} from '@tanstack/react-query';
 import LoadState from '../components/LoadingIndicator/LoadState';
 import {PaginationSearch} from '../../Model/Constants/PaginationSearch';
 import {api} from '../Api/Api';
-import {IAnalisys} from '../../utils/Common/Interfaces';
+
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -15,18 +15,19 @@ import CreateAnalysis from '../CreateAnalysis/CreateAnalysis';
 import GetAnalysis from '../GetAnalysis/GetAnalysis';
 import {useAnalysisStore} from '../store/AnalysisStore';
 import Button from '../components/ButtonFactory/Button';
+import {Project} from '../../Model/Entitys/Project';
 
 export default function ListAnalyzes() {
   const [queryParams, setQueryParams] = useState({
-    pagination: 1,
+    pagination: 0,
     limit: 15,
     query: {},
   });
-
+  const [analyzes, setAnalyzes] = useState<Project[]>();
   //const list = useQuery<PaginationSearch<IAnalisys>, Error>(['analizes', queryParams], () => api.listAnalisys(queryParams));
-
-  const {analyzes} = useAnalysisStore();
-
+  useEffect(() => {
+    api.listProject(queryParams).then(e => setAnalyzes(e.result));
+  }, [queryParams]);
   if (analyzes) {
     return (
       <LoadState status={'success'} error={undefined}>

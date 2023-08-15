@@ -1,9 +1,4 @@
-export interface IAnalisys {
-  id: number;
-  analisysNm: string;
-  analisysDs: string;
-  scenarios: IScenario[];
-}
+import {Project} from '../../Model/Entitys/Project';
 
 export interface IScenario {
   id: number;
@@ -27,22 +22,14 @@ interface Pricing {
   feeIndex: string;
 }
 
-export interface IApi {
-  listAnalisys(props: {
-    query: Partial<IAnalisys>;
-    pagination: number;
-    limit: number;
-  }): Promise<PaginationSearch<IAnalisys>>;
-
-  createAnalisys(props: {
-    analisysDs: string;
-    analisysNm: string;
-  }): Promise<IAnalisys>;
-
-  getAnalisys(id: number): Promise<IAnalisys>;
-}
 export interface PaginationSearch<T> {
   result: T[];
   total: number;
   hasMore: boolean;
+}
+
+export interface QuerySearch<T> {
+  query: Partial<T>;
+  pagination: number;
+  limit: number;
 }
