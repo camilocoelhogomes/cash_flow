@@ -1,11 +1,11 @@
-import React from 'react'
-import { Card, Text } from '@radix-ui/themes'
+import React from 'react';
+import {Card, Text} from '@radix-ui/themes';
 
-type Props = { label: string, value: string, }
+type Props = {label: string; value: string};
 
-export default function CardComponent({ label, value }: Props) {
+export default function CardComponent({label, value}: Props) {
   return (
-    <Card asChild style={{ maxWidth: 350 }} variant='ghost'>
+    <Card asChild style={{maxWidth: 350}} variant="ghost">
       <a href="#">
         <Text as="div" size="2" weight="bold">
           {label}
@@ -15,5 +15,5 @@ export default function CardComponent({ label, value }: Props) {
         </Text>
       </a>
     </Card>
-  )
+  );
 }
