@@ -14,4 +14,10 @@ export class Analisys {
 
   @Column({name: 'analisys_nm'})
   analisysNm: string;
+
+  @Column({name: 'total_area'})
+  totalArea: number;
+
+  @Column({name: 'protected_area'})
+  protectedArea: number;
 }

@@ -2,8 +2,6 @@ export interface IAnalisys {
   id: number;
   analisysNm: string;
   analisysDs: string;
-  totalArea: number;
-  protectedArea: number;
   scenarios: IScenario[];
 }
 
@@ -11,8 +9,10 @@ export interface IScenario {
   id: number;
   scenarioDs: string;
   scenarioNm: string;
+  totalArea: number;
   slotArea: number;
   decorationArea: number;
+  protectedArea: number;
   streetArea: number;
   slots: number;
   pricing?: Pricing;
@@ -20,7 +20,6 @@ export interface IScenario {
 
 interface Pricing {
   squareAmount: number;
-  scenario: IScenario;
   fee: number;
   feeModel: string;
   installments: string;

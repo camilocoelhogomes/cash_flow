@@ -29,7 +29,9 @@ class DataSourceManager {
     CREATE TABLE IF NOT EXISTS analisys (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         analisys_ds TEXT NOT NULL,
-        analisys_nm TEXT NOT NULL
+        analisys_nm TEXT NOT NULL,
+        total_area NUMERIC NOT NULL,
+        protected_area NUMERIC NOT NULL
     );
     `);
     await queryRunner.query(`
@@ -59,6 +61,10 @@ class DataSourceManager {
         scenario_ds TEXT NOT NULL,
         scenario_nm TEXT NOT NULL,
         analisys_id INTEGER,
+        slot_area NUMERIC NOT NULL,
+        street_area NUMERIC NOT NULL,
+        decoration_area NUMERIC NOT NULL,
+        square_value NUMERIC NOT NULL,
         FOREIGN KEY (analisys_id) REFERENCES analisys (id)
     );
     
