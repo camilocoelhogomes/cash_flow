@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Flex, Text, Button, Table, Heading } from '@radix-ui/themes';
+import { Flex, Text, Table, Heading } from '@radix-ui/themes';
 import { useQuery } from '@tanstack/react-query';
 import LoadState from '../components/LoadingIndicator/LoadState';
 import { PaginationSearch } from '../../Model/Constants/PaginationSearch';
@@ -10,6 +10,7 @@ import { generateNumberId } from '../../utils/Functions';
 import CreateAnalysis from '../CreateAnalysis/CreateAnalysis';
 import GetAnalysis from '../GetAnalysis/GetAnalysis';
 import { useAnalysisStore } from '../store/AnalysisStore';
+import Button from '../components/ButtonFactory/Button';
 
 export default function ListAnalyzes() {
   const [queryParams, setQueryParams] = useState({ pagination: 1, limit: 15, query: {} });
