@@ -1,13 +1,14 @@
 import React from 'react';
 import * as Form from '@radix-ui/react-form';
 import CircleSpinner from '../LoadingIndicator/CircleSpinner';
-import {CheckCircle2} from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
+import { CreateState } from '../../App/state';
 
 interface Props {
-  state: 'submiting' | 'initial' | 'success';
+  state: CreateState;
 }
 
-export default function FormSubmit({state}: Props) {
+export default function FormSubmit({ state }: Props) {
   return (
     <Form.Submit asChild>
       <button

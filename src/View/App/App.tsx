@@ -1,7 +1,7 @@
-import {Button, Heading, Switch, Theme} from '@radix-ui/themes';
-import React, {PropsWithChildren, useState} from 'react';
+import { Button, Heading, Switch, Theme } from '@radix-ui/themes';
+import React, { PropsWithChildren, useState } from 'react';
 
-import {AiOutlineAreaChart} from 'react-icons/ai';
+import { AiOutlineAreaChart } from 'react-icons/ai';
 
 import {
   Home as HomeIcon,
@@ -13,19 +13,19 @@ import {
   TestTube2,
 } from 'lucide-react';
 import Home from './Home';
-import ListAnalysis from '../ListAnalysis/ListAnalysis';
+import ListAnalysis from '../ListAnalysis/ListProjects';
 import NavButton from '../components/ButtonFactory/NavButton';
-import {useThemeStore} from '../store/ThemeStore';
-import CreateAnalysis from '../CreateAnalysis/CreateAnalysis';
+import { useThemeStore } from '../store/ThemeStore';
+import CreateAnalysis from '../CreateAnalysis/CreateProject';
 import PageTest from '../PageTest';
 
 type Props = {};
 
-type Routes = 'home' | 'analysis' | 'test';
+type Routes = 'home' | 'projects' | 'test';
 
 export default function App() {
-  const [location, setLocation] = useState<Routes>('test');
-  const {theme, setTheme} = useThemeStore();
+  const [location, setLocation] = useState<Routes>('projects');
+  const { theme, setTheme } = useThemeStore();
 
   return (
     <Theme appearance={theme} grayColor="slate" accentColor="indigo">
@@ -50,11 +50,11 @@ export default function App() {
               Home
             </NavButton>
             <NavButton
-              selected={location == 'analysis'}
-              onClick={() => setLocation('analysis')}
+              selected={location == 'projects'}
+              onClick={() => setLocation('projects')}
             >
               <LineChart />
-              Análises
+              Projetos
             </NavButton>
             <NavButton
               selected={location == 'test'}
@@ -80,8 +80,8 @@ export default function App() {
 
           <main className="px-6">
             {
-              {home: <Home />, analysis: <ListAnalysis />, test: <PageTest />}[
-                location
+              { home: <Home />, projects: <ListAnalysis />, test: <PageTest /> }[
+              location
               ]
             }
           </main>

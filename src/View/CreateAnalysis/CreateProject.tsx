@@ -1,29 +1,36 @@
-import React, {FormEventHandler, useState} from 'react';
-import {Flex, Dialog} from '@radix-ui/themes';
+import React, { FormEventHandler, useState } from 'react';
+import { Flex, Dialog } from '@radix-ui/themes';
 
-import {PlusIcon} from '@radix-ui/react-icons';
-import {Forms} from '../components/FormFactory';
+import { PlusIcon } from '@radix-ui/react-icons';
+import { Forms } from '../components/FormFactory';
 import Button from '../components/ButtonFactory/Button';
-import {Fields} from '../components/InputFactory';
-import {api} from '../Api/Api';
-import {Project} from '../../Model/Entitys/Project';
+import { Fields } from '../components/InputFactory';
+import { api } from '../Api/Api';
+import { Project } from '../../Model/Entitys/Project';
+import { CreateState } from '../App/state';
 
 type Props = {};
 
+
 export default function CreateAnalysis() {
   const disabled = true;
-  const [analisys, setAnalisys] = useState<Record<string, unknown>>();
+
+  const [project, setProject] = useState<Record<string, unknown>>();
+  const [state, setState] = useState<CreateState>('initial')
+
   const onSubmit: FormEventHandler = e => {
+    setState('submiting')
     e.preventDefault();
     api
-      .createProject(analisys as Partial<Project>)
-      .then(() => console.log('saved'))
-      .catch(e => console.log(e));
+      .createProject(project as Partial<Project>)
+      .then(() => setState('success'))
+      .catch(e => { console.log(e); setState('initial') });
   };
+
   const onInputChange = (key: string, value: unknown) => {
-    const actualAnalisys = {...analisys};
+    const actualAnalisys = { ...project };
     actualAnalisys[key] = value;
-    setAnalisys(actualAnalisys);
+    setProject(actualAnalisys);
   };
 
   return (
@@ -73,13 +80,6 @@ export default function CreateAnalysis() {
           </Forms.Field>
 
           <Forms.Field name="">
-            <Forms.Label>Área Líquida Vendável (Área Média)</Forms.Label>
-            <Forms.Message match={'valueMissing'}></Forms.Message>
-            <Forms.Control asChild>
-              <Fields.Input type="number" />
-            </Forms.Control>
-          </Forms.Field>
-          <Forms.Field name="">
             <Forms.Label>Área Verde (Decoração)</Forms.Label>
             <Forms.Message match={'valueMissing'}></Forms.Message>
             <Forms.Control asChild>
@@ -112,8 +112,8 @@ export default function CreateAnalysis() {
           </Forms.Field>
 
           <Flex gap="3" mt="4" justify="end">
-            <Button>Cancel</Button>
-            <Forms.Submit state={'initial'} />
+            <Button color='soft'>Cancel</Button>
+            <Forms.Submit state={state} />
           </Flex>
         </Forms.Root>
       </Dialog.Content>

@@ -1,16 +1,16 @@
-import {Button, Dialog, Flex, TextField, Text} from '@radix-ui/themes';
+import { Button, Dialog, Flex, TextField, Text } from '@radix-ui/themes';
 import React from 'react';
-import {IAnalisys} from '../store/tempEntity';
-import {Fields} from '../components/InputFactory';
-import {getALV} from '../store/tempMethods';
+import { IAnalisys } from '../store/tempEntity';
+import { Fields } from '../components/InputFactory';
+import { getALV } from '../store/tempMethods';
 
-import {Project} from '../../Model/Entitys/Project';
+import { Project } from '../../Model/Entitys/Project';
 
 type Props = {
   analysis: Project;
 };
 
-export default function GetAnalysis({analysis}: Props) {
+export default function GetProject({ analysis }: Props) {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
@@ -23,29 +23,19 @@ export default function GetAnalysis({analysis}: Props) {
         </button>
       </Dialog.Trigger>
 
-      <Dialog.Content style={{minWidth: '95%', minHeight: '95%'}}>
+      <Dialog.Content style={{ minWidth: '95%', minHeight: '95%' }}>
         <Dialog.Title>
           Análise {analysis.id} - {analysis.projectNm}
         </Dialog.Title>
         <Dialog.Description size="2" mb="4">
           {analysis.projectDs}
         </Dialog.Description>
-
         <div className="grid grid-cols-3 space-y-1">
           <Fields.Card
             label="Área Total m²"
             value={analysis.totalArea.toString()}
           />
-          <Fields.Card
-            label="Área Preservada m²"
-            value={analysis.protectedArea.toString()}
-          />
-          <Fields.Card
-            label="Área Preservada m²"
-            value={analysis.totalArea.toString()}
-          />
         </div>
-
         <Dialog.Close>
           <Button variant="soft" color="gray">
             OK

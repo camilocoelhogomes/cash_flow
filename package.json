@@ -79,6 +79,7 @@
     "react-router-dom": "^6.14.2",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "~5.0.0",
+    "tailwind-variants": "^0.1.13",
     "typeorm": "^0.3.17",
     "zustand": "^4.4.1"
   }
