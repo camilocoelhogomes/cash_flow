@@ -37,10 +37,27 @@ class DataSourceManager {
     CREATE TABLE IF NOT EXISTS project (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         project_ds TEXT NOT NULL,
-        project_nm TEXT NOT NULL,
-        total_area NUMERIC NOT NULL
+        project_nm TEXT NOT NULL
     );
     `);
+
+    await queryRunner.query(`
+    CREATE TABLE IF NOT EXISTS scenario (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        scenario_ds TEXT NOT NULL,
+        scenario_nm TEXT NOT NULL,
+        project_id INTEGER,
+        total_slots INTEGER NOT NULL,
+        street_area NUMERIC NOT NULL,
+        decoration_area NUMERIC NOT NULL,
+        square_value NUMERIC NOT NULL,
+        protected_area NUMERIC NOT NULL,
+        total_area NUMERIC NOT NULL,
+        FOREIGN KEY (project_id) REFERENCES project (id)
+    );
+    
+    `);
+
     await queryRunner.query(`
     CREATE TABLE IF NOT EXISTS cash_flow (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -59,21 +76,6 @@ class DataSourceManager {
         value NUMERIC NOT NULL,
         cash_flow_id INTEGER,
         FOREIGN KEY (cash_flow_id) REFERENCES cash_flow (id)
-    );
-    
-    `);
-    await queryRunner.query(`
-    CREATE TABLE IF NOT EXISTS scenario (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        scenario_ds TEXT NOT NULL,
-        scenario_nm TEXT NOT NULL,
-        project_id INTEGER,
-        slot_area NUMERIC NOT NULL,
-        street_area NUMERIC NOT NULL,
-        decoration_area NUMERIC NOT NULL,
-        square_value NUMERIC NOT NULL,
-        protected_area NUMERIC NOT NULL,
-        FOREIGN KEY (project_id) REFERENCES project (id)
     );
     
     `);

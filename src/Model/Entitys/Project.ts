@@ -14,7 +14,4 @@ export class Project {
 
   @Column({name: 'Project_nm'})
   projectNm: string;
-
-  @Column({name: 'total_area'})
-  totalArea: number;
 }

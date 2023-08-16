@@ -15,8 +15,6 @@ export class ProjectRepository {
     const project = this.projectRepository.create();
     project.projectDs = props.projectDs;
     project.projectNm = props.projectNm;
-    project.totalArea = props.totalArea;
-    project.protectedArea = props.protectedArea;
 
     const result = await this.projectRepository.save(project);
 
