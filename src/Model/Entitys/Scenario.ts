@@ -25,8 +25,8 @@ export class Scenario {
   @ManyToOne(() => Project, project => project.scenarios)
   project: Project;
 
-  @Column({name: 'slot_area'})
-  slotArea: number;
+  @Column({name: 'total_slots'})
+  totalSlots: number;
 
   @Column({name: 'decoration_area'})
   decorationArea: number;
@@ -39,4 +39,7 @@ export class Scenario {
 
   @Column({name: 'protected_area'})
   protectedArea: number;
+
+  @Column({name: 'total_area'})
+  totalArea: number;
 }

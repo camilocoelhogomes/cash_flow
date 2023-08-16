@@ -5,23 +5,45 @@ import {
   ProjectRepository,
   projectRepository,
 } from '../../Model/Repositories/ProjectRepository';
-import {QuerySearch} from '../../utils/Common/Interfaces';
+import {
+  ScenarioRepository,
+  scenarioRepository,
+} from '../../Model/Repositories/ScenarioRepository';
+import {IProject, QuerySearch} from '../../utils/Common/Interfaces';
 
 export class ProjectController {
   constructor(
-    private readonly repository: ProjectRepository = projectRepository
+    private readonly projectRepo: ProjectRepository = projectRepository,
+    private readonly scenarioRepo: ScenarioRepository = scenarioRepository
   ) {}
 
-  async create(project: Partial<Project>): Promise<Project> {
-    return this.repository.create(project);
+  async create(project: Partial<IProject>): Promise<IProject> {
+    const newProject = await this.projectRepo.create(project);
+    const newScenario = await this.scenarioRepo.createScneario({
+      ...project,
+      project: newProject,
+      scenarioDs: newProject.projectDs,
+      scenarioNm: newProject.projectNm,
+    });
+    return {
+      decorationArea: newScenario.decorationArea,
+      id: newProject.id,
+      projectDs: newProject.projectDs,
+      projectNm: newProject.projectNm,
+      protectedArea: newScenario.protectedArea,
+      totalSlots: newScenario.totalSlots,
+      squareValue: newScenario.squareValue,
+      streetArea: newScenario.streetArea,
+      totalArea: newScenario.totalArea,
+    };
   }
 
   async list(query: QuerySearch<Project>): Promise<PaginationSearch<Project>> {
-    return this.repository.list(query.query, query.pagination, query.limit);
+    return this.projectRepo.list(query.query, query.pagination, query.limit);
   }
 
   async get(id: number): Promise<Project> {
-    const result = await this.repository.get(id);
+    const result = await this.projectRepo.get(id);
     if (!result) {
       throw new NotFoundError('Analise não encontrada');
     }

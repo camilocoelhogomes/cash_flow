@@ -1,4 +1,14 @@
-import {Project} from '../../Model/Entitys/Project';
+export interface IProject {
+  id: number;
+  projectDs: string;
+  projectNm: string;
+  totalArea: number;
+  totalSlots: number;
+  decorationArea: number;
+  streetArea: number;
+  squareValue: number;
+  protectedArea: number;
+}
 
 export interface IScenario {
   id: number;

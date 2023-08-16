@@ -1,6 +1,6 @@
 import {PaginationSearch} from '../../Model/Constants/PaginationSearch';
 import {Project} from '../../Model/Entitys/Project';
-import {QuerySearch} from '../../utils/Common/Interfaces';
+import {IProject, QuerySearch} from '../../utils/Common/Interfaces';
 
 type IApi = Window & {api: Record<string, Function>};
 
@@ -10,7 +10,7 @@ export class Api {
   listProject(props: QuerySearch<Project>): Promise<PaginationSearch<Project>> {
     return (window as unknown as IApi).api.listProject(props);
   }
-  createProject(project: Partial<Project>): Promise<Project> {
+  createProject(project: Partial<IProject>): Promise<IProject> {
     return (window as unknown as IApi).api.createProject(project);
   }
 
