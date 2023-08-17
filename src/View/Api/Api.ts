@@ -1,5 +1,6 @@
 import {PaginationSearch} from '../../Model/Constants/PaginationSearch';
 import {Project} from '../../Model/Entitys/Project';
+import {Scenario} from '../../Model/Entitys/Scenario';
 import {IProject, QuerySearch} from '../../utils/Common/Interfaces';
 
 type IApi = Window & {api: Record<string, Function>};
@@ -16,6 +17,10 @@ export class Api {
 
   getProject(id: number): Promise<Project> {
     return (window as unknown as IApi).api.getProject(id);
+  }
+
+  createScenario(scenario: Partial<Scenario>): Promise<Scenario> {
+    return (window as unknown as IApi).api.createScenario(scenario);
   }
 }
 
