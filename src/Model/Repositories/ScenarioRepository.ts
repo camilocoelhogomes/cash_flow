@@ -12,7 +12,6 @@ export class ScenarioRepository {
   async createScneario(scenario: Partial<Scenario>): Promise<Scenario> {
     const newScenario = this.repository.create();
     newScenario.decorationArea = scenario.decorationArea;
-    newScenario.project.id = scenario.project.id;
     newScenario.protectedArea = scenario.protectedArea;
     newScenario.scenarioDs = scenario.scenarioDs;
     newScenario.scenarioNm = scenario.scenarioNm;
@@ -20,6 +19,7 @@ export class ScenarioRepository {
     newScenario.squareValue = scenario.squareValue;
     newScenario.streetArea = scenario.streetArea;
     newScenario.totalArea = scenario.totalArea;
+    newScenario.project = scenario.project;
     const result = await this.repository.save(newScenario);
     return result;
   }

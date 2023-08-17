@@ -20,10 +20,15 @@ export class ProjectController {
   async create(project: Partial<IProject>): Promise<IProject> {
     const newProject = await this.projectRepo.create(project);
     const newScenario = await this.scenarioRepo.createScneario({
-      ...project,
-      project: newProject,
       scenarioDs: newProject.projectDs,
       scenarioNm: newProject.projectNm,
+      decorationArea: project.decorationArea,
+      squareValue: project.squareValue,
+      protectedArea: project.protectedArea,
+      streetArea: project.streetArea,
+      totalArea: project.totalArea,
+      totalSlots: project.totalSlots,
+      project: newProject,
     });
     return {
       decorationArea: newScenario.decorationArea,
@@ -45,7 +50,7 @@ export class ProjectController {
   async get(id: number): Promise<Project> {
     const result = await this.projectRepo.get(id);
     if (!result) {
-      throw new NotFoundError('Analise não encontrada');
+      throw new NotFoundError('Projeto não encontrado');
     }
     return result;
   }

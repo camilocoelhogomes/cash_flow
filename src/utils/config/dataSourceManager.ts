@@ -37,7 +37,7 @@ class DataSourceManager {
     CREATE TABLE IF NOT EXISTS project (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         project_ds TEXT NOT NULL,
-        project_nm TEXT NOT NULL
+        project_nm TEXT NOT NULL UNIQUE
     );
     `);
 
@@ -54,6 +54,21 @@ class DataSourceManager {
         protected_area NUMERIC NOT NULL,
         total_area NUMERIC NOT NULL,
         FOREIGN KEY (project_id) REFERENCES project (id)
+    );
+    
+    `);
+
+    await queryRunner.query(`
+    CREATE TABLE IF NOT EXISTS pricing (
+        scenario_id INTEGER PRIMARY KEY UNIQUE,
+        pricing_ds TEXT NOT NULL,
+        pricing_nm TEXT NOT NULL,
+        fee NUMUERIC NOT NULL,
+        fee_model NUMERIC NOT NULL,
+        installments INTEGER NOT NULL,
+        entry NUMERIC NOT NULL,
+        inflation_index TEXT NOT NULL,
+        FOREIGN KEY (scenario_id) REFERENCES scenario (id)
     );
     
     `);

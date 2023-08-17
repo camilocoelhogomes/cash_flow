@@ -2,4 +2,13 @@
   "jestrunner.debugOptions": {
     "runtimeExecutable": "/home/camilo/.nvm/versions/node/v18.17.0/bin/node",
   },
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "cash_flow",
+      "group": "cash_flow",
+      "database": "${workspaceFolder:cash_analitcs}/db.db"
+    }
+  ],
 }
