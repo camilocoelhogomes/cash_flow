@@ -42,4 +42,7 @@ export class Scenario {
 
   @Column({name: 'total_area'})
   totalArea: number;
+
+  @Column({name: 'project_id'})
+  projectId: number;
 }

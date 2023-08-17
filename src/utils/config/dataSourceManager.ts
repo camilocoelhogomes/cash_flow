@@ -59,6 +59,21 @@ class DataSourceManager {
     `);
 
     await queryRunner.query(`
+    CREATE TABLE IF NOT EXISTS pricing (
+        scenario_id INTEGER PRIMARY KEY,
+        pricing_ds TEXT NOT NULL,
+        pricing_nm TEXT NOT NULL,
+        fee NUMUERIC NOT NULL,
+        fee_model NUMERIC NOT NULL,
+        installments INTEGER NOT NULL,
+        entry NUMERIC NOT NULL,
+        inflation_index TEXT NOT NULL,
+        FOREIGN KEY (scenario_id) REFERENCES scenario (id)
+    );
+    
+    `);
+
+    await queryRunner.query(`
     CREATE TABLE IF NOT EXISTS cash_flow (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         cash_movement_tp TEXT NOT NULL,

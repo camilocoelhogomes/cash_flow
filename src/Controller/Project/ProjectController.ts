@@ -21,9 +21,9 @@ export class ProjectController {
     const newProject = await this.projectRepo.create(project);
     const newScenario = await this.scenarioRepo.createScneario({
       ...project,
-      project: newProject,
       scenarioDs: newProject.projectDs,
       scenarioNm: newProject.projectNm,
+      projectId: newProject.id,
     });
     return {
       decorationArea: newScenario.decorationArea,
@@ -45,7 +45,7 @@ export class ProjectController {
   async get(id: number): Promise<Project> {
     const result = await this.projectRepo.get(id);
     if (!result) {
-      throw new NotFoundError('Analise não encontrada');
+      throw new NotFoundError('Projeto não encontrado');
     }
     return result;
   }
