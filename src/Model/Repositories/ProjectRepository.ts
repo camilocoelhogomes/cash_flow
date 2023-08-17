@@ -1,8 +1,7 @@
 import {DataSource} from 'typeorm';
-
-import {PaginationSearch} from '../Constants/PaginationSearch';
 import {dataSourceManager} from '../../utils/config/dataSourceManager';
 import {Project} from '../Entitys/Project';
+import {PaginationSearch} from '../../utils/Common/Interfaces';
 
 export class ProjectRepository {
   private readonly projectRepository;

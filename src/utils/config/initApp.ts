@@ -19,4 +19,8 @@ export async function initApp() {
   ipcMain.handle('createScenario', async (event, ...args) => {
     scenarioController.createScenario(args[0]);
   });
+
+  ipcMain.handle('listScenarios', async (event, ...args) => {
+    scenarioController.listScenarios(args[0]);
+  });
 }

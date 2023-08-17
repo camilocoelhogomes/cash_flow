@@ -1,3 +1,5 @@
+import {Scenario} from '../../Model/Entitys/Scenario';
+
 export interface IProject {
   id: number;
   projectDs: string;
@@ -42,4 +44,9 @@ export interface QuerySearch<T> {
   query: Partial<T>;
   pagination: number;
   limit: number;
+}
+
+export interface ListScenariosInput {
+  projectId: number;
+  query: QuerySearch<Scenario>;
 }

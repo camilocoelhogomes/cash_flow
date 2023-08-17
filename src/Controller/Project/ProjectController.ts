@@ -1,4 +1,3 @@
-import {PaginationSearch} from '../../Model/Constants/PaginationSearch';
 import {Project} from '../../Model/Entitys/Project';
 import {NotFoundError} from '../../Model/Errors/Errors';
 import {
@@ -9,7 +8,11 @@ import {
   ScenarioRepository,
   scenarioRepository,
 } from '../../Model/Repositories/ScenarioRepository';
-import {IProject, QuerySearch} from '../../utils/Common/Interfaces';
+import {
+  IProject,
+  PaginationSearch,
+  QuerySearch,
+} from '../../utils/Common/Interfaces';
 
 export class ProjectController {
   constructor(
