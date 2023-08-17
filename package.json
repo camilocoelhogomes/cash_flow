@@ -36,6 +36,7 @@
     "@electron-forge/maker-zip": "^6.2.1",
     "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
     "@electron-forge/plugin-webpack": "^6.2.1",
+    "@faker-js/faker": "^8.0.2",
     "@types/jest": "^29.5.3",
     "@types/node": "^20.4.7",
     "@types/react": "^18.2.18",
@@ -78,6 +79,7 @@
     "react-router-dom": "^6.14.2",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "~5.0.0",
+    "tailwind-variants": "^0.1.13",
     "typeorm": "^0.3.17",
     "zustand": "^4.4.1"
   }

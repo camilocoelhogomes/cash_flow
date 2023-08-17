@@ -1,7 +1,7 @@
-import {Button, Heading, Switch, Theme} from '@radix-ui/themes';
-import React, {PropsWithChildren, useState} from 'react';
+import { Button, Heading, Switch, Theme } from '@radix-ui/themes';
+import React, { PropsWithChildren, useState } from 'react';
 
-import {AiOutlineAreaChart} from 'react-icons/ai';
+import { AiOutlineAreaChart } from 'react-icons/ai';
 
 import {
   Home as HomeIcon,
@@ -10,21 +10,22 @@ import {
   CalendarCheck2,
   MoonStar,
   Sun,
+  TestTube2,
 } from 'lucide-react';
 import Home from './Home';
-import ListAnalysis from '../ListAnalysis/ListAnalysis';
+import ListAnalysis from '../ListAnalysis/ListProjects';
 import NavButton from '../components/ButtonFactory/NavButton';
-import {useThemeStore} from '../store/ThemeStore';
-import CreateAnalysis from '../CreateAnalysis/CreateAnalysis';
+import { useThemeStore } from '../store/ThemeStore';
+import CreateAnalysis from '../CreateAnalysis/CreateProject';
 import PageTest from '../PageTest';
 
 type Props = {};
 
-type Routes = 'home' | 'analysis' | 'test';
+type Routes = 'home' | 'projects' | 'test';
 
 export default function App() {
   const [location, setLocation] = useState<Routes>('test');
-  const {theme, setTheme} = useThemeStore();
+  const { theme, setTheme } = useThemeStore();
 
   return (
     <Theme appearance={theme} grayColor="slate" accentColor="indigo">
@@ -49,23 +50,23 @@ export default function App() {
               Home
             </NavButton>
             <NavButton
-              selected={location == 'analysis'}
-              onClick={() => setLocation('analysis')}
+              selected={location == 'projects'}
+              onClick={() => setLocation('projects')}
             >
               <LineChart />
-              Análises
+              Projetos
             </NavButton>
             <NavButton
               selected={location == 'test'}
               onClick={() => setLocation('test')}
             >
-              <LineChart />
-              createanalysis
+              <TestTube2 />
+              Test
             </NavButton>
           </nav>
         </aside>
 
-        <section className="w-full h-full transition-colors duration-700 dark:bg-slate-700 dark:text-slate-200">
+        <section className="flex flex-col w-full h-full transition-colors duration-700 dark:bg-slate-700 dark:text-slate-200">
           <header className="flex px-6 items-center justify-between h-16 border-b dark:border-slate-500 ">
             <div>
               <Switch
@@ -77,10 +78,10 @@ export default function App() {
             </div>
           </header>
 
-          <main className="px-6">
+          <main className="flex-1 px-6 w-full">
             {
-              {home: <Home />, analysis: <ListAnalysis />, test: <PageTest />}[
-                location
+              { home: <Home />, projects: <ListAnalysis />, test: <PageTest /> }[
+              location
               ]
             }
           </main>
