@@ -20,10 +20,15 @@ export class ProjectController {
   async create(project: Partial<IProject>): Promise<IProject> {
     const newProject = await this.projectRepo.create(project);
     const newScenario = await this.scenarioRepo.createScneario({
-      ...project,
       scenarioDs: newProject.projectDs,
       scenarioNm: newProject.projectNm,
-      projectId: newProject.id,
+      decorationArea: project.decorationArea,
+      squareValue: project.squareValue,
+      protectedArea: project.protectedArea,
+      streetArea: project.streetArea,
+      totalArea: project.totalArea,
+      totalSlots: project.totalSlots,
+      project: newProject,
     });
     return {
       decorationArea: newScenario.decorationArea,

@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -22,7 +23,8 @@ export class Scenario {
   @Column({name: 'scenario_nm'})
   scenarioNm: string;
 
-  @ManyToOne(() => Project, project => project.scenarios)
+  @ManyToOne(() => Project, project => project.id)
+  @JoinColumn({name: 'project_id'})
   project: Project;
 
   @Column({name: 'total_slots'})
@@ -42,7 +44,4 @@ export class Scenario {
 
   @Column({name: 'total_area'})
   totalArea: number;
-
-  @Column({name: 'project_id'})
-  projectId: number;
 }

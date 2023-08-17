@@ -19,7 +19,7 @@ export class ScenarioRepository {
     newScenario.squareValue = scenario.squareValue;
     newScenario.streetArea = scenario.streetArea;
     newScenario.totalArea = scenario.totalArea;
-    newScenario.projectId = scenario.projectId;
+    newScenario.project = scenario.project;
     const result = await this.repository.save(newScenario);
     return result;
   }
