@@ -24,7 +24,7 @@ type Props = {};
 type Routes = 'home' | 'projects' | 'test';
 
 export default function App() {
-  const [location, setLocation] = useState<Routes>('projects');
+  const [location, setLocation] = useState<Routes>('test');
   const { theme, setTheme } = useThemeStore();
 
   return (

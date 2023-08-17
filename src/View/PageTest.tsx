@@ -4,7 +4,8 @@ import { Forms } from './components/FormFactory';
 import { Fields } from './components/InputFactory';
 import { sleep } from '../utils/Functions';
 import Button from './components/ButtonFactory/Button';
-
+import { useProjectStore } from './store/AnalysisStore';
+import GetProject from './GetAnalysis/GetProject';
 type Props = {};
 
 export default function PageTest({ }: Props) {
@@ -15,12 +16,12 @@ export default function PageTest({ }: Props) {
     setState('submiting'); await sleep(2000); setState('success')
   }
 
-  return (
-    <>
-      <Forms.Root onSubmit={onSubmit}>
-        <Button color='soft' onClick={() => setState('initial')}>Cancel</Button>
-        <Forms.Submit state={state} />
-      </Forms.Root>
-    </>
-  );
+  const { projects } = useProjectStore()
+
+
+  return <div className="flex flex-col flex-1 grid-cols-1 gap-4">
+    {(projects ?? []).map((item) => (
+      <GetProject key={item.id} project={item} />
+    ))}
+  </div>
 }

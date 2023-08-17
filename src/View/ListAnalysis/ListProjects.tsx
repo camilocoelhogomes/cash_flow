@@ -12,8 +12,7 @@ import {
 } from '@radix-ui/react-icons';
 import { generateNumberId } from '../../utils/Functions';
 import CreateAnalysis from '../CreateAnalysis/CreateProject';
-import GetAnalysis from '../GetAnalysis/GetProject';
-import { useAnalysisStore } from '../store/AnalysisStore';
+import GetProject from '../GetAnalysis/GetProject';
 import Button from '../components/ButtonFactory/Button';
 import { Project } from '../../Model/Entitys/Project';
 import { Brackets } from 'lucide-react';
@@ -43,9 +42,7 @@ export default function Listprojects() {
         {projects.length ?
 
           <div className="flex flex-col flex-1 grid-cols-1 gap-4">
-            {(projects ?? []).map((item, index) => (
-              <GetAnalysis key={index} analysis={item} />
-            ))}
+            {(projects ?? []).map(item => <GetProject key={item.id} project={item} />)}
           </div>
           :
           <div className='text-indigo-200 flex flex-col flex-1 items-center'><Brackets size={180} /> Nenhum item cadastrado :(</div>
