@@ -1,45 +1,75 @@
-import {create} from 'zustand';
-import {IAnalisys} from '../../utils/Common/Interfaces';
-import {generateNumberId} from '../../utils/Functions';
+import { faker } from '@faker-js/faker';
+import { create } from 'zustand';
+import { generateNumberId } from '../../utils/Functions';
+import { Project } from '../../Model/Entitys/Project';
+import { Scenario } from '../../Model/Entitys/Scenario';
 
 interface State {
-  analyzes: IAnalisys[];
-  createAnalysis(value: IAnalisys): void;
+  projects: Project[];
+  createAnalysis(value: Project): void;
 }
 
-const data: IAnalisys[] = [
-  {
-    id: generateNumberId(),
-    analisysDs: 'Casa Popular da cidade de Capelinha-MG',
-    scenarios: [],
-    analisysNm: 'Casa Popular Capelinha',
-  },
-  {
-    id: generateNumberId(),
-    analisysDs: 'Casa Luxo da cidade de Capelinha-MG',
-    scenarios: [],
-    analisysNm: 'Casa Luxo Capelinha',
-  },
-  {
-    id: generateNumberId(),
-    analisysDs: 'Condominio da cidade de Capelinha-MG',
-    scenarios: [],
-    analisysNm: 'Condominio Capelinha',
-  },
-];
-
-export const useAnalysisStore = create<State>((set, get) => ({
-  analyzes: data,
+export const useProjectStore = create<State>((set, get) => ({
+  projects: listproject(3),
   createAnalysis(value) {
-    set({analyzes: [...get().analyzes, value]});
+    set({ projects: [...get().projects, value] });
   },
 }));
 
-function getAnalysis(): IAnalisys {
+function listproject(length: number): Project[] {
+  const array: Project[] = [];
+  for (let index = 0;index < length;index++) {
+    array.push(getProject());
+  }
+  return array;
+}
+
+function getProject(): Project {
+  const id = generateNumberId()
+  return {
+    id: id,
+    projectNm: 'Casa Popular Capelinha',
+    projectDs: 'Casa Popular da cidade de Capelinha-MG',
+    scenarios: listScenario(2, id),
+  };
+}
+
+
+function listScenario(length: number, id: number): Scenario[] {
+  const array: Scenario[] = [];
+  for (let index = 0;index < length;index++) {
+    array.push(getScenario(id));
+  }
+  return array;
+}
+
+function getScenario(id: number): Scenario {
+  const totalArea = faker.number.int({ min: 20000, max: 50000 });
+  const protectedArea = totalArea / 4;
+  const streetArea = totalArea / 10;
+  const decorationArea = totalArea / 10;
+  const slots = faker.number.int({ min: 20, max: 50 });
+  const slotArea = parseFloat(
+    ((totalArea - protectedArea - streetArea - decorationArea) / slots).toFixed(
+      2
+    )
+  );
   return {
     id: generateNumberId(),
-    analisysNm: 'Casa Popular Capelinha',
-    analisysDs: 'Casa Popular da cidade de Capelinha-MG',
-    scenarios: [],
-  };
+    protectedArea: protectedArea,
+    totalArea: totalArea,
+    decorationArea: decorationArea,
+    streetArea: streetArea,
+    squareValue: 0,
+    cashFlows: [],
+    totalSlots: slots,
+    scenarioDs: '',
+    scenarioNm: 'Base',
+    project: {
+      id: id,
+      projectNm: 'Casa Popular Capelinha',
+      projectDs: 'Casa Popular da cidade de Capelinha-MG',
+      scenarios: [],
+    }
+  }
 }
