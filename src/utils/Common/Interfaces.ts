@@ -3,11 +3,11 @@ export interface IProject {
   projectDs: string;
   projectNm: string;
   totalArea: number;
-  totalSlots: number;
+  squareValue: number;
   decorationArea: number;
   streetArea: number;
-  squareValue: number;
   protectedArea: number;
+  totalSlots: number;
 }
 
 export interface IScenario {

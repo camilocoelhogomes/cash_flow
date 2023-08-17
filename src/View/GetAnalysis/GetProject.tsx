@@ -31,10 +31,7 @@ export default function GetProject({ analysis }: Props) {
           {analysis.projectDs}
         </Dialog.Description>
         <div className="grid grid-cols-3 space-y-1">
-          <Fields.Card
-            label="Área Total m²"
-            value={analysis.totalArea.toString()}
-          />
+
         </div>
         <Dialog.Close>
           <Button variant="soft" color="gray">

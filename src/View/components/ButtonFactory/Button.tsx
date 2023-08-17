@@ -20,7 +20,7 @@ const button = tv({
 })
 
 const Button = React.forwardRef<HTMLButtonElement, Props>(({ color, ...props }, ref) => {
-  return <button ref={ref} className={button({ color: color })} {...props} />;
+  return <button ref={ref} className={button({ color: color })} {...props} type='button' />;
 });
 
 export default Button

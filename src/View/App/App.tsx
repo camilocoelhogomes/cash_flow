@@ -66,7 +66,7 @@ export default function App() {
           </nav>
         </aside>
 
-        <section className="w-full h-full transition-colors duration-700 dark:bg-slate-700 dark:text-slate-200">
+        <section className="flex flex-col w-full h-full transition-colors duration-700 dark:bg-slate-700 dark:text-slate-200">
           <header className="flex px-6 items-center justify-between h-16 border-b dark:border-slate-500 ">
             <div>
               <Switch
@@ -78,7 +78,7 @@ export default function App() {
             </div>
           </header>
 
-          <main className="px-6">
+          <main className="flex-1 px-6 w-full">
             {
               { home: <Home />, projects: <ListAnalysis />, test: <PageTest /> }[
               location
