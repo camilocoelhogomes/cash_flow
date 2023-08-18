@@ -28,22 +28,22 @@ function getProject(): Project {
   const id = generateNumberId()
   return {
     id: id,
-    projectNm: 'Casa Popular Capelinha',
-    projectDs: 'Casa Popular da cidade de Capelinha-MG',
+    projectNm: 'Project -' + faker.company.name(),
+    projectDs: faker.lorem.lines(),
     scenarios: listScenario(2, id),
   };
 }
 
-
 function listScenario(length: number, id: number): Scenario[] {
   const array: Scenario[] = [];
+  array.push(getScenario(id, 'first'));
   for (let index = 0;index < length;index++) {
-    array.push(getScenario(id));
+    array.push(getScenario(id, 'sub'));
   }
   return array;
 }
 
-function getScenario(id: number): Scenario {
+function getScenario(id: number, type: 'first' | 'sub'): Scenario {
   const totalArea = faker.number.int({ min: 20000, max: 50000 });
   const protectedArea = totalArea / 4;
   const streetArea = totalArea / 10;
@@ -63,12 +63,12 @@ function getScenario(id: number): Scenario {
     squareValue: 0,
     cashFlows: [],
     totalSlots: slots,
-    scenarioDs: '',
-    scenarioNm: 'Base',
+    scenarioDs: type === 'first' ? 'Cenário Inicial' : faker.lorem.words(),
+    scenarioNm: type === 'first' ? 'Base' : faker.lorem.word(),
     project: {
       id: id,
-      projectNm: 'Casa Popular Capelinha',
-      projectDs: 'Casa Popular da cidade de Capelinha-MG',
+      projectNm: 'Project -' + faker.company.name(),
+      projectDs: faker.lorem.lines(),
       scenarios: [],
     }
   }

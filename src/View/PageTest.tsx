@@ -19,7 +19,7 @@ export default function PageTest({ }: Props) {
   const { projects } = useProjectStore()
 
 
-  return <div className="flex flex-col flex-1 grid-cols-1 gap-4">
+  return <div className="flex flex-col flex-1 grid-cols-1 gap-4 py-4">
     {(projects ?? []).map((item) => (
       <GetProject key={item.id} project={item} />
     ))}

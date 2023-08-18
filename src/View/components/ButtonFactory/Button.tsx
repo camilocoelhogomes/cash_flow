@@ -9,6 +9,7 @@ const button = tv({
     color: {
       solid: 'bg-indigo-500 hover:bg-indigo-400 text-white',
       soft: "bg-indigo-500/20 text-indigo-500",
+      shadow: 'shadow-md border border-slate-100',
       outline: '',
       ghost: '',
       surface: ''

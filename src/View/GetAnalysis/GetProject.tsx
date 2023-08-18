@@ -5,7 +5,7 @@ import { Fields } from '../components/FieldsFactory';
 import { getALV } from '../store/tempMethods';
 
 import { Project } from '../../Model/Entitys/Project';
-import ScenariosCard from './ScenarioCard';
+import ScenarioTabs from './ScenarioTabs';
 
 type Props = {
   project: Project;
@@ -27,20 +27,18 @@ export default function GetProject({ project }: Props) {
         </button>
       </Dialog.Trigger>
 
-      <Dialog.Content style={{ minWidth: '95%', minHeight: '95%' }}>
-        <Dialog.Title>
-          {project.projectNm}
-        </Dialog.Title>
-        <Dialog.Description size="2" mb="4">
-          {project.projectDs}
-        </Dialog.Description>
-        <Button>Novo Cenário</Button>
-        <ScenariosCard scenarios={project.scenarios} />
-        <Dialog.Close>
-          <Button variant="soft" color="gray" onClick={() => setOpen(true)}>
-            OK
-          </Button>
-        </Dialog.Close>
+      <Dialog.Content style={{ minWidth: '90%', minHeight: '90%' }}>
+        <div className='h-1/6 bg-slate-500'>
+          {/* <Dialog.Title>
+            {project.projectNm}
+          </Dialog.Title>
+          <Dialog.Description size="2" mb="4" className='flex justify-between'>
+            {project.projectDs} <Button>Novo Cenário</Button>
+          </Dialog.Description> */}
+        </div>
+        <div className='h-5/6 bg-slate-300'>
+          {/* <ScenarioTabs scenarios={project.scenarios} /> */}
+        </div>
       </Dialog.Content>
     </Dialog.Root>
   );
