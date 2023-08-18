@@ -1,10 +1,11 @@
 import { Button, Dialog, Flex, TextField, Text } from '@radix-ui/themes';
 import React from 'react';
 import { IAnalisys } from '../store/tempEntity';
-import { Fields } from '../components/InputFactory';
+import { Fields } from '../components/FieldsFactory';
 import { getALV } from '../store/tempMethods';
 
 import { Project } from '../../Model/Entitys/Project';
+import ScenariosCard from './ScenarioCard';
 
 type Props = {
   project: Project;
@@ -33,9 +34,8 @@ export default function GetProject({ project }: Props) {
         <Dialog.Description size="2" mb="4">
           {project.projectDs}
         </Dialog.Description>
-        <div className="grid grid-cols-3 space-y-1">
-
-        </div>
+        <Button>Novo Cenário</Button>
+        <ScenariosCard scenarios={project.scenarios} />
         <Dialog.Close>
           <Button variant="soft" color="gray" onClick={() => setOpen(true)}>
             OK
@@ -46,4 +46,3 @@ export default function GetProject({ project }: Props) {
   );
 }
 
-function simulate() { }

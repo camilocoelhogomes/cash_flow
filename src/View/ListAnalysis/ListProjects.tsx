@@ -16,6 +16,7 @@ import GetProject from '../GetAnalysis/GetProject';
 import Button from '../components/ButtonFactory/Button';
 import { Project } from '../../Model/Entitys/Project';
 import { Brackets } from 'lucide-react';
+import { Fields } from '../components/FieldsFactory';
 
 export default function Listprojects() {
   const [queryParams, setQueryParams] = useState({
@@ -35,7 +36,7 @@ export default function Listprojects() {
       <div className='flex flex-col space-y-2 justify-between h-full'>
 
         <div className="flex justify-between border-b border-slate-300 dark:border-slate-600 py-6 my-4">
-          <Heading>Análises</Heading>
+          <Fields.Heading>Análises</Fields.Heading>
           <CreateAnalysis />
         </div>
 

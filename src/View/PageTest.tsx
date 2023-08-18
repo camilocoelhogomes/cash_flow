@@ -1,10 +1,10 @@
 import React from 'react';
 import { CreateState } from './App/state';
 import { Forms } from './components/FormFactory';
-import { Fields } from './components/InputFactory';
+import { Fields } from './components/FieldsFactory';
 import { sleep } from '../utils/Functions';
 import Button from './components/ButtonFactory/Button';
-import { useProjectStore } from './store/AnalysisStore';
+import { useProjectStore } from './store/ProjectStore';
 import GetProject from './GetAnalysis/GetProject';
 type Props = {};
 

@@ -4,7 +4,7 @@ import { Dialog } from '@radix-ui/themes';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { Forms } from '../components/FormFactory';
 import Button from '../components/ButtonFactory/Button';
-import { Fields } from '../components/InputFactory';
+import { Fields } from '../components/FieldsFactory';
 import { api } from '../Api/Api';
 import { Project } from '../../Model/Entitys/Project';
 import { CreateState } from '../App/state';

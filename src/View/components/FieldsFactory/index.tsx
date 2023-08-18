@@ -1,4 +1,4 @@
-import {TextArea, TextField, Text} from '@radix-ui/themes';
+import { TextArea, TextField, Text, Heading } from '@radix-ui/themes';
 import CardComponent from './Card';
 
 export const Fields = {
@@ -6,4 +6,6 @@ export const Fields = {
   Area: TextArea,
   Text: Text,
   Card: CardComponent,
+  Heading: Heading,
+
 };
