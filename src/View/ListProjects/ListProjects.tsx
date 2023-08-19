@@ -12,7 +12,7 @@ import {
 } from '@radix-ui/react-icons';
 import { generateNumberId } from '../../utils/Functions';
 import CreateAnalysis from '../CreateAnalysis/CreateProject';
-import GetProject from '../GetAnalysis/GetProject';
+import GetProject from '../GetProject/GetProject';
 import Button from '../components/ButtonFactory/Button';
 import { Project } from '../../Model/Entitys/Project';
 import { Brackets } from 'lucide-react';

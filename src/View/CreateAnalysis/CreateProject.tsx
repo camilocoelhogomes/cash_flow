@@ -26,14 +26,13 @@ export default function CreateAnalysis() {
     setState('submiting')
     e.preventDefault();
     api
-      .createProject(project as Partial<Project>)
+      .createProject(project as Partial<IProject>)
       .then(() => { setMessage('Sucesso'); setState('success'); sleep(2000); setOpen(false) })
       .catch(e => { setMessage(e.message); setState('initial') });
   };
 
   function onInputChange<K extends keyof IProject>(key: K, value: IProject[K]) {
     const currentProject = { ...project }; currentProject[key] = value;
-    if (currentProject.squareValue === undefined) { currentProject['squareValue'] = 0 }
     setProject(currentProject);
   };
 

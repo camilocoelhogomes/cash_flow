@@ -5,7 +5,7 @@ import { Fields } from './components/FieldsFactory';
 import { sleep } from '../utils/Functions';
 import Button from './components/ButtonFactory/Button';
 import { useProjectStore } from './store/ProjectStore';
-import GetProject from './GetAnalysis/GetProject';
+import GetProject from './GetProject/GetProject';
 type Props = {};
 
 export default function PageTest({ }: Props) {

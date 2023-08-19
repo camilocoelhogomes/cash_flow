@@ -7,10 +7,10 @@ export default function CardComponent({ label, value }: Props) {
   return (
     <Card asChild style={{ maxWidth: 350 }} variant="ghost">
       <>
-        <Text as="div" size="2" weight="medium">
+        <Text as="div" color="gray" size="2" weight="medium">
           {label}
         </Text>
-        <Text as="div" color="gray" size="4">
+        <Text as="div" size="4" weight='medium'>
           {value}
         </Text>
       </>

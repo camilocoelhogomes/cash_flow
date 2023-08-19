@@ -1,29 +1,22 @@
 export interface IProject {
-  id: number;
   projectDs: string;
   projectNm: string;
   totalArea: number;
-  squareValue: number;
   decorationArea: number;
-  streetArea: number;
   protectedArea: number;
+  streetArea: number;
   totalSlots: number;
 }
 
 export interface IScenario {
-  id: number;
   scenarioDs: string;
   scenarioNm: string;
-  totalArea: number;
-  slotArea: number;
-  decorationArea: number;
-  protectedArea: number;
-  streetArea: number;
-  slots: number;
-  pricing?: Pricing;
+
+  pricing?: IPricing;
+  cashFlows?: ICashFlow[]
 }
 
-interface Pricing {
+export interface IPricing {
   squareAmount: number;
   fee: number;
   feeModel: string;
@@ -31,6 +24,17 @@ interface Pricing {
   startAmount: number;
   feeIndex: string;
 }
+export interface ICashFlow {
+  cash_flow_nm: string
+  cash_flow_ds: string
+  cash_flow_tp: string
+  cashMovements: ICashMovement[]
+}
+export interface ICashMovement {
+  date: Date
+  value: number
+}
+
 
 export interface PaginationSearch<T> {
   result: T[];
