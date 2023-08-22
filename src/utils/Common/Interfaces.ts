@@ -1,4 +1,9 @@
-export interface IProject {
+export type Saved<T> = T & {
+  id: number;
+};
+interface SavedData { id: number }
+
+export interface ICreateProject {
   projectDs: string;
   projectNm: string;
   totalArea: number;
@@ -8,33 +13,44 @@ export interface IProject {
   totalSlots: number;
 }
 
-export interface IScenario {
+export interface IListProject extends SavedData {
+  projectDs: string;
+  projectNm: string;
+}
+
+export interface IGetProjectById extends Saved<IListProject> {
+  scenarios: Saved<IScenario>[]
+}
+
+export interface IScenario extends SavedData {
   scenarioDs: string;
   scenarioNm: string;
-
+  totalArea: number;
+  decorationArea: number;
+  protectedArea: number;
+  streetArea: number;
+  totalSlots: number;
   pricing?: IPricing;
-  cashFlows?: ICashFlow[]
 }
 
 export interface IPricing {
   squareAmount: number;
   fee: number;
   feeModel: string;
-  installments: string;
+  installments: number;
   startAmount: number;
   feeIndex: string;
 }
-export interface ICashFlow {
-  cash_flow_nm: string
-  cash_flow_ds: string
-  cash_flow_tp: string
-  cashMovements: ICashMovement[]
-}
-export interface ICashMovement {
-  date: Date
-  value: number
-}
 
+interface SalesCurve {
+
+}
+interface LandCost {
+
+}
+interface WorkCost {
+
+}
 
 export interface PaginationSearch<T> {
   result: T[];
@@ -47,3 +63,4 @@ export interface QuerySearch<T> {
   pagination: number;
   limit: number;
 }
+

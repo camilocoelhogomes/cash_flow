@@ -4,18 +4,17 @@ import Button from '../../components/ButtonFactory/Button'
 import { Forms } from '../../components/FormFactory'
 import { Fields } from '../../components/FieldsFactory'
 import { CreateState } from '../../App/state'
-import { Scenario } from '../../../Model/Entitys/Scenario'
 import { sleep } from '../../../utils/Functions'
-import { IGetScenario } from '../../../utils/Common/tempInterfaces'
+import { IScenario } from '../../../utils/Common/Interfaces'
 
-type Props = { open: boolean, setOpen(value: boolean): void, scenario: IGetScenario }
+type Props = { open: boolean, setOpen(value: boolean): void, scenario: IScenario }
 
 export default function UpdateAreas({ open, setOpen, scenario }: Props) {
   const [currentScenario, setScenario] = React.useState(scenario)
 
   const [state, setState] = React.useState<CreateState>('initial')
 
-  function onInputChange<K extends keyof IGetScenario>(key: K, value: IGetScenario[K]) {
+  function onInputChange<K extends keyof IScenario>(key: K, value: IScenario[K]) {
     const current = { ...currentScenario }; current[key] = value;
     setScenario(current);
   };

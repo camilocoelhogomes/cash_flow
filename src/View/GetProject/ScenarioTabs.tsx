@@ -5,15 +5,15 @@ import { Fields } from '../components/FieldsFactory'
 import ContextCard from './ContextCard'
 import Button from '../components/ButtonFactory/Button'
 import { Layout } from '../components/Layout'
-import { IScenario } from '../../utils/Common/Interfaces'
+import { IScenario, Saved } from '../../utils/Common/Interfaces'
 import UpdateAreas from '../UpdateProject/UpdateScenario/UpdateAreas'
-import { IGetScenario } from '../../utils/Common/tempInterfaces'
 import UpdatePricing from '../UpdateProject/UpdateScenario/UpdatePricing'
 type Props = {
-  scenarios: IGetScenario[]
+  scenarios: Saved<IScenario>[]
+  projectid: number
 }
 
-export default function ScenarioTabs({ scenarios }: Props) {
+export default function ScenarioTabs({ scenarios, projectid }: Props) {
 
   const [updateAreas, setupdateAreas] = React.useState(false)
   const [updatePricing, setupdatePricing] = React.useState(false)
@@ -22,12 +22,9 @@ export default function ScenarioTabs({ scenarios }: Props) {
     <Tabs.Root defaultValue={scenarios[0].id.toString()}>
 
       <Tabs.List>
-        <Tabs.Trigger value={'resume'} key={'resume'}>Resumo</Tabs.Trigger>
         {scenarios.map(item => <Tabs.Trigger value={item.id.toString()} key={item.id}>{item.scenarioNm}</Tabs.Trigger>)}
       </Tabs.List>
 
-
-      <Tabs.Content value={'resume'} key={'resume'}></Tabs.Content>
       {scenarios.map(item =>
         <Tabs.Content value={item.id.toString()} key={item.id}>
           <Layout.ScrollArea type="always" scrollbars="vertical" size={'1'} style={{ height: '70vh', padding: '0% 2%' }}>
@@ -63,7 +60,7 @@ export default function ScenarioTabs({ scenarios }: Props) {
             </div>
           </Layout.ScrollArea>
           <UpdateAreas open={updateAreas} setOpen={setupdateAreas} scenario={item} />
-          <UpdatePricing open={updatePricing} setOpen={setupdatePricing} pricing={item.pricing} />
+          <UpdatePricing open={updatePricing} setOpen={setupdatePricing} scenario={item} projectid={projectid} />
         </Tabs.Content>
       )
       }
@@ -71,4 +68,4 @@ export default function ScenarioTabs({ scenarios }: Props) {
   )
 }
 
-const slotArea = ({ totalArea, protectedArea, streetArea, decorationArea, totalSlots }: IGetScenario) => ((totalArea - protectedArea - streetArea - decorationArea) / totalSlots).toFixed(2)
+const slotArea = ({ totalArea, protectedArea, streetArea, decorationArea, totalSlots }: IScenario) => ((totalArea - protectedArea - streetArea - decorationArea) / totalSlots).toFixed(2)

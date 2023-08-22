@@ -6,22 +6,33 @@ import { sleep } from '../utils/Functions';
 import Button from './components/ButtonFactory/Button';
 import { useProjectStore } from './store/ProjectStore';
 import GetProject from './GetProject/GetProject';
+import { IListProject } from '../utils/Common/Interfaces';
+import PageLoadingIndicator from './components/LoadingIndicator/PageLoadingIndicator';
 type Props = {};
 
 export default function PageTest({ }: Props) {
   const [state, setState] = React.useState<CreateState>('initial')
+  const [projects, setprojects] = React.useState<IListProject[]>();
+  const projectBase = useProjectStore().listProjects()
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setState('submiting'); await sleep(2000); setState('success')
   }
 
-  const { projects } = useProjectStore()
+  React.useEffect(() => { load() }, [])
 
+  async function load() {
+    await sleep(1000)
+    setprojects(projectBase)
+  }
 
   return <div className="flex flex-col flex-1 grid-cols-1 gap-4 py-4">
-    {(projects ?? []).map((item) => (
-      <GetProject key={item.id} project={item} />
-    ))}
+    {projects === undefined ?
+      <PageLoadingIndicator /> :
+      projects.map((item) => (
+        <GetProject key={item.id} project={item} />
+      ))
+    }
   </div>
 }

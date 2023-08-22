@@ -17,17 +17,21 @@ import Button from '../components/ButtonFactory/Button';
 import { Project } from '../../Model/Entitys/Project';
 import { Brackets } from 'lucide-react';
 import { Fields } from '../components/FieldsFactory';
+import { IListProject, Saved } from '../../utils/Common/Interfaces';
+import { useProjectStore } from '../store/ProjectStore';
 
 export default function Listprojects() {
+
   const [queryParams, setQueryParams] = useState({
     pagination: 0,
     limit: 15,
     query: {},
   });
-  const [projects, setprojects] = useState<Project[]>();
-  //const list = useQuery<PaginationSearch<IAnalisys>, Error>(['analizes', queryParams], () => api.listAnalisys(queryParams));
+  const [projects, setprojects] = useState<Saved<IListProject>[]>();
+
   useEffect(() => {
-    api.listProject(queryParams).then(e => setprojects(e.result));
+    //api.listProject(queryParams).then(e => setprojects(e.result));
+    setprojects(useProjectStore().listProjects())
   }, [queryParams]);
 
   if (projects) {

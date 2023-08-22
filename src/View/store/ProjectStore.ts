@@ -1,64 +1,52 @@
 import { faker } from '@faker-js/faker';
 import { create } from 'zustand';
 import { generateNumberId } from '../../utils/Functions';
-import { Project } from '../../Model/Entitys/Project';
-import { Scenario } from '../../Model/Entitys/Scenario';
-import { IPricing, IProject, IScenario } from '../../utils/Common/Interfaces';
-import { IGetPricing, IGetProject, IGetScenario } from '../../utils/Common/tempInterfaces';
+import { Project, Scenario } from '../../utils/Common/tempInterfaces';
+import { IGetProjectById, IListProject, IScenario } from '../../utils/Common/Interfaces';
+
 
 interface State {
-  projects: IGetProject[]
-  createProject(value: IGetProject): void
-  setPricing(projectId: number, scenarioId: number, value: IGetPricing): void
-  setAreas(projectId: number, scenarioId: number, value: IGetScenario): void
-  createScenario(projectId: number, value: IGetScenario): void
-  duplicateScenario(projectId: number, scenarioId: number): void
+  projectdb: Project[]
+  listProjects(): IListProject[]
+  getProjectById(id: number): IGetProjectById
+  updateScenario(projectId: number, scenarioId: number, value: Partial<IScenario>): void
 }
 
 export const useProjectStore = create<State>((set, get) => ({
-  projects: listproject(3),
-  createProject(value) {
-    set({ projects: [...get().projects, value] });
+  projectdb: listproject(3),
+  listProjects() {
+    return get().projectdb.map(item => {
+      return { projectDs: item.projectDs, projectNm: item.projectNm, id: item.id }
+    })
   },
-  createScenario(projectId, value) {
-    let currentProjects = get().projects
-    const index = currentProjects.findIndex(item => item.id === projectId)
-    let scenarios = currentProjects[index].scenarios
-    scenarios.push(value)
-    currentProjects[index].scenarios = scenarios
-    set({ projects: currentProjects });
+  getProjectById(id) {
+    return get().projectdb.filter(item => item.id === id)[0]
   },
-  setPricing(projectId, scenarioId, value) {
-
-  },
-  setAreas(projectId, scenarioId, value) {
-
-  },
-  duplicateScenario(projectId, scenarioId) {
+  updateScenario(projectId, scenarioId, value) {
 
   },
 }));
 
-function listproject(length: number): IGetProject[] {
-  const array: IGetProject[] = [];
+function listproject(length: number): Project[] {
+  const array: Project[] = [];
   for (let index = 0;index < length;index++) {
     array.push(getProject());
   }
   return array;
 }
 
-function getProject(): IGetProject {
+function getProject(): Project {
   const id = generateNumberId()
   return {
     id: id,
     projectNm: 'Project -' + faker.company.name(),
     projectDs: faker.lorem.lines(),
-    scenarios: listScenario(1, id),
+    scenarios: listScenario(0, id),
   };
 }
 
-function listScenario(length: number, id: number): IGetScenario[] {
-  const array: IGetScenario[] = [];
+function listScenario(length: number, id: number): IScenario[] {
+  const array: Scenario[] = [];
   array.push(getScenario(id, 'first'));
   for (let index = 0;index < length;index++) {
     array.push(getScenario(id, 'sub'));
@@ -66,7 +54,7 @@ function listScenario(length: number, id: number): IGetScenario[] {
   return array;
 }
 
-function getScenario(id: number, type: 'first' | 'sub'): IGetScenario {
+function getScenario(id: number, type: 'first' | 'sub'): IScenario {
   const totalArea = faker.number.int({ min: 20000, max: 50000 });
   const protectedArea = totalArea / 4;
   const streetArea = totalArea / 10;
@@ -78,7 +66,6 @@ function getScenario(id: number, type: 'first' | 'sub'): IGetScenario {
     totalArea: totalArea,
     decorationArea: decorationArea,
     streetArea: streetArea,
-    cashFlows: [],
     totalSlots: slots,
     scenarioDs: type === 'first' ? 'Cenário Inicial' : faker.lorem.words(),
     scenarioNm: type === 'first' ? 'Base' : faker.lorem.word(),
