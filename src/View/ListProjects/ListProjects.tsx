@@ -12,21 +12,26 @@ import {
 } from '@radix-ui/react-icons';
 import { generateNumberId } from '../../utils/Functions';
 import CreateAnalysis from '../CreateAnalysis/CreateProject';
-import GetProject from '../GetAnalysis/GetProject';
+import GetProject from '../GetProject/GetProject';
 import Button from '../components/ButtonFactory/Button';
 import { Project } from '../../Model/Entitys/Project';
 import { Brackets } from 'lucide-react';
+import { Fields } from '../components/FieldsFactory';
+import { IListProject, Saved } from '../../utils/Common/Interfaces';
+import { useProjectStore } from '../store/ProjectStore';
 
 export default function Listprojects() {
+
   const [queryParams, setQueryParams] = useState({
     pagination: 0,
     limit: 15,
     query: {},
   });
-  const [projects, setprojects] = useState<Project[]>();
-  //const list = useQuery<PaginationSearch<IAnalisys>, Error>(['analizes', queryParams], () => api.listAnalisys(queryParams));
+  const [projects, setprojects] = useState<Saved<IListProject>[]>();
+
   useEffect(() => {
-    api.listProject(queryParams).then(e => setprojects(e.result));
+    //api.listProject(queryParams).then(e => setprojects(e.result));
+    setprojects(useProjectStore().listProjects())
   }, [queryParams]);
 
   if (projects) {
@@ -35,7 +40,7 @@ export default function Listprojects() {
       <div className='flex flex-col space-y-2 justify-between h-full'>
 
         <div className="flex justify-between border-b border-slate-300 dark:border-slate-600 py-6 my-4">
-          <Heading>Análises</Heading>
+          <Fields.Heading>Análises</Fields.Heading>
           <CreateAnalysis />
         </div>
 

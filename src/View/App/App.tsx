@@ -1,4 +1,4 @@
-import { Button, Heading, Switch, Theme } from '@radix-ui/themes';
+import { Heading, Switch, Theme } from '@radix-ui/themes';
 import React, { PropsWithChildren, useState } from 'react';
 
 import { AiOutlineAreaChart } from 'react-icons/ai';
@@ -11,13 +11,16 @@ import {
   MoonStar,
   Sun,
   TestTube2,
+  SunMoon,
 } from 'lucide-react';
 import Home from './Home';
-import ListAnalysis from '../ListAnalysis/ListProjects';
+import ListAnalysis from '../ListProjects/ListProjects';
 import NavButton from '../components/ButtonFactory/NavButton';
 import { useThemeStore } from '../store/ThemeStore';
 import CreateAnalysis from '../CreateAnalysis/CreateProject';
 import PageTest from '../PageTest';
+import { ImagesFactory } from '../components/ImagesFactory';
+import Button from '../components/ButtonFactory/Button';
 
 type Props = {};
 
@@ -67,15 +70,9 @@ export default function App() {
         </aside>
 
         <section className="flex flex-col w-full h-full transition-colors duration-700 dark:bg-slate-700 dark:text-slate-200">
-          <header className="flex px-6 items-center justify-between h-16 border-b dark:border-slate-500 ">
-            <div>
-              <Switch
-                checked={theme === 'dark'}
-                radius="full"
-                onCheckedChange={value => setTheme(value ? 'dark' : 'light')}
-              />{' '}
-              Dark Mode
-            </div>
+          <header className="flex px-6 items-center justify-end h-16 border-b dark:border-slate-500 gap-2">
+            <Button color='ghost' onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{theme === 'dark' ? <SunMoon /> : <MoonStar />}</Button>
+            <ImagesFactory.Avatar fallback='L' src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop" />
           </header>
 
           <main className="flex-1 px-6 w-full">

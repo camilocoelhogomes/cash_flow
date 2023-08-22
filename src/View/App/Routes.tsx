@@ -1,6 +1,6 @@
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import ListAnalysis from '../ListAnalysis/ListProjects';
-import GetAnalysis from '../GetAnalysis/GetProject';
+import ListAnalysis from '../ListProjects/ListProjects';
+import GetAnalysis from '../GetProject/GetProject';
 import Main from './App';
 import Home from './Home';
 import CreateAnalysis from '../CreateAnalysis/CreateProject';

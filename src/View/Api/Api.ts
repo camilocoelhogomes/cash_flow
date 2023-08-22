@@ -1,17 +1,17 @@
-import {PaginationSearch} from '../../Model/Constants/PaginationSearch';
-import {Project} from '../../Model/Entitys/Project';
-import {Scenario} from '../../Model/Entitys/Scenario';
-import {IProject, QuerySearch} from '../../utils/Common/Interfaces';
+import { PaginationSearch } from '../../Model/Constants/PaginationSearch';
+import { Project } from '../../Model/Entitys/Project';
+import { Scenario } from '../../Model/Entitys/Scenario';
+import { QuerySearch, ICreateProject } from '../../utils/Common/Interfaces';
 
-type IApi = Window & {api: Record<string, Function>};
+type IApi = Window & { api: Record<string, Function> };
 
 export class Api {
-  constructor() {}
+  constructor() { }
 
   listProject(props: QuerySearch<Project>): Promise<PaginationSearch<Project>> {
     return (window as unknown as IApi).api.listProject(props);
   }
-  createProject(project: Partial<IProject>): Promise<IProject> {
+  createProject(project: Partial<ICreateProject>): Promise<Project> {
     return (window as unknown as IApi).api.createProject(project);
   }
 
