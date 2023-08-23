@@ -1,27 +1,43 @@
 import React from 'react';
-import { CreateState } from './App/state';
-import { Forms } from './components/FormFactory';
-import { Fields } from './components/InputFactory';
-import { sleep } from '../utils/Functions';
+import {CreateState} from './App/state';
+import {Forms} from './components/FormFactory';
+import {Fields} from './components/FieldsFactory';
+import {sleep} from '../utils/Functions';
 import Button from './components/ButtonFactory/Button';
-import { useProjectStore } from './store/AnalysisStore';
-import GetProject from './GetAnalysis/GetProject';
+import {useProjectStore} from './store/ProjectStore';
+import GetProject from './GetProject/GetProject';
+import {IListProject} from '../utils/Common/Interfaces';
+import PageLoadingIndicator from './components/LoadingIndicator/PageLoadingIndicator';
 type Props = {};
 
-export default function PageTest({ }: Props) {
-  const [state, setState] = React.useState<CreateState>('initial')
+export default function PageTest({}: Props) {
+  const [state, setState] = React.useState<CreateState>('initial');
+  const [projects, setprojects] = React.useState<IListProject[]>();
+  const projectBase = useProjectStore().listProjects();
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setState('submiting'); await sleep(2000); setState('success')
+    setState('submiting');
+    await sleep(2000);
+    setState('success');
   }
 
-  const { projects } = useProjectStore()
+  React.useEffect(() => {
+    load();
+  }, []);
 
+  async function load() {
+    await sleep(1000);
+    setprojects(projectBase);
+  }
 
-  return <div className="flex flex-col flex-1 grid-cols-1 gap-4">
-    {(projects ?? []).map((item) => (
-      <GetProject key={item.id} project={item} />
-    ))}
-  </div>
+  return (
+    <div className="flex flex-col flex-1 grid-cols-1 gap-4 py-4">
+      {projects === undefined ? (
+        <PageLoadingIndicator />
+      ) : (
+        projects.map(item => <GetProject key={item.id} project={item} />)
+      )}
+    </div>
+  );
 }

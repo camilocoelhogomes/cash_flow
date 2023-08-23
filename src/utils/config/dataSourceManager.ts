@@ -50,7 +50,6 @@ class DataSourceManager {
         total_slots INTEGER NOT NULL,
         street_area NUMERIC NOT NULL,
         decoration_area NUMERIC NOT NULL,
-        square_value NUMERIC NOT NULL,
         protected_area NUMERIC NOT NULL,
         total_area NUMERIC NOT NULL,
         FOREIGN KEY (project_id) REFERENCES project (id)

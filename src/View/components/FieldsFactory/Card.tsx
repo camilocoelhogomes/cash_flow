@@ -6,14 +6,14 @@ type Props = {label: string; value: string};
 export default function CardComponent({label, value}: Props) {
   return (
     <Card asChild style={{maxWidth: 350}} variant="ghost">
-      <a href="#">
-        <Text as="div" size="2" weight="bold">
+      <>
+        <Text as="div" color="gray" size="2" weight="medium">
           {label}
         </Text>
-        <Text as="div" color="gray" size="2">
+        <Text as="div" size="4" weight="medium">
           {value}
         </Text>
-      </a>
+      </>
     </Card>
   );
 }

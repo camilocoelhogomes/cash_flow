@@ -1,34 +1,45 @@
-import {Scenario} from '../../Model/Entitys/Scenario';
+export type Saved<T> = T & {
+  id: number;
+};
+interface SavedData {
+  id: number;
+}
 
-export interface IProject {
+export interface ICreateProject {
   projectDs: string;
   projectNm: string;
   totalArea: number;
-  squareValue: number;
   decorationArea: number;
-  streetArea: number;
   protectedArea: number;
+  streetArea: number;
   totalSlots: number;
 }
 
-export interface IScenario {
-  id: number;
+export interface IListProject extends SavedData {
+  projectDs: string;
+  projectNm: string;
+}
+
+export interface IGetProjectById extends Saved<IListProject> {
+  scenarios: Saved<IScenario>[];
+}
+
+export interface IScenario extends SavedData {
   scenarioDs: string;
   scenarioNm: string;
   totalArea: number;
-  slotArea: number;
   decorationArea: number;
   protectedArea: number;
   streetArea: number;
-  slots: number;
-  pricing?: Pricing;
+  totalSlots: number;
+  pricing?: IPricing;
 }
 
-interface Pricing {
+export interface IPricing {
   squareAmount: number;
   fee: number;
   feeModel: string;
-  installments: string;
+  installments: number;
   startAmount: number;
   feeIndex: string;
 }
@@ -44,12 +55,3 @@ export interface QuerySearch<T> {
   pagination: number;
   limit: number;
 }
-
-export interface ListScenariosInput {
-  projectId: number;
-  query: QuerySearch<Scenario>;
-}
-
-export type Saved<T> = T & {
-  id: number;
-};

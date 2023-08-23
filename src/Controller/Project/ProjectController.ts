@@ -9,7 +9,7 @@ import {
   scenarioRepository,
 } from '../../Model/Repositories/ScenarioRepository';
 import {
-  IProject,
+  ICreateProject,
   PaginationSearch,
   QuerySearch,
   Saved,
@@ -21,13 +21,14 @@ export class ProjectController {
     private readonly scenarioRepo: ScenarioRepository = scenarioRepository
   ) {}
 
-  async create(project: Partial<IProject>): Promise<Saved<IProject>> {
+  async create(
+    project: Partial<ICreateProject>
+  ): Promise<Saved<ICreateProject>> {
     const newProject = await this.projectRepo.create(project);
     const newScenario = await this.scenarioRepo.createScneario({
       scenarioDs: newProject.projectDs,
       scenarioNm: newProject.projectNm,
       decorationArea: project.decorationArea,
-      squareValue: project.squareValue,
       protectedArea: project.protectedArea,
       streetArea: project.streetArea,
       totalArea: project.totalArea,
@@ -41,7 +42,6 @@ export class ProjectController {
       projectNm: 'BASE',
       protectedArea: newScenario.protectedArea,
       totalSlots: newScenario.totalSlots,
-      squareValue: newScenario.squareValue,
       streetArea: newScenario.streetArea,
       totalArea: newScenario.totalArea,
     };

@@ -1,10 +1,9 @@
 import {Project} from '../../Model/Entitys/Project';
 import {Scenario} from '../../Model/Entitys/Scenario';
 import {
-  IProject,
-  ListScenariosInput,
-  PaginationSearch,
   QuerySearch,
+  ICreateProject,
+  PaginationSearch,
 } from '../../utils/Common/Interfaces';
 
 type IApi = Window & {api: Record<string, Function>};
@@ -15,7 +14,7 @@ export class Api {
   listProject(props: QuerySearch<Project>): Promise<PaginationSearch<Project>> {
     return (window as unknown as IApi).api.listProject(props);
   }
-  createProject(project: Partial<IProject>): Promise<IProject> {
+  createProject(project: Partial<ICreateProject>): Promise<Project> {
     return (window as unknown as IApi).api.createProject(project);
   }
 
@@ -25,12 +24,6 @@ export class Api {
 
   createScenario(scenario: Partial<Scenario>): Promise<Scenario> {
     return (window as unknown as IApi).api.createScenario(scenario);
-  }
-
-  listScenarios(
-    input: ListScenariosInput
-  ): Promise<PaginationSearch<Scenario>> {
-    return (window as unknown as IApi).api.listScenarios(input);
   }
 }
 
