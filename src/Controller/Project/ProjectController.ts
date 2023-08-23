@@ -12,6 +12,7 @@ import {
   IProject,
   PaginationSearch,
   QuerySearch,
+  Saved,
 } from '../../utils/Common/Interfaces';
 
 export class ProjectController {
@@ -20,7 +21,7 @@ export class ProjectController {
     private readonly scenarioRepo: ScenarioRepository = scenarioRepository
   ) {}
 
-  async create(project: Partial<IProject>): Promise<IProject> {
+  async create(project: Partial<IProject>): Promise<Saved<IProject>> {
     const newProject = await this.projectRepo.create(project);
     const newScenario = await this.scenarioRepo.createScneario({
       scenarioDs: newProject.projectDs,
@@ -36,8 +37,8 @@ export class ProjectController {
     return {
       decorationArea: newScenario.decorationArea,
       id: newProject.id,
-      projectDs: newProject.projectDs,
-      projectNm: newProject.projectNm,
+      projectDs: 'BASE',
+      projectNm: 'BASE',
       protectedArea: newScenario.protectedArea,
       totalSlots: newScenario.totalSlots,
       squareValue: newScenario.squareValue,
@@ -46,7 +47,9 @@ export class ProjectController {
     };
   }
 
-  async list(query: QuerySearch<Project>): Promise<PaginationSearch<Project>> {
+  async list(
+    query: QuerySearch<Project>
+  ): Promise<PaginationSearch<Saved<Project>>> {
     return this.projectRepo.list(query.query, query.pagination, query.limit);
   }
 

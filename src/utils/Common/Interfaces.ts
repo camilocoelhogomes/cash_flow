@@ -1,7 +1,6 @@
 import {Scenario} from '../../Model/Entitys/Scenario';
 
 export interface IProject {
-  id: number;
   projectDs: string;
   projectNm: string;
   totalArea: number;
@@ -50,3 +49,7 @@ export interface ListScenariosInput {
   projectId: number;
   query: QuerySearch<Scenario>;
 }
+
+export type Saved<T> = T & {
+  id: number;
+};
