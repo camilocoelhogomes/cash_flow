@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { create } from 'zustand';
 import { generateNumberId } from '../../utils/Functions';
-import { Project, Scenario } from '../../utils/Common/tempInterfaces';
+import { Project, Scenario } from './tempInterfaces';
 import { IGetProjectById, IListProject, IScenario } from '../../utils/Common/Interfaces';
 
 
