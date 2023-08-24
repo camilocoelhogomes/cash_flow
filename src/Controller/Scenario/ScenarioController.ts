@@ -1,5 +1,6 @@
 import {scenarioRepository} from '../../Model/Repositories/ScenarioRepository';
-import {IScenario, Saved} from '../../utils/Common/Interfaces';
+import {Saved} from '../../utils/Common/Interfaces';
+import {IScenario} from '../../utils/Common/Interfaces/IScenario';
 
 export class ScenarioController {
   constructor(private readonly scenarioRepo = scenarioRepository) {}
