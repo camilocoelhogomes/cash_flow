@@ -13,7 +13,11 @@ import {
   QuerySearch,
   Saved,
 } from '../../utils/Common/Interfaces';
-import {ICreateProject, IProject} from '../../utils/Common/Interfaces/IProject';
+import {
+  ICreateProject,
+  IGetProjectById,
+  IProject,
+} from '../../utils/Common/Interfaces/IProject';
 import {
   AreaRepository,
   areaRepository,
@@ -49,12 +53,12 @@ export class ProjectController {
   }
 
   async list(
-    query: QuerySearch<Project>
-  ): Promise<PaginationSearch<Saved<Project>>> {
+    query: QuerySearch<IProject>
+  ): Promise<PaginationSearch<IProject>> {
     return this.projectRepo.list(query.query, query.pagination, query.limit);
   }
 
-  async get(id: number): Promise<Project> {
+  async get(id: number): Promise<IGetProjectById> {
     const result = await this.projectRepo.get(id);
     if (!result) {
       throw new NotFoundError('Projeto não encontrado');

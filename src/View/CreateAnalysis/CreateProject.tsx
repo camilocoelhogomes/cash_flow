@@ -6,16 +6,13 @@ import {Forms} from '../components/FormFactory';
 import Button from '../components/ButtonFactory/Button';
 import {Fields} from '../components/FieldsFactory';
 import {api} from '../Api/Api';
-import {Project} from '../../Model/Entitys/Project';
-import {CreateState} from '../App/state';
-import {setPropertyValue, sleep} from '../../utils/Functions';
-import {IProject} from '../../utils/Common/Interfaces';
+import {sleep} from '../../utils/Functions';
 import {useNotification} from '../components/Notification/Notification';
-
-type Props = {};
+import {ICreateProject} from '../../utils/Common/Interfaces/IProject';
+import {CreateState} from '../App/state';
 
 export default function CreateAnalysis() {
-  const [project, setProject] = useState<IProject>();
+  const [project, setProject] = useState<ICreateProject>();
   const [state, setState] = useState<CreateState>('initial');
   const [open, setOpen] = useState(false);
   const {setMessage, Notification} = useNotification();
@@ -24,7 +21,7 @@ export default function CreateAnalysis() {
     setState('submiting');
     e.preventDefault();
     api
-      .createProject(project as Partial<IProject>)
+      .createProject(project)
       .then(() => {
         setMessage('Sucesso');
         setState('success');
@@ -37,7 +34,10 @@ export default function CreateAnalysis() {
       });
   };
 
-  function onInputChange<K extends keyof IProject>(key: K, value: IProject[K]) {
+  function onInputChange<K extends keyof ICreateProject>(
+    key: K,
+    value: ICreateProject[K]
+  ) {
     const currentProject = {...project};
     currentProject[key] = value;
     setProject(currentProject);
