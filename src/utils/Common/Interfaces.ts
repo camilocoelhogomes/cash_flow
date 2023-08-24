@@ -24,7 +24,7 @@ export interface IGetProjectById extends Saved<IListProject> {
   scenarios: Saved<IScenario>[];
 }
 
-export interface IScenario extends SavedData {
+export interface IScenario {
   scenarioDs: string;
   scenarioNm: string;
   totalArea: number;

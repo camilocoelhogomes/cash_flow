@@ -47,12 +47,20 @@ class DataSourceManager {
         scenario_ds TEXT NOT NULL,
         scenario_nm TEXT NOT NULL,
         project_id INTEGER,
+        FOREIGN KEY (project_id) REFERENCES project (id)
+    );
+    
+    `);
+
+    await queryRunner.query(`
+    CREATE TABLE IF NOT EXISTS areas (
+      scenario_id INTEGER PRIMARY KEY UNIQUE,
         total_slots INTEGER NOT NULL,
         street_area NUMERIC NOT NULL,
         decoration_area NUMERIC NOT NULL,
         protected_area NUMERIC NOT NULL,
         total_area NUMERIC NOT NULL,
-        FOREIGN KEY (project_id) REFERENCES project (id)
+        FOREIGN KEY (scenario_id) REFERENCES scenario (id)
     );
     
     `);
@@ -80,18 +88,9 @@ class DataSourceManager {
         cash_flow_tp TEXT NOT NULL,
         cash_flow_ds TEXT NOT NULL,
         cash_flow_nm TEXT NOT NULL,
+        cash_flow_metadata TEXT NOT NULL,
         FOREIGN KEY (scenario_id) REFERENCES scenario (id)
     );    
-    `);
-    await queryRunner.query(`
-    CREATE TABLE IF NOT EXISTS cash_movement (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        date DATETIME NOT NULL,
-        value NUMERIC NOT NULL,
-        cash_flow_id INTEGER,
-        FOREIGN KEY (cash_flow_id) REFERENCES cash_flow (id)
-    );
-    
     `);
   }
 

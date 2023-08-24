@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react';
 import {Heading} from '@radix-ui/themes';
 import {useQuery} from '@tanstack/react-query';
 import LoadState from '../components/LoadingIndicator/LoadState';
-import {PaginationSearch} from '../../Model/Constants/PaginationSearch';
 import {api} from '../Api/Api';
 
 import {
@@ -29,8 +28,8 @@ export default function Listprojects() {
   const [projects, setprojects] = useState<Saved<IListProject>[]>();
 
   useEffect(() => {
-    //api.listProject(queryParams).then(e => setprojects(e.result));
-    setprojects(useProjectStore().listProjects());
+    api.listProject(queryParams).then(e => setprojects(e.result));
+    //setprojects(useProjectStore().listProjects());
   }, [queryParams]);
 
   if (projects) {
