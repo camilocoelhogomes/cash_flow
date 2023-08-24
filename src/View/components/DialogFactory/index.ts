@@ -1,4 +1,4 @@
-import { Dialog } from '@radix-ui/themes';
+import {Dialog} from '@radix-ui/themes';
 
 export const DialogFactory = {
   Root: Dialog.Root,
@@ -6,4 +6,4 @@ export const DialogFactory = {
   Title: Dialog.Title,
   Description: Dialog.Description,
   Content: Dialog.Content,
-}
+};

@@ -1,42 +1,52 @@
-import React, { FormEventHandler, useState } from 'react';
-import { Dialog } from '@radix-ui/themes';
+import React, {FormEventHandler, useState} from 'react';
+import {Dialog} from '@radix-ui/themes';
 
-import { PlusIcon } from '@radix-ui/react-icons';
-import { Forms } from '../components/FormFactory';
+import {PlusIcon} from '@radix-ui/react-icons';
+import {Forms} from '../components/FormFactory';
 import Button from '../components/ButtonFactory/Button';
-import { Fields } from '../components/FieldsFactory';
-import { api } from '../Api/Api';
-import { Project } from '../../Model/Entitys/Project';
-import { CreateState } from '../App/state';
-import { setPropertyValue, sleep } from '../../utils/Functions';
-import { IProject } from '../../utils/Common/Interfaces';
-import { useNotification } from '../components/Notification/Notification';
-
-type Props = {};
-
+import {Fields} from '../components/FieldsFactory';
+import {api} from '../Api/Api';
+import {sleep} from '../../utils/Functions';
+import {useNotification} from '../components/Notification/Notification';
+import {ICreateProject} from '../../utils/Common/Interfaces/IProject';
+import {CreateState} from '../App/state';
 
 export default function CreateAnalysis() {
-
-  const [project, setProject] = useState<IProject>();
-  const [state, setState] = useState<CreateState>('initial')
-  const [open, setOpen] = useState(false)
-  const { setMessage, Notification } = useNotification()
+  const [project, setProject] = useState<ICreateProject>();
+  const [state, setState] = useState<CreateState>('initial');
+  const [open, setOpen] = useState(false);
+  const {setMessage, Notification} = useNotification();
 
   const onSubmit: FormEventHandler = e => {
-    setState('submiting')
+    setState('submiting');
     e.preventDefault();
     api
-      .createProject(project as Partial<IProject>)
-      .then(() => { setMessage('Sucesso'); setState('success'); sleep(2000); setOpen(false) })
-      .catch(e => { setMessage(e.message); setState('initial') });
+      .createProject(project)
+      .then(() => {
+        setMessage('Sucesso');
+        setState('success');
+        sleep(2000);
+        setOpen(false);
+      })
+      .catch(e => {
+        setMessage(e.message);
+        setState('initial');
+      });
   };
 
-  function onInputChange<K extends keyof IProject>(key: K, value: IProject[K]) {
-    const currentProject = { ...project }; currentProject[key] = value;
+  function onInputChange<K extends keyof ICreateProject>(
+    key: K,
+    value: ICreateProject[K]
+  ) {
+    const currentProject = {...project};
+    currentProject[key] = value;
     setProject(currentProject);
-  };
+  }
 
-  function cancel() { setOpen(false); setProject(undefined) }
+  function cancel() {
+    setOpen(false);
+    setProject(undefined);
+  }
 
   return (
     <Dialog.Root open={open}>
@@ -81,7 +91,9 @@ export default function CreateAnalysis() {
               <Fields.Input
                 required
                 type="number"
-                onChange={e => onInputChange('totalArea', Number(e.target.value))}
+                onChange={e =>
+                  onInputChange('totalArea', Number(e.target.value))
+                }
               />
             </Forms.Control>
           </Forms.Field>
@@ -91,8 +103,11 @@ export default function CreateAnalysis() {
             <Forms.Message match={'valueMissing'}></Forms.Message>
             <Forms.Control asChild>
               <Fields.Input
-                required type="number"
-                onChange={e => onInputChange('decorationArea', Number(e.target.value))}
+                required
+                type="number"
+                onChange={e =>
+                  onInputChange('decorationArea', Number(e.target.value))
+                }
               />
             </Forms.Control>
           </Forms.Field>
@@ -101,8 +116,11 @@ export default function CreateAnalysis() {
             <Forms.Message match={'valueMissing'}></Forms.Message>
             <Forms.Control asChild>
               <Fields.Input
-                required type="number"
-                onChange={e => onInputChange('protectedArea', Number(e.target.value))}
+                required
+                type="number"
+                onChange={e =>
+                  onInputChange('protectedArea', Number(e.target.value))
+                }
               />
             </Forms.Control>
           </Forms.Field>
@@ -113,7 +131,9 @@ export default function CreateAnalysis() {
               <Fields.Input
                 required
                 type="number"
-                onChange={e => onInputChange('streetArea', Number(e.target.value))}
+                onChange={e =>
+                  onInputChange('streetArea', Number(e.target.value))
+                }
               />
             </Forms.Control>
           </Forms.Field>
@@ -122,16 +142,22 @@ export default function CreateAnalysis() {
             <Forms.Message match={'valueMissing'}></Forms.Message>
             <Forms.Control asChild>
               <Fields.Input
-                required type="number"
-                onChange={e => onInputChange('totalSlots', Number(e.target.value))}
+                required
+                type="number"
+                onChange={e =>
+                  onInputChange('totalSlots', Number(e.target.value))
+                }
               />
             </Forms.Control>
           </Forms.Field>
-          <div className='flex space-x-2'>
-            {state === 'initial' && <Button color='soft' onClick={cancel}>Cancel</Button>}
+          <div className="flex space-x-2">
+            {state === 'initial' && (
+              <Button color="soft" onClick={cancel}>
+                Cancel
+              </Button>
+            )}
             <Forms.Submit state={state} />
           </div>
-
         </Forms.Root>
         {Notification}
       </Dialog.Content>

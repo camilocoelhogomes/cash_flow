@@ -1,4 +1,3 @@
-import {PaginationSearch} from '../../Model/Constants/PaginationSearch';
 import {Project} from '../../Model/Entitys/Project';
 import {NotFoundError} from '../../Model/Errors/Errors';
 import {
@@ -9,45 +8,57 @@ import {
   ScenarioRepository,
   scenarioRepository,
 } from '../../Model/Repositories/ScenarioRepository';
-import {IProject, QuerySearch} from '../../utils/Common/Interfaces';
+import {
+  PaginationSearch,
+  QuerySearch,
+  Saved,
+} from '../../utils/Common/Interfaces';
+import {
+  ICreateProject,
+  IGetProjectById,
+  IProject,
+} from '../../utils/Common/Interfaces/IProject';
+import {
+  AreaRepository,
+  areaRepository,
+} from '../../Model/Repositories/AreaRepository';
 
 export class ProjectController {
   constructor(
     private readonly projectRepo: ProjectRepository = projectRepository,
-    private readonly scenarioRepo: ScenarioRepository = scenarioRepository
+    private readonly scenarioRepo: ScenarioRepository = scenarioRepository,
+    private readonly areaRepo: AreaRepository = areaRepository
   ) {}
 
-  async create(project: Partial<IProject>): Promise<IProject> {
+  async create(project: ICreateProject): Promise<Saved<IProject>> {
     const newProject = await this.projectRepo.create(project);
     const newScenario = await this.scenarioRepo.createScneario({
-      scenarioDs: newProject.projectDs,
-      scenarioNm: newProject.projectNm,
+      scenarioDs: 'BASE',
+      scenarioNm: 'BASE',
+      projectId: newProject.id,
+    });
+    await this.areaRepo.createArea({
       decorationArea: project.decorationArea,
-      squareValue: project.squareValue,
       protectedArea: project.protectedArea,
       streetArea: project.streetArea,
       totalArea: project.totalArea,
       totalSlots: project.totalSlots,
-      project: newProject,
+      scenarioId: newScenario.id,
     });
     return {
-      decorationArea: newScenario.decorationArea,
       id: newProject.id,
-      projectDs: newProject.projectDs,
-      projectNm: newProject.projectNm,
-      protectedArea: newScenario.protectedArea,
-      totalSlots: newScenario.totalSlots,
-      squareValue: newScenario.squareValue,
-      streetArea: newScenario.streetArea,
-      totalArea: newScenario.totalArea,
+      projectDs: 'BASE',
+      projectNm: 'BASE',
     };
   }
 
-  async list(query: QuerySearch<Project>): Promise<PaginationSearch<Project>> {
+  async list(
+    query: QuerySearch<IProject>
+  ): Promise<PaginationSearch<IProject>> {
     return this.projectRepo.list(query.query, query.pagination, query.limit);
   }
 
-  async get(id: number): Promise<Project> {
+  async get(id: number): Promise<IGetProjectById> {
     const result = await this.projectRepo.get(id);
     if (!result) {
       throw new NotFoundError('Projeto não encontrado');

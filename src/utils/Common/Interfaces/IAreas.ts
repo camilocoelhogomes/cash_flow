@@ -1,5 +1,5 @@
 export interface IAreas {
-  scenarioId: number
+  scenarioId: number;
   totalArea: number;
   decorationArea: number;
   protectedArea: number;

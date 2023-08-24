@@ -1,31 +1,38 @@
-import React from "react";
-import { DialogFactory } from "../components/DialogFactory";
-import Button from "../components/ButtonFactory/Button";
-import ScenarioTabs from "./ScenarioTabs";
-import { Saved, IListProject, IGetProjectById } from "../../utils/Common/Interfaces";
-import PageLoadingIndicator from "../components/LoadingIndicator/PageLoadingIndicator";
-import { CrossIcon, X } from "lucide-react";
-import { useProjectStore } from "../store/ProjectStore";
-import { sleep } from "../../utils/Functions";
-
+import React from 'react';
+import {DialogFactory} from '../components/DialogFactory';
+import Button from '../components/ButtonFactory/Button';
+import ScenarioTabs from './ScenarioTabs';
+import {
+  Saved,
+  IListProject,
+  IGetProjectById,
+} from '../../utils/Common/Interfaces';
+import PageLoadingIndicator from '../components/LoadingIndicator/PageLoadingIndicator';
+import {CrossIcon, X} from 'lucide-react';
+import {useProjectStore} from '../store/ProjectStore';
+import {sleep} from '../../utils/Functions';
 
 type Props = {
-  project: Saved<IListProject>
+  project: Saved<IListProject>;
 };
 
-export default function GetProject({ project }: Props) {
+export default function GetProject({project}: Props) {
   const [open, setOpen] = React.useState(false);
-  const [completeProject, setcompleteProject] = React.useState<IGetProjectById>();
-  const projectStore = useProjectStore()
+  const [completeProject, setcompleteProject] =
+    React.useState<IGetProjectById>();
+  const projectStore = useProjectStore();
 
   async function openDialog() {
-    setOpen(true)
-    const value = projectStore.getProjectById(project.id)
-    await sleep(1000)
-    setcompleteProject(value)
+    setOpen(true);
+    const value = projectStore.getProjectById(project.id);
+    await sleep(1000);
+    setcompleteProject(value);
   }
 
-  function closeDialog() { setOpen(false); setcompleteProject(undefined) }
+  function closeDialog() {
+    setOpen(false);
+    setcompleteProject(undefined);
+  }
 
   return (
     <DialogFactory.Root open={open}>
@@ -40,26 +47,34 @@ export default function GetProject({ project }: Props) {
         </button>
       </DialogFactory.Trigger>
 
-      <DialogFactory.Content style={{ minWidth: '90%', minHeight: '90%' }}>
-
-        <div className='h-[10vh]'>
-          <DialogFactory.Title className='flex justify-between'>
-            {project.projectNm} <Button onClick={closeDialog} color="ghost"><X /></Button>
+      <DialogFactory.Content style={{minWidth: '90%', minHeight: '90%'}}>
+        <div className="h-[10vh]">
+          <DialogFactory.Title className="flex justify-between">
+            {project.projectNm}{' '}
+            <Button onClick={closeDialog} color="ghost">
+              <X />
+            </Button>
           </DialogFactory.Title>
-          <DialogFactory.Description size="2" mb="4" className='flex justify-between'>
+          <DialogFactory.Description
+            size="2"
+            mb="4"
+            className="flex justify-between"
+          >
             {project.projectDs} <Button>Novo Cenário</Button>
           </DialogFactory.Description>
         </div>
 
-        <div className='h-[75vh] items-center'>
-          {completeProject === undefined ?
+        <div className="h-[75vh] items-center">
+          {completeProject === undefined ? (
             <PageLoadingIndicator />
-            : <ScenarioTabs scenarios={completeProject.scenarios} projectid={project.id} />
-          }
+          ) : (
+            <ScenarioTabs
+              scenarios={completeProject.scenarios}
+              projectid={project.id}
+            />
+          )}
         </div>
-
       </DialogFactory.Content>
     </DialogFactory.Root>
   );
 }
-

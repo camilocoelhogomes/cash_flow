@@ -1,10 +1,11 @@
-import {Scenario} from '../../Model/Entitys/Scenario';
 import {scenarioRepository} from '../../Model/Repositories/ScenarioRepository';
+import {Saved} from '../../utils/Common/Interfaces';
+import {IScenario} from '../../utils/Common/Interfaces/IScenario';
 
 export class ScenarioController {
   constructor(private readonly scenarioRepo = scenarioRepository) {}
 
-  async createScenario(scenario: Partial<Scenario>): Promise<Scenario> {
+  async createScenario(scenario: IScenario): Promise<Saved<IScenario>> {
     const result = await this.scenarioRepo.createScneario(scenario);
     return result;
   }

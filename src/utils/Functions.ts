@@ -18,7 +18,12 @@ export function generateNumberId() {
   return parseInt((Math.random() * 10000).toFixed(0));
 }
 
-export function setPropertyValue<T, K extends keyof T>(obj: T, key: K, value: T[K]): T {
-  let newObject = { ...obj }; newObject[key] = value; return newObject
+export function setPropertyValue<T, K extends keyof T>(
+  obj: T,
+  key: K,
+  value: T[K]
+): T {
+  const newObject = {...obj};
+  newObject[key] = value;
+  return newObject;
 }
-
