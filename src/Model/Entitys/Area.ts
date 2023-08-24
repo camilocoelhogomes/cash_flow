@@ -3,7 +3,7 @@ import {IAreas} from '../../utils/Common/Interfaces/IAreas';
 import {Scenario} from './Scenario';
 
 @Entity({name: 'areas'})
-export class Areas implements IAreas {
+export class Area implements IAreas {
   @PrimaryColumn({name: 'scenario_id'})
   scenarioId: number;
 

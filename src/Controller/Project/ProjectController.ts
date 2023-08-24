@@ -9,41 +9,42 @@ import {
   scenarioRepository,
 } from '../../Model/Repositories/ScenarioRepository';
 import {
-  ICreateProject,
   PaginationSearch,
   QuerySearch,
   Saved,
 } from '../../utils/Common/Interfaces';
+import {ICreateProject, IProject} from '../../utils/Common/Interfaces/IProject';
+import {
+  AreaRepository,
+  areaRepository,
+} from '../../Model/Repositories/AreaRepository';
 
 export class ProjectController {
   constructor(
     private readonly projectRepo: ProjectRepository = projectRepository,
-    private readonly scenarioRepo: ScenarioRepository = scenarioRepository
+    private readonly scenarioRepo: ScenarioRepository = scenarioRepository,
+    private readonly areaRepo: AreaRepository = areaRepository
   ) {}
 
-  async create(
-    project: Partial<ICreateProject>
-  ): Promise<Saved<ICreateProject>> {
+  async create(project: ICreateProject): Promise<Saved<IProject>> {
     const newProject = await this.projectRepo.create(project);
     const newScenario = await this.scenarioRepo.createScneario({
-      scenarioDs: newProject.projectDs,
-      scenarioNm: newProject.projectNm,
+      scenarioDs: 'BASE',
+      scenarioNm: 'BASE',
+      projectId: newProject.id,
+    });
+    await this.areaRepo.createArea({
       decorationArea: project.decorationArea,
       protectedArea: project.protectedArea,
       streetArea: project.streetArea,
       totalArea: project.totalArea,
       totalSlots: project.totalSlots,
-      project: newProject,
+      scenarioId: newScenario.id,
     });
     return {
-      decorationArea: newScenario.decorationArea,
       id: newProject.id,
       projectDs: 'BASE',
       projectNm: 'BASE',
-      protectedArea: newScenario.protectedArea,
-      totalSlots: newScenario.totalSlots,
-      streetArea: newScenario.streetArea,
-      totalArea: newScenario.totalArea,
     };
   }
 

@@ -5,6 +5,8 @@ import {CashFlow} from '../../Model/Entitys/CashFlow';
 import {CashMovement} from '../../Model/Entitys/CashMovement';
 import {Scenario} from '../../Model/Entitys/Scenario';
 import {Project} from '../../Model/Entitys/Project';
+import {Pricing} from '../../Model/Entitys/Pricing';
+import {Area} from '../../Model/Entitys/Area';
 
 class DataSourceManager {
   private dataSource: DataSource;
@@ -15,7 +17,7 @@ class DataSourceManager {
     this.dbExists = existsSync(dbPath);
     this.dataSource = new DataSource({
       type: 'sqlite',
-      entities: [Project, CashFlow, CashMovement, Scenario],
+      entities: [Project, CashFlow, CashMovement, Scenario, Pricing, Area],
       database: dbPath,
     });
   }
@@ -68,8 +70,6 @@ class DataSourceManager {
     await queryRunner.query(`
     CREATE TABLE IF NOT EXISTS pricing (
         scenario_id INTEGER PRIMARY KEY UNIQUE,
-        pricing_ds TEXT NOT NULL,
-        pricing_nm TEXT NOT NULL,
         fee NUMUERIC NOT NULL,
         fee_model NUMERIC NOT NULL,
         installments INTEGER NOT NULL,

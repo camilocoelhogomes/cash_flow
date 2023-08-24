@@ -1,7 +1,12 @@
 import {DataSource} from 'typeorm';
 import {dataSourceManager} from '../../utils/config/dataSourceManager';
 import {Scenario} from '../Entitys/Scenario';
-import {PaginationSearch, QuerySearch} from '../../utils/Common/Interfaces';
+import {
+  PaginationSearch,
+  QuerySearch,
+  Saved,
+} from '../../utils/Common/Interfaces';
+import {IScenario} from '../../utils/Common/Interfaces/IScenario';
 
 export class ScenarioRepository {
   private readonly repository;
@@ -10,17 +15,11 @@ export class ScenarioRepository {
     this.repository = dataSource.getRepository(Scenario);
   }
 
-  async createScneario(scenario: Partial<Scenario>): Promise<Scenario> {
+  async createScneario(scenario: IScenario): Promise<Saved<IScenario>> {
     const newScenario = this.repository.create();
-    newScenario.decorationArea = scenario.decorationArea;
-    newScenario.protectedArea = scenario.protectedArea;
     newScenario.scenarioDs = scenario.scenarioDs;
     newScenario.scenarioNm = scenario.scenarioNm;
-    newScenario.totalSlots = scenario.totalSlots;
-    newScenario.squareValue = scenario.squareValue;
-    newScenario.streetArea = scenario.streetArea;
-    newScenario.totalArea = scenario.totalArea;
-    newScenario.project = scenario.project;
+    newScenario.projectId = scenario.projectId;
     const result = await this.repository.save(newScenario);
     return result;
   }
