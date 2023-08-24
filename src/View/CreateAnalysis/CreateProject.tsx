@@ -9,15 +9,15 @@ import { api } from '../Api/Api';
 import { Project } from '../../Model/Entitys/Project';
 import { CreateState } from '../App/state';
 import { setPropertyValue, sleep } from '../../utils/Functions';
-import { IProject } from '../../utils/Common/Interfaces';
 import { useNotification } from '../components/Notification/Notification';
+import { ICreateProject, IProject } from '../../utils/Common/Interfaces/IProject';
 
 type Props = {};
 
 
 export default function CreateAnalysis() {
 
-  const [project, setProject] = useState<IProject>();
+  const [project, setProject] = useState<ICreateProject>();
   const [state, setState] = useState<CreateState>('initial')
   const [open, setOpen] = useState(false)
   const { setMessage, Notification } = useNotification()
@@ -26,12 +26,12 @@ export default function CreateAnalysis() {
     setState('submiting')
     e.preventDefault();
     api
-      .createProject(project as Partial<IProject>)
+      .createProject(project as Partial<ICreateProject>)
       .then(() => { setMessage('Sucesso'); setState('success'); sleep(2000); setOpen(false) })
       .catch(e => { setMessage(e.message); setState('initial') });
   };
 
-  function onInputChange<K extends keyof IProject>(key: K, value: IProject[K]) {
+  function onInputChange<K extends keyof ICreateProject>(key: K, value: ICreateProject[K]) {
     const currentProject = { ...project }; currentProject[key] = value;
     setProject(currentProject);
   };

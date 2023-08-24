@@ -1,24 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Heading } from '@radix-ui/themes';
-import { useQuery } from '@tanstack/react-query';
-import LoadState from '../components/LoadingIndicator/LoadState';
-import { PaginationSearch } from '../../Model/Constants/PaginationSearch';
-import { api } from '../Api/Api';
-
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   PlusIcon,
 } from '@radix-ui/react-icons';
-import { generateNumberId } from '../../utils/Functions';
 import CreateAnalysis from '../CreateAnalysis/CreateProject';
 import GetProject from '../GetProject/GetProject';
 import Button from '../components/ButtonFactory/Button';
-import { Project } from '../../Model/Entitys/Project';
+
 import { Brackets } from 'lucide-react';
 import { Fields } from '../components/FieldsFactory';
-import { IListProject, Saved } from '../../utils/Common/Interfaces';
+import { Saved } from '../../utils/Common/Interfaces';
 import { useProjectStore } from '../store/ProjectStore';
+import { IProject } from '../../utils/Common/Interfaces/IProject';
 
 export default function Listprojects() {
 
@@ -27,11 +21,12 @@ export default function Listprojects() {
     limit: 15,
     query: {},
   });
-  const [projects, setprojects] = useState<Saved<IListProject>[]>();
+  const projectStore = useProjectStore()
+  const [projects, setprojects] = useState<Saved<IProject>[]>();
 
   useEffect(() => {
     //api.listProject(queryParams).then(e => setprojects(e.result));
-    setprojects(useProjectStore().listProjects())
+    //setprojects(projectStore.listProjects())
   }, [queryParams]);
 
   if (projects) {

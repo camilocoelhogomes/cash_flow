@@ -2,27 +2,32 @@ import React from "react";
 import { DialogFactory } from "../components/DialogFactory";
 import Button from "../components/ButtonFactory/Button";
 import ScenarioTabs from "./ScenarioTabs";
-import { Saved, IListProject, IGetProjectById } from "../../utils/Common/Interfaces";
+import { Saved, } from "../../utils/Common/Interfaces";
 import PageLoadingIndicator from "../components/LoadingIndicator/PageLoadingIndicator";
 import { CrossIcon, X } from "lucide-react";
 import { useProjectStore } from "../store/ProjectStore";
 import { sleep } from "../../utils/Functions";
+import { IGetProjectById, IProject } from "../../utils/Common/Interfaces/IProject";
+import { LoadState } from "../App/state";
+import LoadStateComponent from "../components/LoadingIndicator/LoadState";
 
 
 type Props = {
-  project: Saved<IListProject>
+  project: Saved<IProject>
 };
 
 export default function GetProject({ project }: Props) {
   const [open, setOpen] = React.useState(false);
+  const [status, setStatus] = React.useState<LoadState>('loading')
   const [completeProject, setcompleteProject] = React.useState<IGetProjectById>();
   const projectStore = useProjectStore()
 
   async function openDialog() {
     setOpen(true)
     const value = projectStore.getProjectById(project.id)
-    await sleep(1000)
+    await sleep(500)
     setcompleteProject(value)
+    setStatus('loaded')
   }
 
   function closeDialog() { setOpen(false); setcompleteProject(undefined) }
@@ -51,10 +56,10 @@ export default function GetProject({ project }: Props) {
           </DialogFactory.Description>
         </div>
 
-        <div className='h-[75vh] items-center'>
-          {completeProject === undefined ?
-            <PageLoadingIndicator />
-            : <ScenarioTabs scenarios={completeProject.scenarios} projectid={project.id} />
+        <div className='h-[75vh] items-center flex-col'>
+
+          {LoadStateComponent({ status: status }) ??
+            <ScenarioTabs scenarios={completeProject.scenarios} projectid={project.id} />
           }
         </div>
 

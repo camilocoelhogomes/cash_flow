@@ -1,22 +1,25 @@
-import React, {PropsWithChildren} from 'react';
+import React, { PropsWithChildren } from 'react';
 import PageLoadingIndicator from './PageLoadingIndicator';
-import {Callout} from '@radix-ui/themes';
-import {InfoCircledIcon} from '@radix-ui/react-icons';
+import { Callout } from '@radix-ui/themes';
+import { InfoCircledIcon } from '@radix-ui/react-icons';
+import { LoadState } from '../../App/state';
 
 type Props = {
-  status: 'error' | 'success' | 'loading';
+  status: LoadState;
   error?: Error;
 };
 
-export default function LoadState({
+export default function LoadStateComponent({
   status,
   error,
-  children,
-}: PropsWithChildren<Props>): JSX.Element {
-  if (status === 'loading') return <PageLoadingIndicator />;
+}: Props): JSX.Element | null {
+
+  if (status === 'loading') return <div className='w-full h-[10vh] flex items-center justify-center'><PageLoadingIndicator /></div>
   if (status === 'error') return ErrorMessage(error);
-  return <>{children}</>;
+  return null;
 }
+
+
 
 function ErrorMessage(error: Error) {
   return (
