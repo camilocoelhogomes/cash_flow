@@ -13,3 +13,5 @@ export class PricingController {
     return this.pricingRepo.create(pricing);
   }
 }
+
+export const pricingController = new PricingController();
