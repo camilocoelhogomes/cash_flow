@@ -1,8 +1,8 @@
 import {DataSource} from 'typeorm';
-
-import {PaginationSearch} from '../Constants/PaginationSearch';
 import {dataSourceManager} from '../../utils/config/dataSourceManager';
 import {Project} from '../Entitys/Project';
+import {PaginationSearch, Saved} from '../../utils/Common/Interfaces';
+import {IProject} from '../../utils/Common/Interfaces/IProject';
 
 export class ProjectRepository {
   private readonly projectRepository;
@@ -11,7 +11,7 @@ export class ProjectRepository {
     this.projectRepository = dataSource.getRepository(Project);
   }
 
-  async create(props: Partial<Project>): Promise<Project> {
+  async create(props: IProject): Promise<Saved<IProject>> {
     const project = this.projectRepository.create();
     project.projectDs = props.projectDs;
     project.projectNm = props.projectNm;

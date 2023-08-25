@@ -1,10 +1,10 @@
 import React from 'react';
-import { ProgressBar } from 'react-loader-spinner';
+import {ProgressBar} from 'react-loader-spinner';
 import CircleSpinner from './CircleSpinner';
 
 type Props = {};
 
-export default function PageLoadingIndicator({ }: Props) {
+export default function PageLoadingIndicator({}: Props) {
   return (
     <svg
       className="animate-spin -ml-1 mr-3 h-5 w-5 text-indigo-500"

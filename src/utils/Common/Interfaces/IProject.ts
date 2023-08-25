@@ -1,5 +1,5 @@
-import { Saved } from "../Interfaces";
-import { IScenario } from "./IScenario";
+import {Saved} from '../Interfaces';
+import {IScenario} from './IScenario';
 
 export interface IProject {
   projectDs: string;
@@ -14,5 +14,5 @@ export interface ICreateProject extends IProject {
 }
 
 export interface IGetProjectById extends Saved<IProject> {
-  scenarios: Saved<IScenario>[]
+  scenarios: Saved<IScenario>[];
 }

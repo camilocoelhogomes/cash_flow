@@ -1,25 +1,35 @@
-import { PaginationSearch } from '../../Model/Constants/PaginationSearch';
-import { Project } from '../../Model/Entitys/Project';
-import { Scenario } from '../../Model/Entitys/Scenario';
-import { QuerySearch, ICreateProject } from '../../utils/Common/Interfaces';
+import {Scenario} from '../../Model/Entitys/Scenario';
+import {
+  QuerySearch,
+  PaginationSearch,
+  Saved,
+} from '../../utils/Common/Interfaces';
+import {
+  ICreateProject,
+  IGetProjectById,
+  IProject,
+} from '../../utils/Common/Interfaces/IProject';
+import {IScenario} from '../../utils/Common/Interfaces/IScenario';
 
-type IApi = Window & { api: Record<string, Function> };
+type IApi = Window & {api: Record<string, Function>};
 
 export class Api {
-  constructor() { }
+  constructor() {}
 
-  listProject(props: QuerySearch<Project>): Promise<PaginationSearch<Project>> {
-    return (window as unknown as IApi).api.listProject(props);
+  listProject(
+    query: QuerySearch<IProject>
+  ): Promise<PaginationSearch<IProject>> {
+    return (window as unknown as IApi).api.listProject(query);
   }
-  createProject(project: Partial<ICreateProject>): Promise<Project> {
+  createProject(project: ICreateProject): Promise<Saved<IProject>> {
     return (window as unknown as IApi).api.createProject(project);
   }
 
-  getProject(id: number): Promise<Project> {
+  getProject(id: number): Promise<IGetProjectById> {
     return (window as unknown as IApi).api.getProject(id);
   }
 
-  createScenario(scenario: Partial<Scenario>): Promise<Scenario> {
+  createScenario(scenario: IScenario): Promise<Saved<IScenario>> {
     return (window as unknown as IApi).api.createScenario(scenario);
   }
 }

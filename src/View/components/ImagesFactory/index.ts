@@ -1,5 +1,5 @@
-import { Avatar } from '@radix-ui/themes'
+import {Avatar} from '@radix-ui/themes';
 
 export const ImagesFactory = {
-  Avatar: Avatar
-}
+  Avatar: Avatar,
+};

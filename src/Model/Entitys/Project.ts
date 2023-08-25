@@ -1,8 +1,9 @@
 import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
 import {Scenario} from './Scenario';
+import {IGetProjectById} from '../../utils/Common/Interfaces/IProject';
 
 @Entity({name: 'project'})
-export class Project {
+export class Project implements IGetProjectById {
   @PrimaryGeneratedColumn({name: 'id', type: 'int8'})
   id: number;
 

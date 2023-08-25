@@ -1,8 +1,8 @@
 /* eslint-disable node/no-unpublished-import */
 import 'reflect-metadata';
-import { app, BrowserWindow } from 'electron';
-import { initApp } from './utils/config/initApp';
-import { dataSourceManager } from './utils/config/dataSourceManager';
+import {app, BrowserWindow} from 'electron';
+import {initApp} from './utils/config/initApp';
+import {dataSourceManager} from './utils/config/dataSourceManager';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -10,7 +10,7 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
-let splash: BrowserWindow
+let splash: BrowserWindow;
 
 const createWindow = async (): Promise<void> => {
   const mainWindow = new BrowserWindow({
@@ -20,12 +20,12 @@ const createWindow = async (): Promise<void> => {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   });
-  //mainWindow.removeMenu()
+  mainWindow.removeMenu();
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 };
 
 app.on('ready', async () => {
