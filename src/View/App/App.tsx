@@ -85,9 +85,11 @@ export default function App() {
 
           <main className="flex-1 px-6 w-full">
             {
-              {home: <Home />, projects: <ListAnalysis />, test: <PageTest />}[
-                location
-              ]
+              {
+                home: <Home />,
+                projects: <ListAnalysis />,
+                test: <PageTest />,
+              }[location]
             }
           </main>
         </section>

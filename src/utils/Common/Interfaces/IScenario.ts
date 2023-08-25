@@ -9,7 +9,18 @@ export interface IScenario {
 }
 
 export interface IGetScenarioById extends Saved<IScenario> {
+<<<<<<< HEAD
+  areas: IAreas
+  pricing?: IPricing
+  cashFlows?: unknown[]
+=======
   areas: IAreas;
   pricing: IPricing;
   cashFlows: unknown[];
+>>>>>>> dev
+}
+
+export interface ICashFlow {
+  id: number
+  scenarioId: number
 }

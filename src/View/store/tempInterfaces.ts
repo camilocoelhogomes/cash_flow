@@ -9,6 +9,7 @@ export interface Project extends BasicData {
 }
 
 export interface Scenario extends BasicData {
+  projectId: number;
   scenarioDs: string;
   scenarioNm: string;
   pricing?: Pricing;
@@ -16,7 +17,8 @@ export interface Scenario extends BasicData {
   cashFlows?: CashFlow[];
 }
 
-export interface Pricing {
+export interface Pricing extends BasicData {
+  scenarioId: number;
   squareAmount: number;
   fee: number;
   feeModel: string;
@@ -24,7 +26,8 @@ export interface Pricing {
   startAmount: number;
   feeIndex: string;
 }
-export interface Areas {
+export interface Areas extends BasicData {
+  scenarioId: number;
   totalArea: number;
   decorationArea: number;
   protectedArea: number;

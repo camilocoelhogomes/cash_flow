@@ -1,24 +1,46 @@
 import React from 'react';
-import {Scenario} from '../../Model/Entitys/Scenario';
-import {Tabs, Box, Text, Separator} from '@radix-ui/themes';
+import {Tabs, Text} from '@radix-ui/themes';
 import {Fields} from '../components/FieldsFactory';
 import ContextCard from './ContextCard';
 import Button from '../components/ButtonFactory/Button';
 import {Layout} from '../components/Layout';
-import {IScenario, Saved} from '../../utils/Common/Interfaces';
+import {Saved} from '../../utils/Common/Interfaces';
 import UpdateAreas from '../UpdateProject/UpdateScenario/UpdateAreas';
 import UpdatePricing from '../UpdateProject/UpdateScenario/UpdatePricing';
+import {
+  IGetScenarioById,
+  IScenario,
+} from '../../utils/Common/Interfaces/IScenario';
+import {IAreas} from '../../utils/Common/Interfaces/IAreas';
+import LoadStateComponent from '../components/LoadingIndicator/LoadState';
+import {LoadState} from '../App/state';
+import {api} from '../Api/Api';
 type Props = {
   scenarios: Saved<IScenario>[];
   projectid: number;
 };
 
 export default function ScenarioTabs({scenarios, projectid}: Props) {
-  const [updateAreas, setupdateAreas] = React.useState(false);
+  const [status, setStatus] = React.useState<LoadState>('loading');
   const [updatePricing, setupdatePricing] = React.useState(false);
+  const [updateAreas, setupdateAreas] = React.useState(false);
+  const [scenarioId, setScenarioId] = React.useState(scenarios[0].id);
+  const [selectedScenario, setSelectedScenario] =
+    React.useState<IGetScenarioById>();
+
+  React.useEffect(() => {
+    setStatus('loading');
+    api.getScenario(scenarioId).then(value => {
+      setSelectedScenario(value);
+      setStatus('loaded');
+    });
+  }, [scenarioId]);
 
   return (
-    <Tabs.Root defaultValue={scenarios[0].id.toString()}>
+    <Tabs.Root
+      defaultValue={scenarios[0].id.toString()}
+      onValueChange={value => setScenarioId(Number(value))}
+    >
       <Tabs.List>
         {scenarios.map(item => (
           <Tabs.Trigger value={item.id.toString()} key={item.id}>
@@ -26,9 +48,8 @@ export default function ScenarioTabs({scenarios, projectid}: Props) {
           </Tabs.Trigger>
         ))}
       </Tabs.List>
-
-      {scenarios.map(item => (
-        <Tabs.Content value={item.id.toString()} key={item.id}>
+      {LoadStateComponent({status: status}) ?? (
+        <Tabs.Content value={selectedScenario.id.toString()}>
           <Layout.ScrollArea
             type="always"
             scrollbars="vertical"
@@ -36,10 +57,9 @@ export default function ScenarioTabs({scenarios, projectid}: Props) {
             style={{height: '70vh', padding: '0% 2%'}}
           >
             <div className="flex justify-between w-full py-6 px-2">
-              <Text size="2">{item.scenarioDs}</Text>
+              <Text size="2">{selectedScenario.scenarioDs}</Text>
               <Button color="soft">Clonar</Button>
             </div>
-
             <div className="grid grid-cols-2 gap-10 ">
               <ContextCard
                 title="Áreas"
@@ -47,58 +67,60 @@ export default function ScenarioTabs({scenarios, projectid}: Props) {
               >
                 <Fields.Card
                   label="Área Total"
-                  value={item.totalArea.toString()}
+                  value={selectedScenario.areas.totalArea.toString()}
                 />
                 <Fields.Card
                   label="Área Protegida"
-                  value={item.protectedArea.toString()}
+                  value={selectedScenario.areas.protectedArea.toString()}
                 />
                 <Fields.Card
                   label="Área de Vias"
-                  value={item.streetArea.toString()}
+                  value={selectedScenario.areas.streetArea.toString()}
                 />
                 <Fields.Card
                   label="Área Verde (Decoração)"
-                  value={item.decorationArea.toString()}
+                  value={selectedScenario.areas.decorationArea.toString()}
                 />
                 <Fields.Card
                   label="Nº de Lotes"
-                  value={item.totalSlots.toString()}
+                  value={selectedScenario.areas.totalSlots.toString()}
                 />
                 <Fields.Card
                   label="Área Líquida Vendável"
-                  value={slotArea(item)}
+                  value={slotArea(selectedScenario?.areas)}
                 />
               </ContextCard>
+
               <ContextCard
                 title="Precificação"
                 onEditClick={() => setupdatePricing(!updatePricing)}
               >
                 <Fields.Card
                   label="Valor do m² (R$)"
-                  value={item.pricing?.squareAmount.toString()}
+                  value={selectedScenario.pricing?.squareAmount.toString()}
                 />
                 <Fields.Card
                   label="Taxa de juros"
-                  value={item.pricing?.fee.toString()}
+                  value={selectedScenario.pricing?.fee.toString()}
                 />
                 <Fields.Card
                   label="Modelo de Juros"
-                  value={item.pricing?.feeModel.toString()}
+                  value={selectedScenario.pricing?.feeModel.toString()}
                 />
                 <Fields.Card
                   label="Parcelas"
-                  value={item.pricing?.installments.toString()}
+                  value={selectedScenario.pricing?.installments.toString()}
                 />
                 <Fields.Card
                   label="Valor de Entrada"
-                  value={item.pricing?.startAmount.toString()}
+                  value={selectedScenario.pricing?.startAmount.toString()}
                 />
                 <Fields.Card
                   label="Indexador"
-                  value={item.pricing?.feeIndex.toString()}
+                  value={selectedScenario.pricing?.feeIndex.toString()}
                 />
               </ContextCard>
+
               <ContextCard
                 title="Curva de Venda"
                 onEditClick={() => {}}
@@ -124,16 +146,16 @@ export default function ScenarioTabs({scenarios, projectid}: Props) {
           <UpdateAreas
             open={updateAreas}
             setOpen={setupdateAreas}
-            scenario={item}
+            scenario={selectedScenario}
           />
           <UpdatePricing
             open={updatePricing}
             setOpen={setupdatePricing}
-            scenario={item}
+            scenario={selectedScenario}
             projectid={projectid}
           />
         </Tabs.Content>
-      ))}
+      )}
     </Tabs.Root>
   );
 }
@@ -144,7 +166,7 @@ const slotArea = ({
   streetArea,
   decorationArea,
   totalSlots,
-}: IScenario) =>
+}: IAreas) =>
   (
     (totalArea - protectedArea - streetArea - decorationArea) /
     totalSlots

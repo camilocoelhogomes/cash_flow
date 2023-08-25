@@ -16,8 +16,9 @@ import Button from '../components/ButtonFactory/Button';
 import {Project} from '../../Model/Entitys/Project';
 import {Brackets} from 'lucide-react';
 import {Fields} from '../components/FieldsFactory';
-import {IListProject, Saved} from '../../utils/Common/Interfaces';
+import {Saved} from '../../utils/Common/Interfaces';
 import {useProjectStore} from '../store/ProjectStore';
+import {IProject} from '../../utils/Common/Interfaces/IProject';
 
 export default function Listprojects() {
   const [queryParams, setQueryParams] = useState({
@@ -25,11 +26,11 @@ export default function Listprojects() {
     limit: 15,
     query: {},
   });
-  const [projects, setprojects] = useState<Saved<IListProject>[]>();
+
+  const [projects, setprojects] = useState<Saved<IProject>[]>();
 
   useEffect(() => {
     api.listProject(queryParams).then(e => setprojects(e.result));
-    //setprojects(useProjectStore().listProjects());
   }, [queryParams]);
 
   if (projects) {
