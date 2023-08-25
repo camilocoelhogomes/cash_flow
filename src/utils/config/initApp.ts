@@ -19,4 +19,12 @@ export async function initApp() {
   ipcMain.handle('createScenario', async (event, ...args) => {
     scenarioController.createScenario(args[0]);
   });
+
+  ipcMain.handle('listScenario', async (event, ...args) => {
+    scenarioController.list(args[0]);
+  });
+
+  ipcMain.handle('getScenario', async (event, ...args) => {
+    scenarioController.getById(args[0]);
+  });
 }
