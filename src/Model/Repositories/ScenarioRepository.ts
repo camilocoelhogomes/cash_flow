@@ -54,6 +54,10 @@ export class ScenarioRepository {
       where: {
         id,
       },
+      relations: {
+        pricing: true,
+        areas: true,
+      },
     });
     return result;
   }
