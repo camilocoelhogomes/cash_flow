@@ -67,14 +67,14 @@ export default function GetProject({project}: Props) {
 
         {JSON.stringify(completeProject)}
 
-        {/* <div className="h-[75vh] items-center flex-col">
+        <div className="h-[75vh] items-center flex-col">
           {LoadStateComponent({status: status}) ?? (
             <ScenarioTabs
               scenarios={completeProject.scenarios}
               projectid={project.id}
             />
           )}
-        </div> */}
+        </div>
       </DialogFactory.Content>
     </DialogFactory.Root>
   );
