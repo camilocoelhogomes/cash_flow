@@ -3,6 +3,7 @@ import {
   PaginationSearch,
   Saved,
 } from '../../utils/Common/Interfaces';
+import {IPricing} from '../../utils/Common/Interfaces/IPricing';
 import {
   ICreateProject,
   IGetProjectById,
@@ -42,6 +43,10 @@ export class Api {
 
   getScenario(id: number): Promise<IGetScenarioById> {
     return (window as unknown as IApi).api.getScenario(id);
+  }
+
+  createPricing(pricing: IPricing): Promise<IPricing> {
+    return (window as unknown as IApi).api.createPricing(pricing);
   }
 }
 

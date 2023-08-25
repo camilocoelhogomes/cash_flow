@@ -2,6 +2,7 @@
 import {ipcMain} from 'electron';
 import {projectController} from '../../Controller/Project/ProjectController';
 import {scenarioController} from '../../Controller/Scenario/ScenarioController';
+import {pricingController} from '../../Controller/Pricing/PrincingController';
 
 export async function initApp() {
   ipcMain.handle('listProject', async (event, ...args) =>
@@ -26,5 +27,9 @@ export async function initApp() {
 
   ipcMain.handle('getScenario', async (event, ...args) => {
     scenarioController.getById(args[0]);
+  });
+
+  ipcMain.handle('createPricing', async (event, ...args) => {
+    pricingController.create(args[0]);
   });
 }
