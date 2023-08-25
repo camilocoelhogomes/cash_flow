@@ -1,4 +1,3 @@
-import {Project} from '../../Model/Entitys/Project';
 import {NotFoundError} from '../../Model/Errors/Errors';
 import {
   ProjectRepository,
