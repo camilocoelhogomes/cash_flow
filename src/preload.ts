@@ -9,4 +9,6 @@ contextBridge.exposeInMainWorld('api', {
   getProject: (args: unknown) => ipcRenderer.invoke('getProject', args),
   createScenario: (args: unknown) => ipcRenderer.invoke('createScenario', args),
   listScenarios: (args: unknown) => ipcRenderer.invoke('listScenarios', args),
+  getScenario: (args: unknown) => ipcRenderer.invoke('getScenario', args),
+  createPricing: (args: unknown) => ipcRenderer.invoke('createPricing', args),
 });

@@ -1,17 +1,20 @@
-import {Scenario} from '../../Model/Entitys/Scenario';
 import {
   QuerySearch,
   PaginationSearch,
   Saved,
 } from '../../utils/Common/Interfaces';
+import {IPricing} from '../../utils/Common/Interfaces/IPricing';
 import {
   ICreateProject,
   IGetProjectById,
   IProject,
 } from '../../utils/Common/Interfaces/IProject';
-import {IScenario} from '../../utils/Common/Interfaces/IScenario';
+import {
+  IGetScenarioById,
+  IScenario,
+} from '../../utils/Common/Interfaces/IScenario';
 
-type IApi = Window & {api: Record<string, Function>};
+type IApi = Window & {api: Api};
 
 export class Api {
   constructor() {}
@@ -31,6 +34,19 @@ export class Api {
 
   createScenario(scenario: IScenario): Promise<Saved<IScenario>> {
     return (window as unknown as IApi).api.createScenario(scenario);
+  }
+  listScenario(
+    search: QuerySearch<IScenario>
+  ): Promise<PaginationSearch<IScenario>> {
+    return (window as unknown as IApi).api.listScenario(search);
+  }
+
+  getScenario(id: number): Promise<IGetScenarioById> {
+    return (window as unknown as IApi).api.getScenario(id);
+  }
+
+  createPricing(pricing: IPricing): Promise<IPricing> {
+    return (window as unknown as IApi).api.createPricing(pricing);
   }
 }
 

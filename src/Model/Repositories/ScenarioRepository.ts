@@ -6,7 +6,10 @@ import {
   QuerySearch,
   Saved,
 } from '../../utils/Common/Interfaces';
-import {IScenario} from '../../utils/Common/Interfaces/IScenario';
+import {
+  IGetScenarioById,
+  IScenario,
+} from '../../utils/Common/Interfaces/IScenario';
 
 export class ScenarioRepository {
   private readonly repository;
@@ -44,6 +47,15 @@ export class ScenarioRepository {
       total,
       hasMore: pagination * (limit - 1) + result.length < total,
     };
+  }
+
+  async getById(id: number): Promise<IGetScenarioById> {
+    const result = await this.repository.findOne({
+      where: {
+        id,
+      },
+    });
+    return result;
   }
 }
 
