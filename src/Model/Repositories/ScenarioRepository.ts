@@ -49,14 +49,10 @@ export class ScenarioRepository {
     };
   }
 
-  async getById(id: number): Promise<IGetScenarioById> {
+  async getById(id: number): Promise<Scenario> {
     const result = await this.repository.findOne({
       where: {
         id,
-      },
-      relations: {
-        pricing: true,
-        areas: true,
       },
     });
     return result;

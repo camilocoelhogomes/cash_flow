@@ -21,6 +21,15 @@ export class AreaRepository {
     const result = await this.repository.save(newArea);
     return result;
   }
+
+  async getById(id: number) {
+    const result = await this.repository.findOne({
+      where: {
+        scenarioId: id,
+      },
+    });
+    return result;
+  }
 }
 
 export const areaRepository = new AreaRepository();
