@@ -17,19 +17,19 @@ export async function initApp() {
     projectController.get(args[0])
   );
 
-  ipcMain.handle('createScenario', async (event, ...args) => {
-    scenarioController.createScenario(args[0]);
-  });
+  ipcMain.handle('createScenario', async (event, ...args) =>
+    scenarioController.createScenario(args[0])
+  );
 
-  ipcMain.handle('listScenario', async (event, ...args) => {
-    scenarioController.list(args[0]);
-  });
+  ipcMain.handle('listScenario', async (event, ...args) =>
+    scenarioController.list(args[0])
+  );
 
-  ipcMain.handle('getScenario', async (event, ...args) => {
-    scenarioController.getById(args[0]);
-  });
+  ipcMain.handle('getScenario', async (event, ...args) =>
+    scenarioController.getById(args[0])
+  );
 
-  ipcMain.handle('createPricing', async (event, ...args) => {
-    pricingController.create(args[0]);
-  });
+  ipcMain.handle('createPricing', async (event, ...args) =>
+    pricingController.create(args[0])
+  );
 }
