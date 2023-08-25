@@ -3,6 +3,7 @@ import {dataSourceManager} from '../../utils/config/dataSourceManager';
 import {Project} from '../Entitys/Project';
 import {PaginationSearch, Saved} from '../../utils/Common/Interfaces';
 import {IProject} from '../../utils/Common/Interfaces/IProject';
+import {Scenario} from '../Entitys/Scenario';
 
 export class ProjectRepository {
   private readonly projectRepository;
@@ -49,7 +50,9 @@ export class ProjectRepository {
   async get(id: number): Promise<Project> {
     return this.projectRepository.findOne({
       where: {id},
-      loadEagerRelations: true,
+      relations: {
+        scenarios: true,
+      },
     });
   }
 }
