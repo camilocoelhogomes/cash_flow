@@ -11,10 +11,10 @@ import {
   IGetScenarioById,
   IScenario,
 } from '../../utils/Common/Interfaces/IScenario';
-import {useProjectStore} from '../store/ProjectStore';
 import {IAreas} from '../../utils/Common/Interfaces/IAreas';
 import LoadStateComponent from '../components/LoadingIndicator/LoadState';
 import {LoadState} from '../App/state';
+import {api} from '../Api/Api';
 type Props = {
   scenarios: Saved<IScenario>[];
   projectid: number;
@@ -27,14 +27,12 @@ export default function ScenarioTabs({scenarios, projectid}: Props) {
   const [scenarioId, setScenarioId] = React.useState(scenarios[0].id);
   const [selectedScenario, setSelectedScenario] =
     React.useState<IGetScenarioById>();
-  const projectStore = useProjectStore();
 
   React.useEffect(() => {
     setStatus('loading');
-    projectStore.getScenarioById(projectid, scenarioId).then(value => {
+    api.getScenario(scenarioId).then(value => {
       setSelectedScenario(value);
       setStatus('loaded');
-      console.log(value);
     });
   }, [scenarioId]);
 

@@ -26,12 +26,11 @@ export default function Listprojects() {
     limit: 15,
     query: {},
   });
-  const projectStore = useProjectStore();
+
   const [projects, setprojects] = useState<Saved<IProject>[]>();
 
   useEffect(() => {
     api.listProject(queryParams).then(e => setprojects(e.result));
-    //setprojects(useProjectStore().listProjects());
   }, [queryParams]);
 
   if (projects) {
