@@ -1,7 +1,8 @@
-import {OneToOne, JoinColumn, PrimaryColumn, Column} from 'typeorm';
+import {OneToOne, JoinColumn, PrimaryColumn, Column, Entity} from 'typeorm';
 import {IPricing} from '../../utils/Common/Interfaces/IPricing';
 import {Scenario} from './Scenario';
 
+@Entity({name: 'pricing'})
 export class Pricing implements IPricing {
   @PrimaryColumn({name: 'scenario_id'})
   scenarioId: number;

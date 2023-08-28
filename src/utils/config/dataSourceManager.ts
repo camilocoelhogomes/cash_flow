@@ -71,6 +71,7 @@ class DataSourceManager {
     CREATE TABLE IF NOT EXISTS pricing (
         scenario_id INTEGER PRIMARY KEY UNIQUE,
         fee NUMUERIC NOT NULL,
+        square_amount NUMERIC NOT NULL,
         fee_model NUMERIC NOT NULL,
         installments INTEGER NOT NULL,
         entry NUMERIC NOT NULL,

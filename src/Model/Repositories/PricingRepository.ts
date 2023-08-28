@@ -22,6 +22,15 @@ export class PricingRepository {
     const result = this.repository.save(newPricing);
     return result;
   }
+
+  async getById(id: number) {
+    const result = await this.repository.findOne({
+      where: {
+        scenarioId: id,
+      },
+    });
+    return result;
+  }
 }
 
 export const pricingRepository = new PricingRepository();
