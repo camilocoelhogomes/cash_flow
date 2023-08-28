@@ -1,23 +1,12 @@
 import {useEffect, useState} from 'react';
-import {Heading} from '@radix-ui/themes';
-import {useQuery} from '@tanstack/react-query';
-import LoadState from '../components/LoadingIndicator/LoadState';
 import {api} from '../Api/Api';
-
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  PlusIcon,
-} from '@radix-ui/react-icons';
-import {generateNumberId} from '../../utils/Functions';
-import CreateAnalysis from '../CreateAnalysis/CreateProject';
+import {ChevronLeftIcon, ChevronRightIcon} from '@radix-ui/react-icons';
+import CreateAnalysis from '../CreateProject/CreateProject';
 import GetProject from '../GetProject/GetProject';
 import Button from '../components/ButtonFactory/Button';
-import {Project} from '../../Model/Entitys/Project';
 import {Brackets} from 'lucide-react';
 import {Fields} from '../components/FieldsFactory';
-import {Saved} from '../../utils/Common/Interfaces';
-import {useProjectStore} from '../store/ProjectStore';
+import {PaginationSearch} from '../../utils/Common/Interfaces';
 import {IProject} from '../../utils/Common/Interfaces/IProject';
 
 export default function Listprojects() {
@@ -26,11 +15,10 @@ export default function Listprojects() {
     limit: 15,
     query: {},
   });
-
-  const [projects, setprojects] = useState<Saved<IProject>[]>();
+  const [projects, setProjects] = useState<PaginationSearch<IProject>>();
 
   useEffect(() => {
-    api.listProject(queryParams).then(e => setprojects(e.result));
+    api.listProject(queryParams).then(setProjects);
   }, [queryParams]);
 
   if (projects) {
@@ -41,9 +29,9 @@ export default function Listprojects() {
           <CreateAnalysis />
         </div>
 
-        {projects.length ? (
+        {projects.result.length ? (
           <div className="flex flex-col flex-1 grid-cols-1 gap-4">
-            {(projects ?? []).map(item => (
+            {(projects.result ?? []).map(item => (
               <GetProject key={item.id} project={item} />
             ))}
           </div>
@@ -52,7 +40,6 @@ export default function Listprojects() {
             <Brackets size={180} /> Nenhum item cadastrado :(
           </div>
         )}
-
         <footer className="items-center flex justify-between gap-4 border-t py-4 border-slate-300">
           <div>
             <Button color="soft">
@@ -65,9 +52,8 @@ export default function Listprojects() {
               <ChevronRightIcon />
             </Button>
           </div>
-
           <div>
-            <>Resultados: {projects.length}</>
+            <>Resultados: {projects.total}</>
           </div>
         </footer>
       </div>

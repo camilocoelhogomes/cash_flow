@@ -11,6 +11,7 @@ import {LoadState} from '../App/state';
 import LoadStateComponent from '../components/LoadingIndicator/LoadState';
 import React from 'react';
 import {api} from '../Api/Api';
+import CreateScenario from '../UpdateProject/CreateScenario/CreateScenario';
 
 type Props = {
   project: Saved<IProject>;
@@ -61,19 +62,17 @@ export default function GetProject({project}: Props) {
             mb="4"
             className="flex justify-between"
           >
-            {project.projectDs} <Button>Novo Cenário</Button>
+            {project.projectDs} <CreateScenario projectId={project.id} />
           </DialogFactory.Description>
         </div>
-
-        {JSON.stringify(completeProject)}
-
         <div className="h-[75vh] items-center flex-col">
-          {LoadStateComponent({status: status}) ?? (
-            <ScenarioTabs
-              scenarios={completeProject.scenarios}
-              projectid={project.id}
-            />
-          )}
+          {LoadStateComponent({status: status}) ??
+            (completeProject && (
+              <ScenarioTabs
+                scenarios={completeProject.scenarios}
+                projectid={project.id}
+              />
+            ))}
         </div>
       </DialogFactory.Content>
     </DialogFactory.Root>

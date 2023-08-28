@@ -3,7 +3,7 @@ import ListAnalysis from '../ListProjects/ListProjects';
 import GetAnalysis from '../GetProject/GetProject';
 import Main from './App';
 import Home from './Home';
-import CreateAnalysis from '../CreateAnalysis/CreateProject';
+import CreateAnalysis from '../CreateProject/CreateProject';
 import App from './App';
 import {Theme} from '@radix-ui/themes';
 
