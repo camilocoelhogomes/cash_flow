@@ -1,4 +1,12 @@
 import {ValidationError} from '../../Model/Errors/Errors';
+import {
+  AreaRepository,
+  areaRepository,
+} from '../../Model/Repositories/AreaRepository';
+import {
+  PricingRepository,
+  pricingRepository,
+} from '../../Model/Repositories/PricingRepository';
 import {scenarioRepository} from '../../Model/Repositories/ScenarioRepository';
 import {
   PaginationSearch,
@@ -11,7 +19,11 @@ import {
 } from '../../utils/Common/Interfaces/IScenario';
 
 export class ScenarioController {
-  constructor(private readonly scenarioRepo = scenarioRepository) {}
+  constructor(
+    private readonly scenarioRepo = scenarioRepository,
+    private readonly areaRepo: AreaRepository = areaRepository,
+    private readonly pricingRepo: PricingRepository = pricingRepository
+  ) {}
 
   async createScenario(scenario: IScenario): Promise<Saved<IScenario>> {
     const result = await this.scenarioRepo.createScneario(scenario);
@@ -32,7 +44,17 @@ export class ScenarioController {
   }
 
   async getById(id: number): Promise<IGetScenarioById> {
-    return this.scenarioRepo.getById(id);
+    const [scenario, area, pricing] = await Promise.all([
+      this.scenarioRepo.getById(id),
+      this.areaRepo.getById(id),
+      this.pricingRepo.getById(id),
+    ]);
+
+    return {
+      ...scenario,
+      pricing: pricing ?? undefined,
+      areas: area,
+    };
   }
 }
 

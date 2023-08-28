@@ -14,7 +14,7 @@ import {IAreas} from '../../utils/Common/Interfaces/IAreas';
 import {IPricing} from '../../utils/Common/Interfaces/IPricing';
 
 @Entity({name: 'scenario'})
-export class Scenario implements IGetScenarioById {
+export class Scenario {
   @PrimaryGeneratedColumn({name: 'id', type: 'int8'})
   id: number;
 
@@ -33,7 +33,4 @@ export class Scenario implements IGetScenarioById {
   @ManyToOne(() => Project, project => project.id)
   @JoinColumn({name: 'project_id'})
   project: Project;
-
-  areas: IAreas;
-  pricing: IPricing;
 }
