@@ -11,7 +11,7 @@ import {useNotification} from '../components/Notification/Notification';
 import {ICreateProject} from '../../utils/Common/Interfaces/IProject';
 import {CreateState} from '../App/state';
 
-export default function CreateAnalysis() {
+export default function CreateProject() {
   const [project, setProject] = useState<ICreateProject>();
   const [state, setState] = useState<CreateState>('initial');
   const [open, setOpen] = useState(false);

@@ -17,7 +17,7 @@ import Home from './Home';
 import ListAnalysis from '../ListProjects/ListProjects';
 import NavButton from '../components/ButtonFactory/NavButton';
 import {useThemeStore} from '../store/ThemeStore';
-import CreateAnalysis from '../CreateAnalysis/CreateProject';
+import CreateAnalysis from '../CreateProject/CreateProject';
 import PageTest from '../PageTest';
 import {ImagesFactory} from '../components/ImagesFactory';
 import Button from '../components/ButtonFactory/Button';

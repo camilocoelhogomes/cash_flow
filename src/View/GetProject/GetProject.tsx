@@ -64,9 +64,6 @@ export default function GetProject({project}: Props) {
             {project.projectDs} <Button>Novo Cenário</Button>
           </DialogFactory.Description>
         </div>
-
-        {JSON.stringify(completeProject)}
-
         <div className="h-[75vh] items-center flex-col">
           {LoadStateComponent({status: status}) ?? (
             <ScenarioTabs
