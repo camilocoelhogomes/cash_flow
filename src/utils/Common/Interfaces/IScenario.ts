@@ -1,5 +1,5 @@
 import {Saved} from '../Interfaces';
-import {IAreas} from './IAreas';
+import {IAreas, ICreateAreas} from './IAreas';
 import {IPricing} from './IPricing';
 
 export interface IScenario {
@@ -18,3 +18,4 @@ export interface ICashFlow {
   id: number;
   scenarioId: number;
 }
+export type ICreateScenario = IScenario & ICreateAreas;

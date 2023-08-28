@@ -1,18 +1,17 @@
 import React, {FormEventHandler, useState} from 'react';
-import {Dialog} from '@radix-ui/themes';
+import {CreateState} from '../../App/state';
+import {useNotification} from '../../components/Notification/Notification';
+import {PlusIcon} from 'lucide-react';
+import {sleep} from '../../../utils/Functions';
+import {api} from '../../Api/Api';
+import {Fields} from '../../components/FieldsFactory';
+import {Forms} from '../../components/FormFactory';
+import {ICreateScenario} from '../../../utils/Common/Interfaces/IScenario';
+import Button from '../../components/ButtonFactory/Button';
+import {DialogFactory} from '../../components/DialogFactory';
 
-import {PlusIcon} from '@radix-ui/react-icons';
-import {Forms} from '../components/FormFactory';
-import Button from '../components/ButtonFactory/Button';
-import {Fields} from '../components/FieldsFactory';
-import {api} from '../Api/Api';
-import {sleep} from '../../utils/Functions';
-import {useNotification} from '../components/Notification/Notification';
-import {ICreateProject} from '../../utils/Common/Interfaces/IProject';
-import {CreateState} from '../App/state';
-
-export default function CreateScenario() {
-  const [project, setProject] = useState<ICreateProject>();
+export default function CreateScenario({projectId}: {projectId: number}) {
+  const [scenario, setScenario] = useState<ICreateScenario>();
   const [state, setState] = useState<CreateState>('initial');
   const [open, setOpen] = useState(false);
   const {setMessage, Notification} = useNotification();
@@ -21,47 +20,47 @@ export default function CreateScenario() {
     setState('submiting');
     e.preventDefault();
     api
-      .createProject(project)
+      .createScenario({...scenario, projectId: projectId})
       .then(() => {
         setMessage('Sucesso');
         setState('success');
         sleep(2000);
         setOpen(false);
       })
-      .catch(e => {
+      .catch((e: Error) => {
         setMessage(e.message);
         setState('initial');
       });
   };
 
-  function onInputChange<K extends keyof ICreateProject>(
+  function onInputChange<K extends keyof ICreateScenario>(
     key: K,
-    value: ICreateProject[K]
+    value: ICreateScenario[K]
   ) {
-    const currentProject = {...project};
-    currentProject[key] = value;
-    setProject(currentProject);
+    const object = {...scenario};
+    object[key] = value;
+    setScenario(object);
   }
 
   function cancel() {
     setOpen(false);
-    setProject(undefined);
+    setScenario(undefined);
   }
 
   return (
-    <Dialog.Root open={open}>
-      <Dialog.Trigger>
+    <DialogFactory.Root open={open}>
+      <DialogFactory.Trigger>
         <Button onClick={() => setOpen(true)}>
           <PlusIcon />
-          Nova Análise
+          Novo Cenário
         </Button>
-      </Dialog.Trigger>
+      </DialogFactory.Trigger>
 
-      <Dialog.Content>
-        <Dialog.Title>Nova Análise</Dialog.Title>
-        <Dialog.Description size="2" mb="4">
+      <DialogFactory.Content>
+        <DialogFactory.Title>Novo Cenário</DialogFactory.Title>
+        <DialogFactory.Description size="2" mb="4">
           Dados básicos
-        </Dialog.Description>
+        </DialogFactory.Description>
 
         <Forms.Root className="space-y-4" onSubmit={onSubmit}>
           <Forms.Field name="">
@@ -70,7 +69,7 @@ export default function CreateScenario() {
             <Forms.Control asChild>
               <Fields.Input
                 required
-                onChange={e => onInputChange('projectNm', e.target.value)}
+                onChange={e => onInputChange('scenarioNm', e.target.value)}
               />
             </Forms.Control>
           </Forms.Field>
@@ -80,7 +79,7 @@ export default function CreateScenario() {
             <Forms.Message match={'valueMissing'}></Forms.Message>
             <Forms.Control asChild>
               <Fields.Area
-                onChange={e => onInputChange('projectDs', e.target.value)}
+                onChange={e => onInputChange('scenarioDs', e.target.value)}
               />
             </Forms.Control>
           </Forms.Field>
@@ -160,7 +159,7 @@ export default function CreateScenario() {
           </div>
         </Forms.Root>
         {Notification}
-      </Dialog.Content>
-    </Dialog.Root>
+      </DialogFactory.Content>
+    </DialogFactory.Root>
   );
 }

@@ -12,4 +12,5 @@
       "database": "${workspaceFolder:cash_analitcs}/db.db"
     }
   ],
+  "sqltools.useNodeRuntime": true,
 }
