@@ -4,14 +4,10 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import {CashFlow} from './CashFlow';
 import {Project} from './Project';
-import {IGetScenarioById} from '../../utils/Common/Interfaces/IScenario';
-import {IAreas} from '../../utils/Common/Interfaces/IAreas';
-import {IPricing} from '../../utils/Common/Interfaces/IPricing';
 
 @Entity({name: 'scenario'})
 export class Scenario {

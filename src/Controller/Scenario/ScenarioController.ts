@@ -14,6 +14,7 @@ import {
   Saved,
 } from '../../utils/Common/Interfaces';
 import {
+  ICreateScenario,
   IGetScenarioById,
   IScenario,
 } from '../../utils/Common/Interfaces/IScenario';
@@ -25,8 +26,12 @@ export class ScenarioController {
     private readonly pricingRepo: PricingRepository = pricingRepository
   ) {}
 
-  async createScenario(scenario: IScenario): Promise<Saved<IScenario>> {
+  async createScenario(scenario: ICreateScenario): Promise<Saved<IScenario>> {
     const result = await this.scenarioRepo.createScneario(scenario);
+    await this.areaRepo.createArea({
+      ...scenario,
+      scenarioId: result.id,
+    });
     return result;
   }
 
