@@ -36,7 +36,7 @@ export class ProjectController {
       scenarioNm: 'BASE',
       projectId: newProject.id,
     });
-    await this.areaRepo.createArea({
+    await this.areaRepo.upInsert({
       decorationArea: project.decorationArea,
       protectedArea: project.protectedArea,
       streetArea: project.streetArea,
