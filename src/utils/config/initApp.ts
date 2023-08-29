@@ -2,6 +2,7 @@ import {ipcMain} from 'electron';
 import {projectController} from '../../Controller/Project/ProjectController';
 import {scenarioController} from '../../Controller/Scenario/ScenarioController';
 import {pricingController} from '../../Controller/Pricing/PrincingController';
+import {areaController} from '../../Controller/AreaController/AreaController';
 
 export async function initApp() {
   ipcMain.handle('listProject', async (event, ...args) =>
@@ -37,6 +38,10 @@ export async function initApp() {
   );
 
   ipcMain.handle('upInsertArea', async (event, ...args) =>
+    areaController.upInsert(args[0])
+  );
+
+  ipcMain.handle('upInsertPricing', async (event, ...args) =>
     pricingController.upInsert(args[0])
   );
 }
