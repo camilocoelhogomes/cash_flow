@@ -30,12 +30,14 @@ export default function ScenarioTabs({scenarios, projectid}: Props) {
 
   React.useEffect(() => {
     setStatus('loading');
+    load();
+  }, [scenarioId]);
+
+  const load = () =>
     api.getScenario(scenarioId).then(value => {
       setSelectedScenario(value);
       setStatus('loaded');
     });
-  }, [scenarioId]);
-
   return (
     <Tabs.Root
       defaultValue={scenarios[0].id.toString()}
@@ -147,12 +149,12 @@ export default function ScenarioTabs({scenarios, projectid}: Props) {
             open={updateAreas}
             setOpen={setupdateAreas}
             scenario={selectedScenario}
+            onFinish={load}
           />
           <UpdatePricing
             open={updatePricing}
             setOpen={setupdatePricing}
             scenario={selectedScenario}
-            projectid={projectid}
           />
         </Tabs.Content>
       )}
