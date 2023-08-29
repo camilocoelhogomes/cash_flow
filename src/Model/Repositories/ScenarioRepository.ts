@@ -18,6 +18,14 @@ export class ScenarioRepository {
     this.repository = dataSource.getRepository(Scenario);
   }
 
+  async updateScneario(scenario: Saved<IScenario>): Promise<void> {
+    const newScenario = this.repository.create();
+    newScenario.scenarioDs = scenario.scenarioDs;
+    newScenario.scenarioNm = scenario.scenarioNm;
+    newScenario.id = scenario.id;
+    await this.repository.save(newScenario);
+  }
+
   async createScneario(scenario: IScenario): Promise<Saved<IScenario>> {
     const newScenario = this.repository.create();
     newScenario.scenarioDs = scenario.scenarioDs;

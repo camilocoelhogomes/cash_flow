@@ -49,6 +49,10 @@ export class Api {
     return (window as unknown as IApi).api.getScenario(id);
   }
 
+  updateScenario(scenario: Saved<IScenario>): Promise<void> {
+    return (window as unknown as IApi).api.updateScenario(scenario);
+  }
+
   createPricing(pricing: IPricing): Promise<IPricing> {
     return (window as unknown as IApi).api.createPricing(pricing);
   }
