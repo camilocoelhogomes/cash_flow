@@ -29,7 +29,7 @@ export class ScenarioController {
 
   async createScenario(scenario: ICreateScenario): Promise<Saved<IScenario>> {
     const result = await this.scenarioRepo.createScneario(scenario);
-    await this.areaRepo.createArea({
+    await this.areaRepo.upInsert({
       ...scenario,
       scenarioId: result.id,
     });
