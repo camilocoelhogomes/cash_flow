@@ -46,6 +46,7 @@ export default function UpdateAreas({
     setState('success');
     setTimeout(() => {
       setOpen(false);
+      setState('initial');
       onFinish?.();
     }, 1000);
   }

@@ -155,6 +155,7 @@ export default function ScenarioTabs({scenarios, projectid}: Props) {
             open={updatePricing}
             setOpen={setupdatePricing}
             scenario={selectedScenario}
+            onFinish={load}
           />
         </Tabs.Content>
       )}
