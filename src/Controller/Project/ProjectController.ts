@@ -64,6 +64,10 @@ export class ProjectController {
     }
     return result;
   }
+
+  async update(project: Saved<IProject>): Promise<void> {
+    await this.projectRepo.update(project);
+  }
 }
 
 export const projectController = new ProjectController();

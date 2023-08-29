@@ -1,3 +1,4 @@
+import {Scenario} from '../../Model/Entitys/Scenario';
 import {ValidationError} from '../../Model/Errors/Errors';
 import {
   AreaRepository,
@@ -60,6 +61,10 @@ export class ScenarioController {
       pricing: pricing ?? undefined,
       areas: area,
     };
+  }
+
+  async update(scenario: Saved<IScenario>): Promise<void> {
+    return this.scenarioRepo.updateScneario(scenario);
   }
 }
 
