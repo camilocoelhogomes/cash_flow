@@ -43,8 +43,12 @@ export class ProjectRepository {
     };
   }
 
-  async update(project: Project): Promise<void> {
-    await this.projectRepository.save(project);
+  async update(project: Saved<IProject>): Promise<void> {
+    const updatedProject = this.projectRepository.create();
+    updatedProject.id = project.id;
+    updatedProject.projectDs = project.projectDs;
+    updatedProject.projectNm = project.projectNm;
+    await this.projectRepository.save(updatedProject);
   }
 
   async get(id: number): Promise<Project> {

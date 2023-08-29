@@ -3,6 +3,7 @@ import {
   PaginationSearch,
   Saved,
 } from '../../utils/Common/Interfaces';
+import {IAreas} from '../../utils/Common/Interfaces/IAreas';
 import {IPricing} from '../../utils/Common/Interfaces/IPricing';
 import {
   ICreateProject,
@@ -17,8 +18,6 @@ import {
 type IApi = Window & {api: Api};
 
 export class Api {
-  constructor() {}
-
   listProject(
     query: QuerySearch<IProject>
   ): Promise<PaginationSearch<IProject>> {
@@ -30,6 +29,10 @@ export class Api {
 
   getProject(id: number): Promise<IGetProjectById> {
     return (window as unknown as IApi).api.getProject(id);
+  }
+
+  async updateProject(project: Saved<IProject>): Promise<void> {
+    await (window as unknown as IApi).api.updateProject(project);
   }
 
   createScenario(scenario: IScenario): Promise<Saved<IScenario>> {
@@ -45,8 +48,16 @@ export class Api {
     return (window as unknown as IApi).api.getScenario(id);
   }
 
-  createPricing(pricing: IPricing): Promise<IPricing> {
-    return (window as unknown as IApi).api.createPricing(pricing);
+  updateScenario(scenario: Saved<IScenario>): Promise<void> {
+    return (window as unknown as IApi).api.updateScenario(scenario);
+  }
+
+  upInsertPricing(pricing: IPricing): Promise<IPricing> {
+    return (window as unknown as IApi).api.upInsertPricing(pricing);
+  }
+
+  upInsertArea(area: IAreas): Promise<IAreas> {
+    return (window as unknown as IApi).api.upInsertArea(area);
   }
 }
 
