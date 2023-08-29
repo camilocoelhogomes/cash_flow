@@ -1,4 +1,3 @@
-/* eslint-disable node/no-unpublished-import */
 // See the Electron documentation for details on how to use preload scripts:
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 import {contextBridge, ipcRenderer} from 'electron';
@@ -12,5 +11,7 @@ contextBridge.exposeInMainWorld('api', {
   listScenarios: (args: unknown) => ipcRenderer.invoke('listScenarios', args),
   getScenario: (args: unknown) => ipcRenderer.invoke('getScenario', args),
   updateScenario: (args: unknown) => ipcRenderer.invoke('updateScenario', args),
-  createPricing: (args: unknown) => ipcRenderer.invoke('createPricing', args),
+  upInsertPricing: (args: unknown) =>
+    ipcRenderer.invoke('upInsertPricing', args),
+  upInsertArea: (args: unknown) => ipcRenderer.invoke('upInsertArea', args),
 });

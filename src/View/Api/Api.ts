@@ -3,6 +3,7 @@ import {
   PaginationSearch,
   Saved,
 } from '../../utils/Common/Interfaces';
+import {IAreas} from '../../utils/Common/Interfaces/IAreas';
 import {IPricing} from '../../utils/Common/Interfaces/IPricing';
 import {
   ICreateProject,
@@ -17,8 +18,6 @@ import {
 type IApi = Window & {api: Api};
 
 export class Api {
-  constructor() {}
-
   listProject(
     query: QuerySearch<IProject>
   ): Promise<PaginationSearch<IProject>> {
@@ -53,8 +52,12 @@ export class Api {
     return (window as unknown as IApi).api.updateScenario(scenario);
   }
 
-  createPricing(pricing: IPricing): Promise<IPricing> {
-    return (window as unknown as IApi).api.createPricing(pricing);
+  upInsertPricing(pricing: IPricing): Promise<IPricing> {
+    return (window as unknown as IApi).api.upInsertPricing(pricing);
+  }
+
+  upInsertArea(area: IAreas): Promise<IAreas> {
+    return (window as unknown as IApi).api.upInsertArea(area);
   }
 }
 

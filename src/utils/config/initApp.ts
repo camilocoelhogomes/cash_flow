@@ -1,4 +1,3 @@
-/* eslint-disable node/no-unpublished-import */
 import {ipcMain} from 'electron';
 import {projectController} from '../../Controller/Project/ProjectController';
 import {scenarioController} from '../../Controller/Scenario/ScenarioController';
@@ -37,7 +36,7 @@ export async function initApp() {
     scenarioController.getById(args[0])
   );
 
-  ipcMain.handle('createPricing', async (event, ...args) =>
-    pricingController.create(args[0])
+  ipcMain.handle('upInsertArea', async (event, ...args) =>
+    pricingController.upInsert(args[0])
   );
 }

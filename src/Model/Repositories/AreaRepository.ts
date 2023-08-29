@@ -10,7 +10,7 @@ export class AreaRepository {
     this.repository = dataSource.getRepository(Area);
   }
 
-  async createArea(area: IAreas): Promise<IAreas> {
+  async upInsert(area: IAreas): Promise<IAreas> {
     const newArea = this.repository.create();
     newArea.decorationArea = area.decorationArea;
     newArea.protectedArea = area.protectedArea;

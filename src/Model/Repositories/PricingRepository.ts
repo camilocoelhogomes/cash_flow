@@ -2,6 +2,7 @@ import {DataSource} from 'typeorm';
 import {dataSourceManager} from '../../utils/config/dataSourceManager';
 import {Pricing} from '../Entitys/Pricing';
 import {IPricing} from '../../utils/Common/Interfaces/IPricing';
+import {Saved} from '../../utils/Common/Interfaces';
 
 export class PricingRepository {
   private readonly repository;
@@ -10,7 +11,7 @@ export class PricingRepository {
     this.repository = dataSource.getRepository(Pricing);
   }
 
-  create(pricing: IPricing): Promise<IPricing> {
+  upInsert(pricing: IPricing): Promise<IPricing> {
     const newPricing = this.repository.create();
     newPricing.fee = pricing.fee;
     newPricing.feeIndex = pricing.feeIndex;

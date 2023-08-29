@@ -9,8 +9,8 @@ export class PricingController {
     private readonly pricingRepo: PricingRepository = pricingRepository
   ) {}
 
-  create(pricing: IPricing): Promise<IPricing> {
-    return this.pricingRepo.create(pricing);
+  upInsert(pricing: IPricing): Promise<IPricing> {
+    return this.pricingRepo.upInsert(pricing);
   }
 }
 
