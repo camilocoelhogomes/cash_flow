@@ -32,6 +32,10 @@ export class Api {
     return (window as unknown as IApi).api.getProject(id);
   }
 
+  async updateProject(project: Saved<IProject>): Promise<void> {
+    await (window as unknown as IApi).api.updateProject(project);
+  }
+
   createScenario(scenario: IScenario): Promise<Saved<IScenario>> {
     return (window as unknown as IApi).api.createScenario(scenario);
   }

@@ -23,7 +23,6 @@ class DataSourceManager {
   }
 
   private setPath(): string {
-    console.log(process.env.NODE_ENV);
     if (process.env.NODE_ENV === 'development') {
       return path.join('db.db');
     }

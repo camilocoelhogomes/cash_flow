@@ -17,6 +17,10 @@ export async function initApp() {
     projectController.get(args[0])
   );
 
+  ipcMain.handle('updateProject', async (event, ...args) =>
+    projectController.update(args[0])
+  );
+
   ipcMain.handle('createScenario', async (event, ...args) =>
     scenarioController.createScenario(args[0])
   );
