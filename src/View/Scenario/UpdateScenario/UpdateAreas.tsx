@@ -4,40 +4,57 @@ import Button from '../../components/ButtonFactory/Button';
 import {Forms} from '../../components/FormFactory';
 import {Fields} from '../../components/FieldsFactory';
 import {CreateState} from '../../App/state';
-import {sleep} from '../../../utils/Functions';
-import {IScenario} from '../../../utils/Common/Interfaces';
+import {IGetScenarioById} from '../../../utils/Common/Interfaces/IScenario';
+import {useNotification} from '../../components/Notification/Notification';
+import {api} from '../../Api/Api';
+import {IAreas} from '../../../utils/Common/Interfaces/IAreas';
 
 type Props = {
   open: boolean;
   setOpen(value: boolean): void;
-  scenario: IScenario;
+  scenario: IGetScenarioById;
+  onFinish?: () => void;
 };
 
-export default function UpdateAreas({open, setOpen, scenario}: Props) {
-  const [currentScenario, setScenario] = React.useState(scenario);
-
+export default function UpdateAreas({
+  open,
+  setOpen,
+  scenario,
+  onFinish,
+}: Props) {
+  const [currentAreas, setCurrentAreas] = React.useState(scenario.areas);
+  const {setMessage, Notification} = useNotification();
   const [state, setState] = React.useState<CreateState>('initial');
-
-  function onInputChange<K extends keyof IScenario>(
-    key: K,
-    value: IScenario[K]
-  ) {
-    const current = {...currentScenario};
-    current[key] = value;
-    setScenario(current);
-  }
 
   const onSubmit: FormEventHandler = async e => {
     setState('submiting');
     e.preventDefault();
-    await sleep(2000);
-    setState('success');
-    setOpen(false);
+    api.upInsertArea(currentAreas).then(onSuccess).catch(onError);
   };
 
-  function cancel() {
+  function onCancel() {
     setOpen(false);
-    setScenario(scenario);
+    setCurrentAreas(scenario.areas);
+  }
+
+  function onError(error: Error) {
+    setMessage(error.message);
+    setState('initial');
+  }
+
+  async function onSuccess() {
+    setState('success');
+    setTimeout(() => {
+      setOpen(false);
+      setState('initial');
+      onFinish?.();
+    }, 1000);
+  }
+
+  function onInputChange<K extends keyof IAreas>(key: K, value: IAreas[K]) {
+    const current = {...currentAreas};
+    current[key] = value;
+    setCurrentAreas(current);
   }
 
   return (
@@ -53,7 +70,7 @@ export default function UpdateAreas({open, setOpen, scenario}: Props) {
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
                 <Fields.Input
-                  defaultValue={scenario.totalArea}
+                  defaultValue={currentAreas.totalArea}
                   required
                   type="number"
                   onChange={e =>
@@ -68,7 +85,7 @@ export default function UpdateAreas({open, setOpen, scenario}: Props) {
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
                 <Fields.Input
-                  defaultValue={scenario.decorationArea}
+                  defaultValue={currentAreas.decorationArea}
                   required
                   type="number"
                   onChange={e =>
@@ -82,7 +99,7 @@ export default function UpdateAreas({open, setOpen, scenario}: Props) {
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
                 <Fields.Input
-                  defaultValue={scenario.protectedArea}
+                  defaultValue={currentAreas.protectedArea}
                   required
                   type="number"
                   onChange={e =>
@@ -96,7 +113,7 @@ export default function UpdateAreas({open, setOpen, scenario}: Props) {
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
                 <Fields.Input
-                  defaultValue={scenario.streetArea}
+                  defaultValue={currentAreas.streetArea}
                   required
                   type="number"
                   onChange={e =>
@@ -110,7 +127,7 @@ export default function UpdateAreas({open, setOpen, scenario}: Props) {
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
                 <Fields.Input
-                  defaultValue={scenario.totalSlots}
+                  defaultValue={currentAreas.totalSlots}
                   required
                   type="number"
                   onChange={e =>
@@ -121,7 +138,7 @@ export default function UpdateAreas({open, setOpen, scenario}: Props) {
             </Forms.Field>
             <div className="flex space-x-2">
               {state === 'initial' && (
-                <Button color="soft" onClick={cancel}>
+                <Button color="soft" onClick={onCancel}>
                   Cancel
                 </Button>
               )}
@@ -129,6 +146,7 @@ export default function UpdateAreas({open, setOpen, scenario}: Props) {
             </div>
           </Forms.Root>
         </div>
+        {Notification}
       </DialogFactory.Content>
     </DialogFactory.Root>
   );

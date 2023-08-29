@@ -3,8 +3,6 @@ import {sleep} from '../../../utils/Functions';
 import {Callout, IconButton} from '@radix-ui/themes';
 import {Cross2Icon, InfoCircledIcon} from '@radix-ui/react-icons';
 
-type Props = {};
-
 export function useNotification() {
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState('');

@@ -2,37 +2,49 @@ import React, {FormEventHandler, useState} from 'react';
 import {Dialog} from '@radix-ui/themes';
 
 import {PlusIcon} from '@radix-ui/react-icons';
-import {Forms} from '../components/FormFactory';
-import Button from '../components/ButtonFactory/Button';
-import {Fields} from '../components/FieldsFactory';
-import {api} from '../Api/Api';
-import {sleep} from '../../utils/Functions';
-import {useNotification} from '../components/Notification/Notification';
-import {ICreateProject} from '../../utils/Common/Interfaces/IProject';
-import {CreateState} from '../App/state';
+import {Forms} from '../../components/FormFactory';
+import Button from '../../components/ButtonFactory/Button';
+import {Fields} from '../../components/FieldsFactory';
+import {api} from '../../Api/Api';
+import {useNotification} from '../../components/Notification/Notification';
+import {
+  ICreateProject,
+  IProject,
+} from '../../../utils/Common/Interfaces/IProject';
+import {CreateState} from '../../App/state';
 
-export default function CreateProject() {
+export default function CreateProject({onFinish}: {onFinish?: () => void}) {
   const [project, setProject] = useState<ICreateProject>();
   const [state, setState] = useState<CreateState>('initial');
   const [open, setOpen] = useState(false);
   const {setMessage, Notification} = useNotification();
 
   const onSubmit: FormEventHandler = e => {
-    setState('submiting');
     e.preventDefault();
+    setState('submiting');
     api
       .createProject(project)
-      .then(() => {
-        setMessage('Sucesso');
-        setState('success');
-        sleep(2000);
-        setOpen(false);
-      })
-      .catch(e => {
-        setMessage(e.message);
-        setState('initial');
-      });
+      .then(() => onSuccess())
+      .catch(onError);
   };
+
+  function onCancel() {
+    setOpen(false);
+    setProject(undefined);
+  }
+
+  function onError(error: Error) {
+    setMessage(error.message);
+    setState('initial');
+  }
+
+  async function onSuccess() {
+    setState('success');
+    setTimeout(() => {
+      setOpen(false);
+      onFinish?.();
+    }, 1000);
+  }
 
   function onInputChange<K extends keyof ICreateProject>(
     key: K,
@@ -43,22 +55,17 @@ export default function CreateProject() {
     setProject(currentProject);
   }
 
-  function cancel() {
-    setOpen(false);
-    setProject(undefined);
-  }
-
   return (
     <Dialog.Root open={open}>
       <Dialog.Trigger>
         <Button onClick={() => setOpen(true)}>
           <PlusIcon />
-          Nova Análise
+          Novo Projeto
         </Button>
       </Dialog.Trigger>
 
       <Dialog.Content>
-        <Dialog.Title>Nova Análise</Dialog.Title>
+        <Dialog.Title>Criar projeto</Dialog.Title>
         <Dialog.Description size="2" mb="4">
           Dados básicos
         </Dialog.Description>
@@ -152,7 +159,7 @@ export default function CreateProject() {
           </Forms.Field>
           <div className="flex space-x-2">
             {state === 'initial' && (
-              <Button color="soft" onClick={cancel}>
+              <Button color="soft" onClick={onCancel}>
                 Cancel
               </Button>
             )}

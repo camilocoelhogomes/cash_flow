@@ -1,17 +1,17 @@
-import {DialogFactory} from '../components/DialogFactory';
-import Button from '../components/ButtonFactory/Button';
+import {DialogFactory} from '../../components/DialogFactory';
+import Button from '../../components/ButtonFactory/Button';
 import ScenarioTabs from './ScenarioTabs';
-import {Saved} from '../../utils/Common/Interfaces';
+import {Saved} from '../../../utils/Common/Interfaces';
 import {X} from 'lucide-react';
 import {
   IGetProjectById,
   IProject,
-} from '../../utils/Common/Interfaces/IProject';
-import {LoadState} from '../App/state';
-import LoadStateComponent from '../components/LoadingIndicator/LoadState';
+} from '../../../utils/Common/Interfaces/IProject';
+import {LoadState} from '../../App/state';
+import LoadStateComponent from '../../components/LoadingIndicator/LoadState';
 import React from 'react';
-import {api} from '../Api/Api';
-import CreateScenario from '../UpdateProject/CreateScenario/CreateScenario';
+import {api} from '../../Api/Api';
+import CreateScenario from '../../Scenario/CreateScenario/CreateScenario';
 
 type Props = {
   project: Saved<IProject>;
@@ -23,12 +23,14 @@ export default function GetProject({project}: Props) {
   const [completeProject, setcompleteProject] =
     React.useState<IGetProjectById>();
 
-  async function openDialog() {
-    setOpen(true);
+  const load = () =>
     api.getProject(project.id).then(value => {
       setcompleteProject(value);
       setStatus('loaded');
     });
+  async function openDialog() {
+    setOpen(true);
+    load();
   }
 
   function closeDialog() {
@@ -62,7 +64,8 @@ export default function GetProject({project}: Props) {
             mb="4"
             className="flex justify-between"
           >
-            {project.projectDs} <CreateScenario projectId={project.id} />
+            {project.projectDs}{' '}
+            <CreateScenario projectId={project.id} onFinish={load} />
           </DialogFactory.Description>
         </div>
         <div className="h-[75vh] items-center flex-col">

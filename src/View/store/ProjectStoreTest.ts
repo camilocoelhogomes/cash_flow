@@ -22,7 +22,7 @@ interface State {
   ): Promise<IGetScenarioById>;
 }
 
-export const useProjectStore = create<State>((set, get) => ({
+export const useProjectStoreTest = create<State>((set, get) => ({
   projectdb: listproject(3),
   listProjects() {
     return get().projectdb.map(item => {

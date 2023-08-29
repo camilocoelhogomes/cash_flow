@@ -5,53 +5,60 @@ import {Forms} from '../../components/FormFactory';
 import {Fields} from '../../components/FieldsFactory';
 import {CreateState} from '../../App/state';
 import {sleep} from '../../../utils/Functions';
-import {IPricing, IScenario} from '../../../utils/Common/Interfaces';
-import {useProjectStore} from '../../store/ProjectStore';
-import {Scenario} from '../../../Model/Entitys/Scenario';
+import {IGetScenarioById} from '../../../utils/Common/Interfaces/IScenario';
+import {IPricing} from '../../../utils/Common/Interfaces/IPricing';
+import {api} from '../../Api/Api';
+import {useNotification} from '../../components/Notification/Notification';
 
 type Props = {
   open: boolean;
   setOpen(value: boolean): void;
-  projectid: number;
-  scenario: IScenario;
+  scenario: IGetScenarioById;
+  onFinish?: () => void;
 };
 
 export default function UpdatePricing({
   open,
   setOpen,
-  projectid,
   scenario,
+  onFinish,
 }: Props) {
-  const defaultpricing = scenario.pricing;
-
-  const [currentPricing, setPricing] = React.useState(defaultpricing);
-
-  const projectStore = useProjectStore();
-
+  const [currentPricing, setCurrentPricing] = React.useState(scenario.pricing);
+  const {setMessage, Notification} = useNotification();
   const [state, setState] = React.useState<CreateState>('initial');
-
-  function onInputChange<K extends keyof IPricing>(key: K, value: IPricing[K]) {
-    const current = {...currentPricing};
-    current[key] = value;
-    setPricing(current);
-  }
 
   const onSubmit: FormEventHandler = async e => {
     setState('submiting');
     e.preventDefault();
-    const projectStore = useProjectStore().updateScenario(
-      projectid,
-      scenario.id,
-      {pricing: currentPricing}
-    );
-    await sleep(1000);
-    setState('success');
-    setOpen(false);
+    api
+      .upInsertPricing({...currentPricing, scenarioId: scenario.id})
+      .then(onSuccess)
+      .catch(onError);
   };
 
-  function cancel() {
+  function onCancel() {
     setOpen(false);
-    setPricing(defaultpricing);
+    setCurrentPricing(scenario.pricing);
+  }
+
+  function onError(error: Error) {
+    setMessage(error.message);
+    setState('initial');
+  }
+
+  async function onSuccess() {
+    setState('success');
+    setTimeout(() => {
+      setOpen(false);
+      setState('initial');
+      onFinish?.();
+    }, 1000);
+  }
+
+  function onInputChange<K extends keyof IPricing>(key: K, value: IPricing[K]) {
+    const current = {...currentPricing};
+    current[key] = value;
+    setCurrentPricing(current);
   }
 
   return (
@@ -67,7 +74,7 @@ export default function UpdatePricing({
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
                 <Fields.Input
-                  defaultValue={defaultpricing?.startAmount}
+                  defaultValue={currentPricing?.startAmount}
                   required
                   type="number"
                   onChange={e =>
@@ -82,7 +89,7 @@ export default function UpdatePricing({
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
                 <Fields.Input
-                  defaultValue={defaultpricing?.squareAmount}
+                  defaultValue={currentPricing?.squareAmount}
                   required
                   type="number"
                   onChange={e =>
@@ -97,7 +104,7 @@ export default function UpdatePricing({
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
                 <Fields.Input
-                  defaultValue={defaultpricing?.fee}
+                  defaultValue={currentPricing?.fee}
                   required
                   type="number"
                   onChange={e => onInputChange('fee', Number(e.target.value))}
@@ -110,9 +117,8 @@ export default function UpdatePricing({
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
                 <Fields.Input
-                  defaultValue={defaultpricing?.feeIndex}
+                  defaultValue={currentPricing?.feeIndex}
                   required
-                  type="number"
                   onChange={e => onInputChange('feeIndex', e.target.value)}
                 />
               </Forms.Control>
@@ -122,9 +128,8 @@ export default function UpdatePricing({
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
                 <Fields.Input
-                  defaultValue={defaultpricing?.feeModel}
+                  defaultValue={currentPricing?.feeModel}
                   required
-                  type="number"
                   onChange={e => onInputChange('feeModel', e.target.value)}
                 />
               </Forms.Control>
@@ -134,7 +139,7 @@ export default function UpdatePricing({
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
                 <Fields.Input
-                  defaultValue={defaultpricing?.installments}
+                  defaultValue={currentPricing?.installments}
                   required
                   type="number"
                   onChange={e =>
@@ -146,7 +151,7 @@ export default function UpdatePricing({
 
             <div className="flex space-x-2">
               {state === 'initial' && (
-                <Button color="soft" onClick={cancel}>
+                <Button color="soft" onClick={onCancel}>
                   Cancel
                 </Button>
               )}
@@ -154,6 +159,7 @@ export default function UpdatePricing({
             </div>
           </Forms.Root>
         </div>
+        {Notification}
       </DialogFactory.Content>
     </DialogFactory.Root>
   );
