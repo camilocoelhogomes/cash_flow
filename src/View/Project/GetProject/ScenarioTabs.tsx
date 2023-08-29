@@ -1,20 +1,20 @@
 import React from 'react';
 import {Tabs, Text} from '@radix-ui/themes';
-import {Fields} from '../components/FieldsFactory';
+import {Fields} from '../../components/FieldsFactory';
 import ContextCard from './ContextCard';
-import Button from '../components/ButtonFactory/Button';
-import {Layout} from '../components/Layout';
-import {Saved} from '../../utils/Common/Interfaces';
-import UpdateAreas from '../UpdateProject/UpdateScenario/UpdateAreas';
-import UpdatePricing from '../UpdateProject/UpdateScenario/UpdatePricing';
+import Button from '../../components/ButtonFactory/Button';
+import {Layout} from '../../components/Layout';
+import {Saved} from '../../../utils/Common/Interfaces';
+import UpdateAreas from '../../Scenario/UpdateScenario/UpdateAreas';
+import UpdatePricing from '../../Scenario/UpdateScenario/UpdatePricing';
 import {
   IGetScenarioById,
   IScenario,
-} from '../../utils/Common/Interfaces/IScenario';
-import {IAreas} from '../../utils/Common/Interfaces/IAreas';
-import LoadStateComponent from '../components/LoadingIndicator/LoadState';
-import {LoadState} from '../App/state';
-import {api} from '../Api/Api';
+} from '../../../utils/Common/Interfaces/IScenario';
+import {IAreas} from '../../../utils/Common/Interfaces/IAreas';
+import LoadStateComponent from '../../components/LoadingIndicator/LoadState';
+import {LoadState} from '../../App/state';
+import {api} from '../../Api/Api';
 type Props = {
   scenarios: Saved<IScenario>[];
   projectid: number;

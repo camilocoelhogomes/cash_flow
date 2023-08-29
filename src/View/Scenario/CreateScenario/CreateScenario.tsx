@@ -2,7 +2,6 @@ import React, {FormEventHandler, useState} from 'react';
 import {CreateState} from '../../App/state';
 import {useNotification} from '../../components/Notification/Notification';
 import {PlusIcon} from 'lucide-react';
-import {sleep} from '../../../utils/Functions';
 import {api} from '../../Api/Api';
 import {Fields} from '../../components/FieldsFactory';
 import {Forms} from '../../components/FormFactory';
@@ -10,7 +9,13 @@ import {ICreateScenario} from '../../../utils/Common/Interfaces/IScenario';
 import Button from '../../components/ButtonFactory/Button';
 import {DialogFactory} from '../../components/DialogFactory';
 
-export default function CreateScenario({projectId}: {projectId: number}) {
+export default function CreateScenario({
+  projectId,
+  onFinish,
+}: {
+  projectId: number;
+  onFinish?: () => void;
+}) {
   const [scenario, setScenario] = useState<ICreateScenario>();
   const [state, setState] = useState<CreateState>('initial');
   const [open, setOpen] = useState(false);
@@ -21,17 +26,27 @@ export default function CreateScenario({projectId}: {projectId: number}) {
     e.preventDefault();
     api
       .createScenario({...scenario, projectId: projectId})
-      .then(() => {
-        setMessage('Sucesso');
-        setState('success');
-        sleep(2000);
-        setOpen(false);
-      })
-      .catch((e: Error) => {
-        setMessage(e.message);
-        setState('initial');
-      });
+      .then(onSuccess)
+      .catch(onError);
   };
+
+  function onError(error: Error) {
+    setMessage(error.message);
+    setState('initial');
+  }
+
+  async function onSuccess() {
+    setState('success');
+    setTimeout(() => {
+      setOpen(false);
+      onFinish?.();
+    }, 1000);
+  }
+
+  function onCancel() {
+    setOpen(false);
+    setScenario(undefined);
+  }
 
   function onInputChange<K extends keyof ICreateScenario>(
     key: K,
@@ -40,11 +55,6 @@ export default function CreateScenario({projectId}: {projectId: number}) {
     const object = {...scenario};
     object[key] = value;
     setScenario(object);
-  }
-
-  function cancel() {
-    setOpen(false);
-    setScenario(undefined);
   }
 
   return (
@@ -151,7 +161,7 @@ export default function CreateScenario({projectId}: {projectId: number}) {
           </Forms.Field>
           <div className="flex space-x-2">
             {state === 'initial' && (
-              <Button color="soft" onClick={cancel}>
+              <Button color="soft" onClick={onCancel}>
                 Cancel
               </Button>
             )}

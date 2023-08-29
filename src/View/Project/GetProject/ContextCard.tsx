@@ -1,7 +1,7 @@
 import React from 'react';
-import {Fields} from '../components/FieldsFactory';
+import {Fields} from '../../components/FieldsFactory';
 import {Tabs, Box, Text, Separator} from '@radix-ui/themes';
-import Button from '../components/ButtonFactory/Button';
+import Button from '../../components/ButtonFactory/Button';
 
 type Props = {title: string; onEditClick(): void};
 

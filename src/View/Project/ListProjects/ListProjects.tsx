@@ -1,13 +1,13 @@
 import {useEffect, useState} from 'react';
-import {api} from '../Api/Api';
+import {api} from '../../Api/Api';
 import {ChevronLeftIcon, ChevronRightIcon} from '@radix-ui/react-icons';
-import CreateAnalysis from '../CreateProject/CreateProject';
 import GetProject from '../GetProject/GetProject';
-import Button from '../components/ButtonFactory/Button';
+import Button from '../../components/ButtonFactory/Button';
 import {Brackets} from 'lucide-react';
-import {Fields} from '../components/FieldsFactory';
-import {PaginationSearch} from '../../utils/Common/Interfaces';
-import {IProject} from '../../utils/Common/Interfaces/IProject';
+import {Fields} from '../../components/FieldsFactory';
+import {PaginationSearch} from '../../../utils/Common/Interfaces';
+import {IProject} from '../../../utils/Common/Interfaces/IProject';
+import CreateProject from '../CreateProject/CreateProject';
 
 export default function Listprojects() {
   const [queryParams, setQueryParams] = useState({
@@ -15,10 +15,13 @@ export default function Listprojects() {
     limit: 15,
     query: {},
   });
+
   const [projects, setProjects] = useState<PaginationSearch<IProject>>();
 
+  const load = () => api.listProject(queryParams).then(setProjects);
+
   useEffect(() => {
-    api.listProject(queryParams).then(setProjects);
+    load();
   }, [queryParams]);
 
   if (projects) {
@@ -26,7 +29,7 @@ export default function Listprojects() {
       <div className="flex flex-col space-y-2 justify-between h-full">
         <div className="flex justify-between border-b border-slate-300 dark:border-slate-600 py-6 my-4">
           <Fields.Heading>Análises</Fields.Heading>
-          <CreateAnalysis />
+          <CreateProject onFinish={load} />
         </div>
 
         {projects.result.length ? (
