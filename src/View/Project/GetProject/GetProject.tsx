@@ -12,6 +12,7 @@ import LoadStateComponent from '../../components/LoadingIndicator/LoadState';
 import React from 'react';
 import {api} from '../../Api/Api';
 import CreateScenario from '../../Scenario/CreateScenario/CreateScenario';
+import {TableFactory} from '../../components/TableFactory';
 
 type Props = {
   project: Saved<IProject>;
@@ -41,13 +42,20 @@ export default function GetProject({project}: Props) {
   return (
     <DialogFactory.Root open={open}>
       <DialogFactory.Trigger>
-        <button
+        {/* <button
           onClick={openDialog}
           className="py-4 px-4 outline outline-1 rounded-md inline-flex transition-colors duration-300 font-semibold
       outline-slate-300 hover:bg-slate-300
       dark:hover:bg-slate-500 dark:outline-slate-500"
         >
           {project.id} | {project.projectNm}
+        </button> */}
+
+        <button
+          onClick={openDialog}
+          className="font-medium dark:text-slate-300 text-slate-600 uppercase hover:underline hover:decoration-indigo-500 hover:decoration-2 hover:duration-500 hover:underline-offset-8"
+        >
+          {project.projectNm}
         </button>
       </DialogFactory.Trigger>
 

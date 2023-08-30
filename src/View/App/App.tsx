@@ -31,14 +31,14 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <Theme appearance={theme} grayColor="slate" accentColor="indigo">
         <div className={'h-screen flex ' + theme}>
-          <aside className="w-72 bg-slate-100 dark:bg-slate-600 transition-colors duration-700">
+          <aside className="w-72 bg-indigo-50/30 dark:bg-slate-600 transition-colors duration-700 ">
             <div className="flex items-center px-6 h-16 border-b dark:border-slate-500">
               <AiOutlineAreaChart
                 size={50}
-                className="text-indigo-400 dark:text-indigo-50"
+                className="text-blue-800/70 dark:text-indigo-50"
               />
-              <h1 className="font-bold text-indigo-400 dark:text-indigo-50">
-                LANDFLOW
+              <h1 className="font-medium text-gray-600/70 dark:text-indigo-50 text-xl	">
+                LandFlow
               </h1>
             </div>
 

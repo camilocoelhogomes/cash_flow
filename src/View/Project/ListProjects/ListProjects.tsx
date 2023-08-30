@@ -8,6 +8,7 @@ import {Fields} from '../../components/FieldsFactory';
 import {PaginationSearch} from '../../../utils/Common/Interfaces';
 import {IProject} from '../../../utils/Common/Interfaces/IProject';
 import CreateProject from '../CreateProject/CreateProject';
+import {TableFactory} from '../../components/TableFactory';
 
 export default function Listprojects() {
   const [queryParams, setQueryParams] = useState({
@@ -34,9 +35,34 @@ export default function Listprojects() {
 
         {projects.result.length ? (
           <div className="flex flex-col flex-1 grid-cols-1 gap-4">
-            {(projects.result ?? []).map(item => (
-              <GetProject key={item.id} project={item} />
-            ))}
+            <TableFactory.Root>
+              <TableFactory.Header className="text-blue-800/70 dark:text-blue-400/70">
+                <TableFactory.ColumnHeaderCell>
+                  NOME
+                </TableFactory.ColumnHeaderCell>
+                <TableFactory.ColumnHeaderCell>
+                  DESCRIÇÃO
+                </TableFactory.ColumnHeaderCell>
+                <TableFactory.ColumnHeaderCell>
+                  ID
+                </TableFactory.ColumnHeaderCell>
+              </TableFactory.Header>
+              <TableFactory.Body>
+                {projects.result.map(item => (
+                  <TableFactory.Row key={item.id}>
+                    <TableFactory.RowHeaderCell>
+                      <GetProject project={item} />
+                    </TableFactory.RowHeaderCell>
+                    <TableFactory.Cell>{item.projectDs}</TableFactory.Cell>
+                    <TableFactory.Cell>{item.id}</TableFactory.Cell>
+                  </TableFactory.Row>
+                ))}
+              </TableFactory.Body>
+            </TableFactory.Root>
+
+            {/* {(projects.result ?? []).map(item => (
+              
+            ))} */}
           </div>
         ) : (
           <div className="text-indigo-200 flex flex-col flex-1 items-center">
@@ -44,7 +70,7 @@ export default function Listprojects() {
           </div>
         )}
         <footer className="items-center flex justify-between gap-4 border-t py-4 border-slate-300">
-          <div>
+          <div className="space-x-4 items-center">
             <Button color="soft">
               <ChevronLeftIcon />
               anterior

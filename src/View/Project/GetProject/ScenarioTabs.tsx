@@ -15,6 +15,7 @@ import {IAreas} from '../../../utils/Common/Interfaces/IAreas';
 import LoadStateComponent from '../../components/LoadingIndicator/LoadState';
 import {LoadState} from '../../App/state';
 import {api} from '../../Api/Api';
+import {BRLCurrency} from '../../../utils/Functions';
 type Props = {
   scenarios: Saved<IScenario>[];
   projectid: number;
@@ -57,6 +58,7 @@ export default function ScenarioTabs({scenarios, projectid}: Props) {
             scrollbars="vertical"
             size={'1'}
             style={{height: '70vh', padding: '0% 2%'}}
+            className="scroll-smooth"
           >
             <div className="flex justify-between w-full py-6 px-2">
               <Text size="2">{selectedScenario.scenarioDs}</Text>
@@ -99,7 +101,9 @@ export default function ScenarioTabs({scenarios, projectid}: Props) {
               >
                 <Fields.Card
                   label="Valor do m² (R$)"
-                  value={selectedScenario.pricing?.squareAmount.toString()}
+                  value={BRLCurrency(
+                    selectedScenario.pricing?.squareAmount ?? 0
+                  )}
                 />
                 <Fields.Card
                   label="Taxa de juros"
@@ -115,7 +119,7 @@ export default function ScenarioTabs({scenarios, projectid}: Props) {
                 />
                 <Fields.Card
                   label="Valor de Entrada"
-                  value={selectedScenario.pricing?.startAmount.toString()}
+                  value={BRLCurrency(selectedScenario.pricing?.startAmount)}
                 />
                 <Fields.Card
                   label="Indexador"
