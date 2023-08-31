@@ -7,11 +7,11 @@ const button = tv({
   base: 'inline-flex items-center px-4 py-1 font-semibold leading-6 text-sm rounded-md transition ease-in-out duration-150',
   variants: {
     color: {
-      solid: 'bg-indigo-500 hover:bg-indigo-400 text-white shadow',
-      soft: 'bg-indigo-500/20 text-indigo-500 shadow',
-      shadow: 'shadow-md border border-slate-100',
+      solid: 'bg-teal-500 hover:bg-teal-400 text-white shadow',
+      soft: 'bg-teal-500/20 text-teal-500 shadow',
+      shadow: 'shadow-md border border-gray-100',
       outline: '',
-      ghost: 'bg-transparent text-indigo-500 hover:bg-slate-100',
+      ghost: 'bg-transparent text-teal-500 hover:bg-gray-100',
       surface: '',
     },
   },

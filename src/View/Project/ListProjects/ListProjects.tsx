@@ -36,7 +36,7 @@ export default function Listprojects() {
         {projects.result.length ? (
           <div className="flex flex-col flex-1 grid-cols-1 gap-4">
             <TableFactory.Root>
-              <TableFactory.Header className="text-blue-800/70 dark:text-blue-400/70">
+              <TableFactory.Header>
                 <TableFactory.ColumnHeaderCell>
                   NOME
                 </TableFactory.ColumnHeaderCell>
@@ -59,10 +59,6 @@ export default function Listprojects() {
                 ))}
               </TableFactory.Body>
             </TableFactory.Root>
-
-            {/* {(projects.result ?? []).map(item => (
-              
-            ))} */}
           </div>
         ) : (
           <div className="text-indigo-200 flex flex-col flex-1 items-center">
