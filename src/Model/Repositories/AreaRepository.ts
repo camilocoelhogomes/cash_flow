@@ -1,12 +1,11 @@
 import {DataSource} from 'typeorm';
-import {dataSourceManager} from '../../utils/config/dataSourceManager';
 import {Area} from '../Entitys/Area';
 import {IAreas} from '../../utils/Common/Interfaces/IAreas';
 
 export class AreaRepository {
   private readonly repository;
 
-  constructor(dataSource: DataSource = dataSourceManager.getDataSource()) {
+  constructor(dataSource: DataSource) {
     this.repository = dataSource.getRepository(Area);
   }
 
@@ -31,5 +30,3 @@ export class AreaRepository {
     return result;
   }
 }
-
-export const areaRepository = new AreaRepository();

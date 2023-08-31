@@ -1,14 +1,7 @@
-import {Scenario} from '../../Model/Entitys/Scenario';
 import {ValidationError} from '../../Model/Errors/Errors';
-import {
-  AreaRepository,
-  areaRepository,
-} from '../../Model/Repositories/AreaRepository';
-import {
-  PricingRepository,
-  pricingRepository,
-} from '../../Model/Repositories/PricingRepository';
-import {scenarioRepository} from '../../Model/Repositories/ScenarioRepository';
+import {AreaRepository} from '../../Model/Repositories/AreaRepository';
+import {PricingRepository} from '../../Model/Repositories/PricingRepository';
+import {ScenarioRepository} from '../../Model/Repositories/ScenarioRepository';
 import {
   PaginationSearch,
   QuerySearch,
@@ -22,9 +15,9 @@ import {
 
 export class ScenarioController {
   constructor(
-    private readonly scenarioRepo = scenarioRepository,
-    private readonly areaRepo: AreaRepository = areaRepository,
-    private readonly pricingRepo: PricingRepository = pricingRepository
+    private readonly scenarioRepo: ScenarioRepository,
+    private readonly areaRepo: AreaRepository,
+    private readonly pricingRepo: PricingRepository
   ) {}
 
   async createScenario(scenario: ICreateScenario): Promise<Saved<IScenario>> {
@@ -67,5 +60,3 @@ export class ScenarioController {
     return this.scenarioRepo.updateScneario(scenario);
   }
 }
-
-export const scenarioController = new ScenarioController();

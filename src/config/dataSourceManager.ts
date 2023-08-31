@@ -1,14 +1,14 @@
 import {existsSync} from 'fs';
 import path from 'path';
 import {DataSource} from 'typeorm';
-import {CashFlow} from '../../Model/Entitys/CashFlow';
-import {CashMovement} from '../../Model/Entitys/CashMovement';
-import {Scenario} from '../../Model/Entitys/Scenario';
-import {Project} from '../../Model/Entitys/Project';
-import {Pricing} from '../../Model/Entitys/Pricing';
-import {Area} from '../../Model/Entitys/Area';
+import {CashFlow} from '../Model/Entitys/CashFlow';
+import {CashMovement} from '../Model/Entitys/CashMovement';
+import {Scenario} from '../Model/Entitys/Scenario';
+import {Project} from '../Model/Entitys/Project';
+import {Pricing} from '../Model/Entitys/Pricing';
+import {Area} from '../Model/Entitys/Area';
 
-class DataSourceManager {
+export class DataSourceManager {
   private dataSource: DataSource;
   private readonly dbExists: boolean;
   constructor() {
@@ -98,5 +98,3 @@ class DataSourceManager {
     return this.dataSource;
   }
 }
-
-export const dataSourceManager = new DataSourceManager();

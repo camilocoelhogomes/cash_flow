@@ -1,0 +1,33 @@
+Montar tabela de configurações
+export a api de criação edição e delete da tabela de configurações
+Fazer validações nas apis (usar ajv)
+
+Reunião 31/08
+Todas as áreas são em metros quadrados
+Area tota tem que ser maior que o somátório das outras
+Falta área de lotes no momento de criação do projeto
+Valor de entrada percentual
+Configuração de área minima de lote
+Taxa de juros é valor fixo
+taxa de juros fixas como mensal
+indexador como botões
+modelo de juros como botões
+SAC, PRICE E SACOC
+taxa de juros não aceitando numero quebrado
+Formulário de custo legal
+Formulário de Estrutura societário
+Formulário de lançamentos
+
+Camilo
+Validações dos inputs
+Criação da tabela de Configuração de programa
+Criação da tabela de Configuração de tela
+Criação do modelo de dados da estrutura societário
+Criação do modelo de dados dos lançamentos para estrutura societária
+
+Marcos e João
+Envio das telas - ok
+Envio da planilha que possui os calculos dos fluxos de caixa, de entrada e saída
+
+Soldado
+Criação das telas de inputs baseados nas telas enviadas

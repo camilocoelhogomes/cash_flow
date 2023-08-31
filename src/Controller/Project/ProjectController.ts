@@ -1,12 +1,6 @@
 import {NotFoundError} from '../../Model/Errors/Errors';
-import {
-  ProjectRepository,
-  projectRepository,
-} from '../../Model/Repositories/ProjectRepository';
-import {
-  ScenarioRepository,
-  scenarioRepository,
-} from '../../Model/Repositories/ScenarioRepository';
+import {ProjectRepository} from '../../Model/Repositories/ProjectRepository';
+import {ScenarioRepository} from '../../Model/Repositories/ScenarioRepository';
 import {
   PaginationSearch,
   QuerySearch,
@@ -17,16 +11,13 @@ import {
   IGetProjectById,
   IProject,
 } from '../../utils/Common/Interfaces/IProject';
-import {
-  AreaRepository,
-  areaRepository,
-} from '../../Model/Repositories/AreaRepository';
+import {AreaRepository} from '../../Model/Repositories/AreaRepository';
 
 export class ProjectController {
   constructor(
-    private readonly projectRepo: ProjectRepository = projectRepository,
-    private readonly scenarioRepo: ScenarioRepository = scenarioRepository,
-    private readonly areaRepo: AreaRepository = areaRepository
+    private readonly projectRepo: ProjectRepository,
+    private readonly scenarioRepo: ScenarioRepository,
+    private readonly areaRepo: AreaRepository
   ) {}
 
   async create(project: ICreateProject): Promise<Saved<IProject>> {
@@ -69,5 +60,3 @@ export class ProjectController {
     await this.projectRepo.update(project);
   }
 }
-
-export const projectController = new ProjectController();
