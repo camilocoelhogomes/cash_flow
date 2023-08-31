@@ -27,3 +27,17 @@ export function setPropertyValue<T, K extends keyof T>(
   newObject[key] = value;
   return newObject;
 }
+
+/**
+ * Converts a number to a currency Brazilian Real (R$) string.
+ * @param value The amount in cents
+ * @example
+ * 1220 => R$ 12,20
+ * 120020 => RS 1.200,20
+ */
+export function BRLCurrency(value?: number) {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(value ?? 0);
+}

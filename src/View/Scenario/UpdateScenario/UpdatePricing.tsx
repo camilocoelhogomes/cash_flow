@@ -9,6 +9,7 @@ import {IGetScenarioById} from '../../../utils/Common/Interfaces/IScenario';
 import {IPricing} from '../../../utils/Common/Interfaces/IPricing';
 import {api} from '../../Api/Api';
 import {useNotification} from '../../components/Notification/Notification';
+import {SelectFactory} from '../../components/SelectFactory';
 
 type Props = {
   open: boolean;
@@ -26,6 +27,9 @@ export default function UpdatePricing({
   const [currentPricing, setCurrentPricing] = React.useState(scenario.pricing);
   const {setMessage, Notification} = useNotification();
   const [state, setState] = React.useState<CreateState>('initial');
+  const [value, setvalue] = React.useState<number>(
+    currentPricing?.squareAmount
+  );
 
   const onSubmit: FormEventHandler = async e => {
     setState('submiting');
@@ -69,69 +73,100 @@ export default function UpdatePricing({
         </div>
         <div className="h-[50vh">
           <Forms.Root className="space-y-4" onSubmit={onSubmit}>
-            <Forms.Field name="">
+            <Forms.Field name="" className="flex flex-col">
               <Forms.Label>Valor de Entrada (R$)</Forms.Label>
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
-                <Fields.Input
-                  defaultValue={currentPricing?.startAmount}
+                <Fields.Currency
                   required
-                  type="number"
-                  onChange={e =>
-                    onInputChange('startAmount', Number(e.target.value))
+                  defaultValue={currentPricing?.startAmount}
+                  onValueChange={value =>
+                    onInputChange(
+                      'startAmount',
+                      Number(value?.replace(',', '.')) ?? 0
+                    )
                   }
                 />
               </Forms.Control>
             </Forms.Field>
 
-            <Forms.Field name="">
+            <Forms.Field name="" className="flex flex-col">
               <Forms.Label>Valor do m² (R$)</Forms.Label>
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
-                <Fields.Input
-                  defaultValue={currentPricing?.squareAmount}
+                <Fields.Currency
                   required
-                  type="number"
-                  onChange={e =>
-                    onInputChange('squareAmount', Number(e.target.value))
+                  defaultValue={currentPricing?.squareAmount}
+                  onValueChange={value =>
+                    onInputChange(
+                      'squareAmount',
+                      Number(value?.replace(',', '.')) ?? 0
+                    )
                   }
                 />
               </Forms.Control>
             </Forms.Field>
-
             <Forms.Field name="">
               <Forms.Label>Taxa de juros (%)</Forms.Label>
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
                 <Fields.Input
-                  defaultValue={currentPricing?.fee}
+                  value={currentPricing?.fee}
                   required
                   type="number"
-                  onChange={e => onInputChange('fee', Number(e.target.value))}
+                  onChange={e =>
+                    onInputChange(
+                      'fee',
+                      Number(Number(e.target.value).toFixed(2))
+                    )
+                  }
                 />
               </Forms.Control>
             </Forms.Field>
 
-            <Forms.Field name="">
+            <Forms.Field name="" className="flex flex-col">
               <Forms.Label>Indexador</Forms.Label>
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
-                <Fields.Input
+                <SelectFactory.Root
                   defaultValue={currentPricing?.feeIndex}
                   required
-                  onChange={e => onInputChange('feeIndex', e.target.value)}
-                />
+                  onValueChange={value => onInputChange('feeIndex', value)}
+                >
+                  <SelectFactory.Trigger placeholder="Selecione...." />
+                  <SelectFactory.Content>
+                    <SelectFactory.Group>
+                      <SelectFactory.Item value="IGPM">IGPM</SelectFactory.Item>
+                      <SelectFactory.Item value="IPCA">IPCA</SelectFactory.Item>
+                      <SelectFactory.Item value="INCC">INCC</SelectFactory.Item>
+                      <SelectFactory.Item value="INPC">INPC</SelectFactory.Item>
+                    </SelectFactory.Group>
+                  </SelectFactory.Content>
+                </SelectFactory.Root>
               </Forms.Control>
             </Forms.Field>
-            <Forms.Field name="">
+            <Forms.Field name="" className="flex flex-col">
               <Forms.Label>Modelo de Juros</Forms.Label>
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
-                <Fields.Input
+                <SelectFactory.Root
                   defaultValue={currentPricing?.feeModel}
                   required
-                  onChange={e => onInputChange('feeModel', e.target.value)}
-                />
+                  onValueChange={value => onInputChange('feeModel', value)}
+                >
+                  <SelectFactory.Trigger placeholder="Selecione...." />
+                  <SelectFactory.Content>
+                    <SelectFactory.Group>
+                      <SelectFactory.Item value="PRICE">
+                        PRICE
+                      </SelectFactory.Item>
+                      <SelectFactory.Item value="SAC">SAC</SelectFactory.Item>
+                      <SelectFactory.Item value="SACOC">
+                        SACOC
+                      </SelectFactory.Item>
+                    </SelectFactory.Group>
+                  </SelectFactory.Content>
+                </SelectFactory.Root>
               </Forms.Control>
             </Forms.Field>
             <Forms.Field name="">
@@ -139,11 +174,14 @@ export default function UpdatePricing({
               <Forms.Message match={'valueMissing'}></Forms.Message>
               <Forms.Control asChild>
                 <Fields.Input
-                  defaultValue={currentPricing?.installments}
+                  value={currentPricing?.installments}
                   required
                   type="number"
                   onChange={e =>
-                    onInputChange('installments', Number(e.target.value))
+                    onInputChange(
+                      'installments',
+                      Number(Number(e.target.value).toFixed(0))
+                    )
                   }
                 />
               </Forms.Control>
