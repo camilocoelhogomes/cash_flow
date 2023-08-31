@@ -1,13 +1,11 @@
 import {DataSource} from 'typeorm';
-import {dataSourceManager} from '../../utils/config/dataSourceManager';
 import {Pricing} from '../Entitys/Pricing';
 import {IPricing} from '../../utils/Common/Interfaces/IPricing';
-import {Saved} from '../../utils/Common/Interfaces';
 
 export class PricingRepository {
   private readonly repository;
 
-  constructor(dataSource: DataSource = dataSourceManager.getDataSource()) {
+  constructor(dataSource: DataSource) {
     this.repository = dataSource.getRepository(Pricing);
   }
 
@@ -33,5 +31,3 @@ export class PricingRepository {
     return result;
   }
 }
-
-export const pricingRepository = new PricingRepository();

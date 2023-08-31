@@ -1,20 +1,16 @@
 import {DataSource} from 'typeorm';
-import {dataSourceManager} from '../../utils/config/dataSourceManager';
 import {Scenario} from '../Entitys/Scenario';
 import {
   PaginationSearch,
   QuerySearch,
   Saved,
 } from '../../utils/Common/Interfaces';
-import {
-  IGetScenarioById,
-  IScenario,
-} from '../../utils/Common/Interfaces/IScenario';
+import {IScenario} from '../../utils/Common/Interfaces/IScenario';
 
 export class ScenarioRepository {
   private readonly repository;
 
-  constructor(dataSource: DataSource = dataSourceManager.getDataSource()) {
+  constructor(dataSource: DataSource) {
     this.repository = dataSource.getRepository(Scenario);
   }
 
@@ -66,5 +62,3 @@ export class ScenarioRepository {
     return result;
   }
 }
-
-export const scenarioRepository = new ScenarioRepository();
