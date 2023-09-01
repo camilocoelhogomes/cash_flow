@@ -10,7 +10,7 @@ export class AreaController {
       area;
 
     if (totalArea < decorationArea + lotArea + protectedArea + streetArea) {
-      throw new ValidationError('Numero de lotes maior que o permitido');
+      throw new ValidationError('Somatório de áreas maior que área total');
     }
 
     return this.areaRepo.upInsert(area);
