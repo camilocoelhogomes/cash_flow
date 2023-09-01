@@ -34,6 +34,7 @@ export class ProjectController {
       totalArea: project.totalArea,
       totalSlots: project.totalSlots,
       scenarioId: newScenario.id,
+      lotArea: project.lotArea,
     });
     return {
       id: newProject.id,

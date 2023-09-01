@@ -4,6 +4,7 @@ export interface ICreateAreas {
   protectedArea: number;
   streetArea: number;
   totalSlots: number;
+  lotArea: number;
 }
 export interface IAreas extends ICreateAreas {
   scenarioId: number;

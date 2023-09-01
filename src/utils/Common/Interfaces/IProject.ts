@@ -8,6 +8,7 @@ export interface IProject {
 export interface ICreateProject extends IProject {
   totalArea: number;
   decorationArea: number;
+  lotArea: number;
   protectedArea: number;
   streetArea: number;
   totalSlots: number;
