@@ -17,6 +17,7 @@ export class AreaRepository {
     newArea.streetArea = area.streetArea;
     newArea.totalArea = area.totalArea;
     newArea.totalSlots = area.totalSlots;
+    newArea.lotArea = area.lotArea;
     const result = await this.repository.save(newArea);
     return result;
   }
