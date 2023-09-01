@@ -11,13 +11,13 @@ import {
   IGetProjectById,
   IProject,
 } from '../../utils/Common/Interfaces/IProject';
-import {AreaRepository} from '../../Model/Repositories/AreaRepository';
+import {AreaController} from '../AreaController/AreaController';
 
 export class ProjectController {
   constructor(
     private readonly projectRepo: ProjectRepository,
     private readonly scenarioRepo: ScenarioRepository,
-    private readonly areaRepo: AreaRepository
+    private readonly areaRepo: AreaController
   ) {}
 
   async create(project: ICreateProject): Promise<Saved<IProject>> {
