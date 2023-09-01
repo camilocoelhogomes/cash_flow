@@ -57,6 +57,7 @@ export class DataSourceManager {
     CREATE TABLE IF NOT EXISTS areas (
       scenario_id INTEGER PRIMARY KEY UNIQUE,
         total_slots INTEGER NOT NULL,
+        lot_area NUMERIC NOT NULL,
         street_area NUMERIC NOT NULL,
         decoration_area NUMERIC NOT NULL,
         protected_area NUMERIC NOT NULL,

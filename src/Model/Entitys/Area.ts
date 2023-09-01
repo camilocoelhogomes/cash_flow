@@ -22,6 +22,9 @@ export class Area implements IAreas {
   @Column({name: 'total_slots'})
   totalSlots: number;
 
+  @Column({name: 'lot_area'})
+  lotArea: number;
+
   @OneToOne(() => Scenario)
   @JoinColumn({name: 'scenario_id'})
   scenario: Scenario;
