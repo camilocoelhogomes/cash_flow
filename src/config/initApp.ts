@@ -22,11 +22,11 @@ export async function initApp() {
   const projectController = new ProjectController(
     projectRepository,
     scenarioRepository,
-    areaRepository
+    areaController
   );
   const scenarioController = new ScenarioController(
     scenarioRepository,
-    areaRepository,
+    areaController,
     pricingRepository
   );
   ipcMain.handle('listProject', async (event, ...args) =>

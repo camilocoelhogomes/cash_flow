@@ -1,5 +1,4 @@
 import {ValidationError} from '../../Model/Errors/Errors';
-import {AreaRepository} from '../../Model/Repositories/AreaRepository';
 import {PricingRepository} from '../../Model/Repositories/PricingRepository';
 import {ScenarioRepository} from '../../Model/Repositories/ScenarioRepository';
 import {
@@ -12,11 +11,12 @@ import {
   IGetScenarioById,
   IScenario,
 } from '../../utils/Common/Interfaces/IScenario';
+import {AreaController} from '../AreaController/AreaController';
 
 export class ScenarioController {
   constructor(
     private readonly scenarioRepo: ScenarioRepository,
-    private readonly areaRepo: AreaRepository,
+    private readonly areaRepo: AreaController,
     private readonly pricingRepo: PricingRepository
   ) {}
 
