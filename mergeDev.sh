@@ -1,0 +1,1 @@
+git add . && git commit -m "merge dev commit" && git checkout dev && git pull origin dev && git checkout $1 && git merge dev && npx gts fix
